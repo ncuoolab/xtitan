@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{289d99b7-f44f-44f1-9fd9-98b1fd2ac48e}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{c0acb58c-2b5f-48dc-a147-e5fcabe59757}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{76547cda-7ea4-4956-968c-92d97db5a851}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\TCP_Connection">
+      <UniqueIdentifier>{da604f7f-d004-4604-8c60-01b29b0e6123}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\TestUnit">
+      <UniqueIdentifier>{a676c038-48de-41e3-ab0b-ce23e8ef41c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\TestUnit\View">
+      <UniqueIdentifier>{7fa2f9ea-0ead-4441-a869-32a3fe955a23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\TestUnitManager">
+      <UniqueIdentifier>{9db3ee46-66b1-4f82-bb0b-ac795ca813b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\TestUnitManager\View">
+      <UniqueIdentifier>{189d25e0-5c62-415d-b183-d70ece7cc4c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\TcfDecoder">
+      <UniqueIdentifier>{b56242da-a8c7-4d36-8616-d9aa0908fd1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Setting">
+      <UniqueIdentifier>{01c5fd42-b55d-4ded-8296-075bac772a89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\OutputLogger">
+      <UniqueIdentifier>{4e758e9f-925e-4518-a0f6-2d7d72323cff}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GeneratedFiles\qrc_oracleserver.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_OracleServerView.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_QxAbstractUnit.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_QxAbstractUnitPrivate.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_QxPreferenceDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_QxReplayUnit.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_QxSelectTestDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_QxSimpleServer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_QxSimpleServerPrivate.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_QxSimpleSocket.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_QxSimpleSocketPrivate.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_TestUnitManager.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_OracleServerView.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_QxAbstractUnit.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_QxAbstractUnitPrivate.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_QxPreferenceDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_QxReplayUnit.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_QxSelectTestDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_QxSimpleServer.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_QxSimpleServerPrivate.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_QxSimpleSocket.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_QxSimpleSocketPrivate.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_TestUnitManager.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="TCP_Connection\QxRemoteController.cpp">
+      <Filter>src\TCP_Connection</Filter>
+    </ClCompile>
+    <ClCompile Include="TCP_Connection\QxSimpleServer.cpp">
+      <Filter>src\TCP_Connection</Filter>
+    </ClCompile>
+    <ClCompile Include="TCP_Connection\QxSimpleSocket.cpp">
+      <Filter>src\TCP_Connection</Filter>
+    </ClCompile>
+    <ClCompile Include="TCP_Connection\TCPMessage.cpp">
+      <Filter>src\TCP_Connection</Filter>
+    </ClCompile>
+    <ClCompile Include="TCP_Connection\TCPMessageComposer.cpp">
+      <Filter>src\TCP_Connection</Filter>
+    </ClCompile>
+    <ClCompile Include="TestUnit\QxAbstractUnit.cpp">
+      <Filter>src\TestUnit</Filter>
+    </ClCompile>
+    <ClCompile Include="TestUnit\QxRecordUnit.cpp">
+      <Filter>src\TestUnit</Filter>
+    </ClCompile>
+    <ClCompile Include="TestUnit\QxReplayUnit.cpp">
+      <Filter>src\TestUnit</Filter>
+    </ClCompile>
+    <ClCompile Include="TestUnit\QxUpdateUnit.cpp">
+      <Filter>src\TestUnit</Filter>
+    </ClCompile>
+    <ClCompile Include="View\QxTestUnitView.cpp">
+      <Filter>src\TestUnit\View</Filter>
+    </ClCompile>
+    <ClCompile Include="TestUnitManager\TestUnitManager.cpp">
+      <Filter>src\TestUnitManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TestUnitManager\OracleServerView.cpp">
+      <Filter>src\TestUnitManager\View</Filter>
+    </ClCompile>
+    <ClCompile Include="View\QxPreferenceDialog.cpp">
+      <Filter>src\TestUnitManager\View</Filter>
+    </ClCompile>
+    <ClCompile Include="View\QxSaveDialog.cpp">
+      <Filter>src\TestUnitManager\View</Filter>
+    </ClCompile>
+    <ClCompile Include="View\QxSelectTestDialog.cpp">
+      <Filter>src\TestUnitManager\View</Filter>
+    </ClCompile>
+    <ClCompile Include="TcfDecoder\QxAbstractPoint.cpp">
+      <Filter>src\TcfDecoder</Filter>
+    </ClCompile>
+    <ClCompile Include="TcfDecoder\QxCheckPoint.cpp">
+      <Filter>src\TcfDecoder</Filter>
+    </ClCompile>
+    <ClCompile Include="TcfDecoder\QxInputPoint.cpp">
+      <Filter>src\TcfDecoder</Filter>
+    </ClCompile>
+    <ClCompile Include="TcfDecoder\QxTestCase.cpp">
+      <Filter>src\TcfDecoder</Filter>
+    </ClCompile>
+    <ClCompile Include="Setting\Setting.cpp">
+      <Filter>src\Setting</Filter>
+    </ClCompile>
+    <ClCompile Include="OutputLogger\QxLogger.cpp">
+      <Filter>src\OutputLogger</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GeneratedFiles\ui_QxPreferenceDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_QxSaveDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_QxSelectTestDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_QxTestUnitView.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestUnit\QxRecordUnit.h">
+      <Filter>src\TestUnit</Filter>
+    </ClInclude>
+    <ClInclude Include="TestUnit\QxUpdateUnit.h">
+      <Filter>src\TestUnit</Filter>
+    </ClInclude>
+    <ClInclude Include="View\QxTestUnitView.h">
+      <Filter>src\TestUnit\View</Filter>
+    </ClInclude>
+    <ClInclude Include="View\QxSaveDialog.h">
+      <Filter>src\TestUnitManager\View</Filter>
+    </ClInclude>
+    <ClInclude Include="TcfDecoder\QxAbstractPoint.h">
+      <Filter>src\TcfDecoder</Filter>
+    </ClInclude>
+    <ClInclude Include="TcfDecoder\QxCheckPoint.h">
+      <Filter>src\TcfDecoder</Filter>
+    </ClInclude>
+    <ClInclude Include="TcfDecoder\QxInputPoint.h">
+      <Filter>src\TcfDecoder</Filter>
+    </ClInclude>
+    <ClInclude Include="TcfDecoder\QxTestCase.h">
+      <Filter>src\TcfDecoder</Filter>
+    </ClInclude>
+    <ClInclude Include="OutputLogger\QxLogger.h">
+      <Filter>src\OutputLogger</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="UI_Forms\OracleServer.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="UI_Forms\QxPreferenceDialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="UI_Forms\QxSaveDialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="UI_Forms\QxSelectTestDialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="UI_Forms\QxTestUnitView.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="oracleserver.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GeneratedFiles\ui_OracleServer.h">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="TCP_Connection\QxRemoteController.h">
+      <Filter>src\TCP_Connection</Filter>
+    </CustomBuild>
+    <CustomBuild Include="TCP_Connection\QxSimpleServer.h">
+      <Filter>src\TCP_Connection</Filter>
+    </CustomBuild>
+    <CustomBuild Include="TCP_Connection\QxSimpleServerPrivate.h">
+      <Filter>src\TCP_Connection</Filter>
+    </CustomBuild>
+    <CustomBuild Include="TCP_Connection\QxSimpleSocket.h">
+      <Filter>src\TCP_Connection</Filter>
+    </CustomBuild>
+    <CustomBuild Include="TCP_Connection\QxSimpleSocketPrivate.h">
+      <Filter>src\TCP_Connection</Filter>
+    </CustomBuild>
+    <CustomBuild Include="TCP_Connection\TCPMessage.h">
+      <Filter>src\TCP_Connection</Filter>
+    </CustomBuild>
+    <CustomBuild Include="TCP_Connection\TCPMessageComposer.h">
+      <Filter>src\TCP_Connection</Filter>
+    </CustomBuild>
+    <CustomBuild Include="TestUnit\QxAbstractUnit.h">
+      <Filter>src\TestUnit</Filter>
+    </CustomBuild>
+    <CustomBuild Include="TestUnit\QxAbstractUnitPrivate.h">
+      <Filter>src\TestUnit</Filter>
+    </CustomBuild>
+    <CustomBuild Include="TestUnit\QxReplayUnit.h">
+      <Filter>src\TestUnit</Filter>
+    </CustomBuild>
+    <CustomBuild Include="TestUnitManager\TestUnitManager.h">
+      <Filter>src\TestUnitManager</Filter>
+    </CustomBuild>
+    <CustomBuild Include="TestUnitManager\OracleServerView.h">
+      <Filter>src\TestUnitManager\View</Filter>
+    </CustomBuild>
+    <CustomBuild Include="View\QxPreferenceDialog.h">
+      <Filter>src\TestUnitManager\View</Filter>
+    </CustomBuild>
+    <CustomBuild Include="View\QxSelectTestDialog.h">
+      <Filter>src\TestUnitManager\View</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Setting\Setting.h">
+      <Filter>src\Setting</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

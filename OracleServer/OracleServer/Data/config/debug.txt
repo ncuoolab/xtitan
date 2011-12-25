@@ -1,0 +1,6 @@
+#this is for debug mode  ,# means this is a comment line
+#CWW_RTGT		: if you want animation retargetting
+#CWW_GHOST		: if you want another avatar in your room
+
+#define 	CWW_RTGT
+#define 	CWW_GHOST		crazymomo2@hotmail.com

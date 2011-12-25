@@ -1,0 +1,109 @@
+#color define as  			h   	s   	min-l  	max-l
+defcolor skincolor asian 	13		148 	70 		180
+defcolor skincolor europe 	19		75		30		230	
+defcolor skincolor africa	19		88		20		100
+defcolor skincolor indian 	8 		170		70		170
+
+#color define as  			h   	s   	min-l  	max-l
+defcolor color red			236		215		80		180
+defcolor color pink			200		214		80		180
+defcolor color purple		190		131		60		180
+defcolor color blue			157		135		60		170	
+defcolor color cyan			120		155		30		210
+defcolor color grass		71		215		60		170
+defcolor color green		85		85		40		150
+defcolor color yellow		39		151		40		170
+defcolor color orange		13		186		60		200
+defcolor color gray			24		16		10		230
+
+customize skin_color			body		skincolor	europe	50
+customize body_weight			body		slider		50
+customize breast				body		slider		50
+customize muscle				body 		slider		50
+
+customize face_width			face		slider		50
+customize forehead_position		face		slider		50
+customize forehead_depth		face		slider		50
+customize chin_depth			face		slider		50
+customize chin_width			face		slider		50
+customize cheek_position		face		slider		50
+customize cheek_width			face 		slider		50
+customize cheek_weight			face		slider		50
+customize ear_scale				face		slider		50
+customize ear_position			face		slider		50
+
+customize hair_color			hair		color		red	50
+customize eyebrow_color			hair		color		red	50
+customize eyebrow_rotate		hair		slider		50
+customize eyebrow_depth			hair		slider		50
+customize eyebrow_curve			hair		slider		50
+customize eyebrow_angle			hair		slider		50
+customize facial_hair_color		hair		color		red	50
+
+customize pupil_color			eye			color		red	50
+customize eye_position			eye			slider		50
+customize eye_interval			eye			slider		50
+customize eye_rotate			eye			slider		50
+customize eye_curve				eye			slider		50
+customize eye_depth				eye			slider		50
+customize eye_width				eye			slider		50
+customize pupil_scale			eye			slider		50
+customize eyelash_length		eye			slider		50
+
+customize nose_position			nose		slider		50
+customize nose_width			nose		slider		50
+customize nose_length			nose		slider		50
+customize nose_tip				nose		slider		50
+customize nose_top_width		nose		slider		50
+customize nose_bridge_length	nose		slider		50
+customize nose_up_length		nose		slider		50
+customize nose_up_width			nose		slider		50
+customize nose_bridge_width		nose		slider		50
+
+customize mouth_width			mouth		slider		50
+customize mouth_depth			mouth		slider		50
+customize mouth_corner_scale	mouth		slider		50
+customize mouth_corner			mouth		slider		50
+customize mouth_position		mouth		slider		50
+customize mouth_color			mouth		color		red	50
+
+customize eye_shadow_color		eyeshadow	color		red	50
+customize fingernail_color		fingernail	color		red	50
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
