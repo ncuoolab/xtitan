@@ -1,8 +1,7 @@
 #include "xTitanClient/xTitan.hpp"
 
-using namespace xtitan::spy;
-
 void xRegisterObject( QObject * object, const QString & id /* = QString */ ) {
+	using namespace xtitan::spy;
 	if( object->objectName().isEmpty() && id.isEmpty() ) {
 		return;
 	}
@@ -13,18 +12,21 @@ void xRegisterObject( QObject * object, const QString & id /* = QString */ ) {
 }
 
 QObject * xGetObject( const QString & token ) {
+	using namespace xtitan::spy;
 	return Spy::getInstance().getObject( token );
 }
 
-void xTryTestAutomation(){
+void xTryTestAutomation() {
+	using namespace xtitan::spy;
 	Spy::getInstance().activate();
 }
 
-bool xIsTesting(){
+bool xIsTesting() {
+	using namespace xtitan::spy;
 	return Spy::getInstance().isTesting();
 }
 
-QString xMakeSafeName(QString objName){
-	objName = objName.replace( QRegExp( "[^a-zA-Z0-9_]" ), "" );
-	return objName;
+QString xMakeSafeName( const QString & objName ) {
+	QString sName( objName );
+	return sName.replace( QRegExp( "[^a-zA-Z0-9_]" ), "" );
 }

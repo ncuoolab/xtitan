@@ -106,6 +106,10 @@ void Spy::activate() {
 	this->p_->model.reset( m );
 }
 
+bool Spy::isTesting() const {
+	return this->p_->isTestable;
+}
+
 void Spy::encodeCheck( const QString & method, const QString & value ){
 	this->encodeCheck( method, method, value );
 }

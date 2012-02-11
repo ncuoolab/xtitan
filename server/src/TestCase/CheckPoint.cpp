@@ -31,6 +31,5 @@ QString CheckPoint::toString() const {
 }
 
 void CheckPoint::execute( AbstractUnit * unit ) {
-	qDebug() << this->toString();
 	unit->check( this );
 }

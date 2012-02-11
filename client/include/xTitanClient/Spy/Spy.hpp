@@ -17,7 +17,7 @@ namespace xtitan {
 			static Spy & getInstance();	
 
 			void activate();
-			bool isTesting();
+			bool isTesting() const;
 
 			void registerObject( QObject * obj );
 			QObject * getObject( const QString & key ) const;

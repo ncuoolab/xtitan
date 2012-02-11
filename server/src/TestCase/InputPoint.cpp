@@ -33,6 +33,5 @@ QString InputPoint::toString() const {
 }
 
 void InputPoint::execute( AbstractUnit * unit ) {
-	qDebug() << this->toString();
 	unit->input( this );
 }

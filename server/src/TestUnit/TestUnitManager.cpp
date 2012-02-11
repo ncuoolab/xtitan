@@ -9,6 +9,7 @@
 
 #include <QtCore/QDateTime>
 #include <QtCore/QDir>
+#include <QtCore/QTextStream>
 #include <QtCore/QThreadPool>
 #include <QtGui/QApplication>
 

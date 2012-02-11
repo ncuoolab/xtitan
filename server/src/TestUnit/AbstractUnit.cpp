@@ -72,20 +72,17 @@ void AbstractUnit::Private::spawnChiwawa() {
 		args.append( testCase.filePath( logPath ) );
 		QProcess * shell = new QProcess;
 		shell->setWorkingDirectory( msnShell.path() );
-		qDebug() << QString( "%1 %2" ).arg( msnShell.filePath() ).arg( args.join( " " ) );
 		shell->start( msnShell.filePath(), args );
 		this->children_.append( shell );
 	}
 }
 
 void AbstractUnit::Private::restartServer() {
-	qDebug() << QObject::tr( "restart server" );
 	QFileInfo portal( Setting::getInstance().get( "PortalServer" ) );
 	QProcess p;
 	p.setWorkingDirectory( portal.path() );
 	p.start( portal.filePath() );
 	p.waitForFinished( -1 );
-	qDebug() << QObject::tr( "restart server completed" );
 }
 
 void AbstractUnit::Private::onSocketReadyRead() {
@@ -208,7 +205,6 @@ void AbstractUnit::run() {
 	// send quit command
 	// TODO check socket state, some of them may disconnected
 	foreach( SimpleSocket * socket, this->p_->sockets ) {
-		qDebug() << QObject::tr( "Send quit command" );
 		// NOTE sockets are on a diffirent thread
 		QMetaObject::invokeMethod( socket, "write", Q_ARG( const QString &, TCPMessage::QuitApplicationTag ), Q_ARG( const QVariant &, QVariant() ) );
 		QMetaObject::invokeMethod( socket, "disconnectFromServer" );
@@ -216,12 +212,10 @@ void AbstractUnit::run() {
 	}
 	// wait for process normal exit, or kill it
 	foreach( QProcess * p, this->p_->children_ ) {
-		qDebug() << QObject::tr( "wait process exit" );
 		if( !p->waitForFinished( 3000 ) ) {
 			// delete this object after the process been killed
 			p->connect( p, SIGNAL( finished( int, QProcess::ExitStatus ) ), SLOT( deleteLater() ) );
 			p->kill();
-			qDebug() << QObject::tr( "killed process" );
 		}
 	}
 
