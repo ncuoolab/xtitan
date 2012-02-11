@@ -1,5 +1,6 @@
-#include "QxTest.h"
-#include <QtCore/QtDebug>
+#include "xTitanClient/xTitan.hpp"
+
+using namespace xtitan::spy;
 
 void xRegisterObject( QObject * object, const QString & id /* = QString */ ) {
 	if( object->objectName().isEmpty() && id.isEmpty() ) {
@@ -8,22 +9,22 @@ void xRegisterObject( QObject * object, const QString & id /* = QString */ ) {
 
 //	MASSERT( !object->objectName().isEmpty() || !id.isEmpty() || !"OBJECT NAME IS EMPTY" );
 	object->setObjectName( object->objectName() + id );
-	QxSpy::getInstance()->registerObject( object );
+	Spy::getInstance().registerObject( object );
 }
 
 QObject * xGetObject( const QString & token ) {
-	return QxSpy::getInstance()->getObject( token );
+	return Spy::getInstance().getObject( token );
 }
 
 void xTryTestAutomation(){
-	QxSpy::getInstance()->tryAutomation();
+	Spy::getInstance().activate();
 }
 
 bool xIsTesting(){
-	return QxSpy::getInstance()->isTesting();
+	return Spy::getInstance().isTesting();
 }
 
 QString xMakeSafeName(QString objName){
-	objName = objName.replace(QRegExp("[^a-zA-Z0-9_]"),"");
+	objName = objName.replace( QRegExp( "[^a-zA-Z0-9_]" ), "" );
 	return objName;
 }

@@ -1,7 +1,7 @@
 #ifndef XTITAN_CLIENT_XTITAN_HPP
 #define XTITAN_CLIENT_XTITAN_HPP
 
-#include "xTitan/SpyModule/Controller/QxSpy.hpp"
+#include "xTitanClient/Spy/Spy.hpp"
 
 //#define xCheck(id,x)					QxSpy::getInstance()->encodeCheck(QString::fromUtf8(__FUNCTION__),id, x );
 //#define xCheck(x)						QxSpy::getInstance()->encodeCheck(QString::fromUtf8(__FUNCTION__),QString::fromUtf8(__FUNCTION__),x);
