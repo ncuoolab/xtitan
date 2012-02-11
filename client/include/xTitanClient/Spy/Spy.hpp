@@ -1,6 +1,8 @@
 #ifndef XTITAN_CLIENT_SPYMODULE_CONTROLLER_SPY_HPP
 #define XTITAN_CLIENT_SPYMODULE_CONTROLLER_SPY_HPP
 
+#include "xTitanClient/Utility/Config.hpp"
+
 #include <QtCore/QObject>
 #include <QtCore/QStringList>
 
@@ -9,7 +11,7 @@
 namespace xtitan {
 	namespace spy {
 
-		class Spy : public QObject {
+		class XTITAN_CLIENT_DLL Spy : public QObject {
 			Q_OBJECT
 		public:
 			static Spy & getInstance();	

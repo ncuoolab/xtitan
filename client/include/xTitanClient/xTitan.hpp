@@ -9,15 +9,15 @@
 #define xInput(...)						QxSpy::getInstance()->recordInput(this->objectName(),__FUNCTION__,__VA_ARGS__);
 #define xCustomInput(object,method,...)	QxSpy::getInstance()->recordInput(object,__FUNCTION__,method,__VA_ARGS__);
 
-void xRegisterObject( QObject * object, const QString & id = QString() );
+void XTITAN_CLIENT_DLL xRegisterObject( QObject * object, const QString & id = QString() );
 
-QString xGetToken( QObject * object );
-QObject * xGetObject( const QString & token );
+QString XTITAN_CLIENT_DLL xGetToken( QObject * object );
+QObject * XTITAN_CLIENT_DLL xGetObject( const QString & token );
 
-void xTryTestAutomation();
+void XTITAN_CLIENT_DLL xTryTestAutomation();
 
-bool xIsTesting();
+bool XTITAN_CLIENT_DLL xIsTesting();
 
-QString xMakeSafeName(QString objName);
+QString XTITAN_CLIENT_DLL xMakeSafeName( const QString & objName );
 
 #endif
