@@ -39,12 +39,7 @@ set_target_properties(xTitanClient
         VERSION ${XTITAN_VERSION}
         SOVERSION ${XTITAN_VERSION})
 
-if(WIN32)
-    install(TARGETS xTitanClient
-        LIBRARY DESTINATION "."
-        ARCHIVE DESTINATION "lib")
-else()
-    install(TARGETS xTitanClient
-        LIBRARY DESTINATION "lib"
-        ARCHIVE DESTINATION "lib")
-endif()
+install(TARGETS xTitanClient
+    RUNTIME DESTINATION "bin"
+    LIBRARY DESTINATION "lib"
+    ARCHIVE DESTINATION "lib")
