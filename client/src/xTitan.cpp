@@ -8,7 +8,7 @@ void xRegisterObject( QObject * object, const QString & id /* = QString */ ) {
 
 //	MASSERT( !object->objectName().isEmpty() || !id.isEmpty() || !"OBJECT NAME IS EMPTY" );
 	object->setObjectName( object->objectName() + id );
-	Spy::getInstance().registerObject( object );
+	QMetaObject::invokeMethod( &Spy::getInstance(), "registerObject", Q_ARG( QObject *, object ) );
 }
 
 QObject * xGetObject( const QString & token ) {

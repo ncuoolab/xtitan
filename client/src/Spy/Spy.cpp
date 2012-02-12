@@ -109,22 +109,6 @@ bool Spy::isTesting() const {
 	return this->p_->isTestable;
 }
 
-void Spy::encodeCheck( const QString & method, const QString & value ){
-	this->encodeCheck( method, method, value );
-}
-
-void Spy::encodeCheck( const QString & method, bool value ){
-	this->encodeCheck( method, method, value );
-}
-
-void Spy::encodeCheck( const QString & method, int value ){
-	this->encodeCheck( method, method, value );
-}
-
-void Spy::encodeCheck( const QString & method, double value ){
-	this->encodeCheck( method, method, value );
-}
-
 void Spy::encodeCheck( const QString & method, const QString & id, const QString & value ){
 	if( !this->p_->isTestable ) {
 		return;
@@ -313,4 +297,92 @@ void Spy::finish(){
 		this->p_->model->deleteLater();
 		this->p_->model = NULL;
 	}
+}
+
+void recordInput( const QString & objectName, const QString & id ) {
+	QMetaObject::invokeMethod( &Spy::getInstance(), "recordInput", Q_ARG( const QString &, objectName ), Q_ARG( const QString &, id ) );
+}
+
+void recordInput( const QString & objectName, const QString & id, const QVariant & v1 ) {
+	QMetaObject::invokeMethod( &Spy::getInstance(), "recordInput", Q_ARG( const QString &, objectName ), Q_ARG( const QString &, id ), Q_ARG( const QVariant &, v1 ) );
+}
+
+void recordInput( const QString & objectName, const QString & id, const QVariant & v1, const QVariant & v2 ) {
+	QMetaObject::invokeMethod( &Spy::getInstance(), "recordInput", Q_ARG( const QString &, objectName ), Q_ARG( const QString &, id ), Q_ARG( const QVariant &, v1 ), Q_ARG( const QVariant &, v2 ) );
+}
+
+void recordInput( const QString & objectName, const QString & id, const QVariant & v1, const QVariant & v2, const QVariant & v3 ) {
+	QMetaObject::invokeMethod( &Spy::getInstance(), "recordInput", Q_ARG( const QString &, objectName ), Q_ARG( const QString &, id ), Q_ARG( const QVariant &, v1 ), Q_ARG( const QVariant &, v2 ), Q_ARG( const QVariant &, v3 ) );
+}
+
+void recordInput( const QString & objectName, const QString & id, const QVariant & v1, const QVariant & v2, const QVariant & v3, const QVariant & v4 ) {
+	QMetaObject::invokeMethod( &Spy::getInstance(), "recordInput", Q_ARG( const QString &, objectName ), Q_ARG( const QString &, id ), Q_ARG( const QVariant &, v1 ), Q_ARG( const QVariant &, v2 ), Q_ARG( const QVariant &, v3 ), Q_ARG( const QVariant &, v4 ) );
+}
+
+void recordInput( const QString & objectName, const QString & id, const QVariant & v1, const QVariant & v2, const QVariant & v3, const QVariant & v4, const QVariant & v5 ) {
+	QMetaObject::invokeMethod( &Spy::getInstance(), "recordInput", Q_ARG( const QString &, objectName ), Q_ARG( const QString &, id ), Q_ARG( const QVariant &, v1 ), Q_ARG( const QVariant &, v2 ), Q_ARG( const QVariant &, v3 ), Q_ARG( const QVariant &, v4 ), Q_ARG( const QVariant &, v5 ) );
+}
+
+void recordInput( const QString & objectName, const QString & id, const QVariant & v1, const QVariant & v2, const QVariant & v3, const QVariant & v4, const QVariant & v5, const QVariant & v6 ) {
+	QMetaObject::invokeMethod( &Spy::getInstance(), "recordInput", Q_ARG( const QString &, objectName ), Q_ARG( const QString &, id ), Q_ARG( const QVariant &, v1 ), Q_ARG( const QVariant &, v2 ), Q_ARG( const QVariant &, v3 ), Q_ARG( const QVariant &, v4 ), Q_ARG( const QVariant &, v5 ), Q_ARG( const QVariant &, v6 ) );
+}
+
+void recordInput( const QObject * object, const QString & id, const QString & method ) {
+	QMetaObject::invokeMethod( &Spy::getInstance(), "recordInput", Q_ARG( const QObject *, object ), Q_ARG( const QString &, id ), Q_ARG( const QString &, method ) );
+}
+
+void recordInput( const QObject * object, const QString & id, const QString & method, const QVariant & v1 ) {
+	QMetaObject::invokeMethod( &Spy::getInstance(), "recordInput", Q_ARG( const QObject *, object ), Q_ARG( const QString &, id ), Q_ARG( const QString &, method ), Q_ARG( const QVariant &, v1 ) );
+}
+
+void recordInput( const QObject * object, const QString & id, const QString & method, const QVariant & v1, const QVariant & v2 ) {
+	QMetaObject::invokeMethod( &Spy::getInstance(), "recordInput", Q_ARG( const QObject *, object ), Q_ARG( const QString &, id ), Q_ARG( const QString &, method ), Q_ARG( const QVariant &, v1 ), Q_ARG( const QVariant &, v2 ) );
+}
+
+void recordInput( const QObject * object, const QString & id, const QString & method, const QVariant & v1, const QVariant & v2, const QVariant & v3 ) {
+	QMetaObject::invokeMethod( &Spy::getInstance(), "recordInput", Q_ARG( const QObject *, object ), Q_ARG( const QString &, id ), Q_ARG( const QString &, method ), Q_ARG( const QVariant &, v1 ), Q_ARG( const QVariant &, v2 ), Q_ARG( const QVariant &, v3 ) );
+}
+
+void recordInput( const QObject * object, const QString & id, const QString & method, const QVariant & v1, const QVariant & v2, const QVariant & v3, const QVariant & v4 ) {
+	QMetaObject::invokeMethod( &Spy::getInstance(), "recordInput", Q_ARG( const QObject *, object ), Q_ARG( const QString &, id ), Q_ARG( const QString &, method ), Q_ARG( const QVariant &, v1 ), Q_ARG( const QVariant &, v2 ), Q_ARG( const QVariant &, v3 ), Q_ARG( const QVariant &, v4 ) );
+}
+
+void recordInput( const QObject * object, const QString & id, const QString & method, const QVariant & v1, const QVariant & v2, const QVariant & v3, const QVariant & v4, const QVariant & v5 ) {
+	QMetaObject::invokeMethod( &Spy::getInstance(), "recordInput", Q_ARG( const QObject *, object ), Q_ARG( const QString &, id ), Q_ARG( const QString &, method ), Q_ARG( const QVariant &, v1 ), Q_ARG( const QVariant &, v2 ), Q_ARG( const QVariant &, v3 ), Q_ARG( const QVariant &, v4 ), Q_ARG( const QVariant &, v5 ) );
+}
+
+void recordInput( const QObject * object, const QString & id, const QString & method, const QVariant & v1, const QVariant & v2, const QVariant & v3, const QVariant & v4, const QVariant & v5, const QVariant & v6 ) {
+	QMetaObject::invokeMethod( &Spy::getInstance(), "recordInput", Q_ARG( const QObject *, object ), Q_ARG( const QString &, id ), Q_ARG( const QString &, method ), Q_ARG( const QVariant &, v1 ), Q_ARG( const QVariant &, v2 ), Q_ARG( const QVariant &, v3 ), Q_ARG( const QVariant &, v4 ), Q_ARG( const QVariant &, v5 ), Q_ARG( const QVariant &, v6 ) );
+}
+
+void encodeCheck( const QString & method, const QString & value ){
+	encodeCheck( method, method, value );
+}
+
+void encodeCheck( const QString & method, bool value ){
+	encodeCheck( method, method, value );
+}
+
+void encodeCheck( const QString & method, int value ){
+	encodeCheck( method, method, value );
+}
+
+void encodeCheck( const QString & method, double value ){
+	encodeCheck( method, method, value );
+}
+
+void encodeCheck( const QString & method, const QString & id, const QString & value ){
+	QMetaObject::invokeMethod( &Spy::getInstance(), "encodeCheck", Q_ARG( const QString &, method ), Q_ARG( const QString &, id ), Q_ARG( const QString &, value ) );
+}
+
+void encodeCheck( const QString & method, const QString & id, bool value ){
+	QMetaObject::invokeMethod( &Spy::getInstance(), "encodeCheck", Q_ARG( const QString &, method ), Q_ARG( const QString &, id ), Q_ARG( bool, value ) );
+}
+
+void encodeCheck( const QString & method, const QString & id, int value ){
+	QMetaObject::invokeMethod( &Spy::getInstance(), "encodeCheck", Q_ARG( const QString &, method ), Q_ARG( const QString &, id ), Q_ARG( int, value ) );
+}
+
+void encodeCheck( const QString & method, const QString & id, double value ){
+	QMetaObject::invokeMethod( &Spy::getInstance(), "encodeCheck", Q_ARG( const QString &, method ), Q_ARG( const QString &, id ), Q_ARG( double, value ) );
 }
