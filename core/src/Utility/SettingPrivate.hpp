@@ -24,7 +24,7 @@ namespace xtitan {
 
 		public:
 			QReadWriteLock lock;
-			std::map< QString, QString > settings;
+			std::map< QString, QVariant > settings;
 			QString filePath;
 		};
 

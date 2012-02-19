@@ -5,6 +5,7 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QStringList>
+#include <QtCore/QVariant>
 
 #include <memory>
 
@@ -18,9 +19,12 @@ namespace xtitan {
 
 			void activate();
 			bool isTesting() const;
+			void finish();
 
 			Q_INVOKABLE void registerObject( QObject * obj );
 			QObject * getObject( const QString & key ) const;
+
+			Q_INVOKABLE void sendRawCommand( const QString & tag, const QVariant & data );
 
 			Q_INVOKABLE void recordInput( const QString & objectName, const QString & id );
 			Q_INVOKABLE void recordInput( const QString & objectName, const QString & id, const QVariant & a1 );
@@ -36,8 +40,6 @@ namespace xtitan {
 			Q_INVOKABLE void recordInput( const QObject * object, const QString & id, const QString & method, const QVariant & a1, const QVariant & a2, const QVariant & a3, const QVariant & a4 );
 			Q_INVOKABLE void recordInput( const QObject * object, const QString & id, const QString & method, const QVariant & a1, const QVariant & a2, const QVariant & a3, const QVariant & a4, const QVariant & a5 );
 			Q_INVOKABLE void recordInput( const QObject * object, const QString & id, const QString & method, const QVariant & a1, const QVariant & a2, const QVariant & a3, const QVariant & a4, const QVariant & a5, const QVariant & a6 );
-
-			void finish();
 
 			Q_INVOKABLE void encodeCheck( const QString & method, const QString & id, const QString & value );
 			Q_INVOKABLE void encodeCheck( const QString & method, const QString & id, bool value );

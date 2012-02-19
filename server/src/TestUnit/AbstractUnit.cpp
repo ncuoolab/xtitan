@@ -17,6 +17,7 @@ using namespace xtitan::testunit;
 using xtitan::network::SimpleSocket;
 using xtitan::testcase::CheckPoint;
 using xtitan::testcase::InputPoint;
+using xtitan::testcase::SocketPoint;
 using xtitan::testcase::TestCase;
 
 AbstractUnit::Private::Private( AbstractUnit * host ):
@@ -24,15 +25,16 @@ QObject( host ),
 host( host ),
 sockets(),
 children_(),
-testCase(),
+testCase( new TestCase ),
 commands(),
 canceled( false ) {
 	this->commands.insert( std::make_pair( TCPMessage::Input, std::bind( &AbstractUnit::Private::onInput, this, std::placeholders::_1, std::placeholders::_2 ) ) );
 	this->commands.insert( std::make_pair( TCPMessage::Check, std::bind( &AbstractUnit::Private::onCheck, this, std::placeholders::_1, std::placeholders::_2 ) ) );
+	this->commands.insert( std::make_pair( TCPMessage::Socket, std::bind( &AbstractUnit::Private::onSocket, this, std::placeholders::_1, std::placeholders::_2 ) ) );
 }
 
 void AbstractUnit::Private::addClient( SimpleSocket * socket ) {
-	if( this->sockets.size() >= this->testCase.getClients() ) {
+	if( this->sockets.size() >= this->testCase->getClients() ) {
 		return;
 	}
 
@@ -46,7 +48,7 @@ void AbstractUnit::Private::addClient( SimpleSocket * socket ) {
 	this->connect( socket, SIGNAL( disconnected() ), SLOT( onSocketDisconnected() ) );
 
 	this->sockets.append( socket );
-	if( this->sockets.size() == this->testCase.getClients() ) {
+	if( this->sockets.size() == this->testCase->getClients() ) {
 		emit this->readyForTest();
 	}
 }
@@ -58,9 +60,9 @@ void AbstractUnit::Private::addClient( SimpleSocket * socket ) {
  */
 void AbstractUnit::Private::spawn() {
 	// spawn software
-	QFileInfo software( Setting::getInstance().get( "SoftwarePath" ) );
+	QFileInfo software( Setting::getInstance().get( "SoftwarePath" ).toString() );
 
-	for( int i = 0; i < this->testCase.getClients(); ++i ) {
+	for( int i = 0; i < this->testCase->getClients(); ++i ) {
 		QStringList args;
 		QProcess * p = new QProcess;
 		p->setWorkingDirectory( software.path() );
@@ -70,7 +72,7 @@ void AbstractUnit::Private::spawn() {
 }
 
 void AbstractUnit::Private::restartServer() {
-	QFileInfo portal( Setting::getInstance().get( "PortalServer" ) );
+	QFileInfo portal( Setting::getInstance().get( "PortalServer" ).toString() );
 	QProcess p;
 	p.setWorkingDirectory( portal.path() );
 	p.start( portal.filePath() );
@@ -124,6 +126,14 @@ SimpleSocket::Packet AbstractUnit::Private::onInput( SimpleSocket * sender, cons
 	return this->host->onInput( id, label, script, waitTime );
 }
 
+SimpleSocket::Packet AbstractUnit::Private::onSocket( SimpleSocket * sender, const QVariant & data ) {
+	int id = this->sockets.indexOf( sender );
+	assert( ( id >= 0 && id < this->sockets.size() ) || !"invalid socket" );
+	QString message( data.toString() );
+
+	return this->host->onSocket( id, message );
+}
+
 AbstractUnit::AbstractUnit( QObject * parent ):
 QObject( parent ),
 p_( new AbstractUnit::Private( this ) ) {
@@ -139,11 +149,11 @@ void AbstractUnit::addClient( SimpleSocket * socket ) {
 }
 
 const QString & AbstractUnit::getName() const {
-	return this->p_->testCase.getName();
+	return this->p_->testCase->getName();
 }
 
 void AbstractUnit::setName( const QString & name ) {
-	this->p_->testCase.setName( name );
+	this->p_->testCase->setName( name );
 }
 
 bool AbstractUnit::isCancled() const {
@@ -156,6 +166,10 @@ void AbstractUnit::check( CheckPoint * point ) {
 
 void AbstractUnit::input( InputPoint * point ) {
 	this->doInput( point );
+}
+
+void AbstractUnit::socket( SocketPoint * point ) {
+	this->doSocket( point );
 }
 
 void AbstractUnit::run() {
@@ -181,7 +195,7 @@ void AbstractUnit::run() {
 
 	emit this->log( QObject::tr( "Information" ), QObject::tr( "Setup completed" ) );
 
-	if( this->p_->sockets.size() == this->p_->testCase.getClients() ) {
+	if( this->p_->sockets.size() == this->p_->testCase->getClients() ) {
 		// means really ready for replay
 		this->doTest();
 	} else {
@@ -219,11 +233,7 @@ void AbstractUnit::run() {
 	emit this->finished();
 }
 
-TestCase & AbstractUnit::testCase() {
-	return this->p_->testCase;
-}
-
-const TestCase & AbstractUnit::getTestCase() const {
+std::shared_ptr< TestCase > AbstractUnit::getTestCase() const {
 	return this->p_->testCase;
 }
 
@@ -241,9 +251,9 @@ void AbstractUnit::setCanceled( bool canceled ) {
 }
 
 int AbstractUnit::getClients() const {
-	return this->p_->testCase.getClients();
+	return this->p_->testCase->getClients();
 }
 
 void AbstractUnit::setClients( int nClients ) {
-	this->p_->testCase.setClients( nClients );
+	this->p_->testCase->setClients( nClients );
 }

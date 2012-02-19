@@ -98,7 +98,7 @@ void TestUnitManager::Private::nextReplay() {
 		std::cout << "</testsuite>" << std::endl;
 
 		// move log files
-		QDir root( Setting::getInstance().get( "TestCasePath" ) );
+		QDir root( Setting::getInstance().get( "TestCasePath" ).toString() );
 		root.cd( "log" );
 		root.rename( "tmp", QDateTime::currentDateTime().toString( "yyyy_MM_dd_hhmmss" ) );
 		emit this->finished();
@@ -142,7 +142,7 @@ void TestUnitManager::Private::onReplayFinished() {
 }
 
 void TestUnitManager::Private::createLogDir() {
-	QDir path( Setting::getInstance().get( "TestCasePath" ) );
+	QDir path( Setting::getInstance().get( "TestCasePath" ).toString() );
 	path.mkpath( "log/tmp" );
 	path.cd( "log/tmp" );
 	path.mkdir( "Pass" );
@@ -156,7 +156,7 @@ QObject( parent ),
 p_( new Private ) {
 	this->connect( this->p_.get(), SIGNAL( error( const QString &, const QString & ) ), SIGNAL( error( const QString &, const QString & ) ) );
 	this->connect( this->p_.get(), SIGNAL( finished() ), SIGNAL( finished() ) );
-	this->connect( this->p_.get(), SIGNAL( finished( const xtitan::testcase::TestCase & ) ), SIGNAL( finished( const xtitan::testcase::TestCase & ) ) );
+	this->connect( this->p_.get(), SIGNAL( finished( std::shared_ptr< xtitan::testcase::TestCase > ) ), SIGNAL( finished( std::shared_ptr< xtitan::testcase::TestCase > ) ) );
 	this->connect( this->p_.get(), SIGNAL( log( const QString &, const QString & ) ), SIGNAL( log( const QString &, const QString & ) ) );
 }
 
@@ -173,9 +173,9 @@ void TestUnitManager::startRecord( int nClients ) {
 	QThreadPool::globalInstance()->start( this->p_->currentUnit );
 }
 
-TestCase TestUnitManager::stopRecord() {
+std::shared_ptr< TestCase > TestUnitManager::stopRecord() {
 	if( this->p_->currentUnit ) {
-		TestCase tc( this->p_->currentUnit->getTestCase() );
+		std::shared_ptr< TestCase > tc( this->p_->currentUnit->getTestCase() );
 		this->p_->currentUnit->setCanceled( true );
 		// NOTE even the replay unit has been set to canceled
 		// there is still some thing to clean up.
@@ -183,7 +183,7 @@ TestCase TestUnitManager::stopRecord() {
 		emit this->log( QObject::tr( "OracleServer" ), QObject::tr( "Stop recoding" ) );
 		return tc;
 	}
-	return TestCase();
+	return std::shared_ptr< TestCase >();
 }
 
 void TestUnitManager::startUpdate( const QString & name ) {
@@ -208,7 +208,7 @@ void TestUnitManager::setOneShot( bool oneShot ) {
 }
 
 void TestUnitManager::regressionTest() {
-	QDir tcDir( Setting::getInstance().get( "TestCasePath" ) );
+	QDir tcDir( Setting::getInstance().get( "TestCasePath" ).toString() );
 	this->p_->testList.clear();
 	this->p_->testList << readFile( tcDir.filePath( "level0.txt" ) );
 	this->p_->testList << readFile( tcDir.filePath( "level1.txt" ) );
@@ -220,7 +220,7 @@ void TestUnitManager::regressionTest() {
 }
 
 void TestUnitManager::smokeTest() {
-	QDir tcDir( Setting::getInstance().get( "TestCasePath" ) );
+	QDir tcDir( Setting::getInstance().get( "TestCasePath" ).toString() );
 	this->p_->testList.clear();
 	this->p_->testList << readFile( tcDir.filePath( "level0.txt" ) );
 

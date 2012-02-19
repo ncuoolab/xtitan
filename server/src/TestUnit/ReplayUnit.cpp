@@ -1,6 +1,7 @@
 #include "ReplayUnitPrivate.hpp"
 #include "Network/TCPMessage.hpp"
 #include "TestCase/TestCase.hpp"
+#include "TestCase/InputPoint.hpp"
 
 #include <QtCore/QTimer>
 #include <QtCore/QEventLoop>
@@ -12,6 +13,7 @@ using xtitan::testcase::TestCase;
 using xtitan::testcase::Point;
 using xtitan::testcase::CheckPoint;
 using xtitan::testcase::InputPoint;
+using xtitan::testcase::SocketPoint;
 using xtitan::network::SimpleSocket;
 
 ReplayUnit::Private::Private( ReplayUnit * host ):
@@ -32,14 +34,14 @@ p_( new Private( this ) ) {
 }
 
 void ReplayUnit::doOpen() {
-	this->testCase().load();
-	this->testCase().backupRemoteDatabase();
-	this->testCase().importDatabase();
+	this->getTestCase()->load();
+	this->getTestCase()->backupRemoteDatabase();
+	this->getTestCase()->importDatabase();
 }
 
 void ReplayUnit::doTest() {
 	// execute points
-	foreach( Point point, this->testCase().getPoints() ) {
+	foreach( Point point, this->getTestCase()->getPoints() ) {
 		if( this->isCancled() ) {
 			break;
 		}
@@ -48,9 +50,9 @@ void ReplayUnit::doTest() {
 }
 
 void ReplayUnit::doClose() {
-	this->testCase().restoreRemoteDatabase();
+	this->getTestCase()->restoreRemoteDatabase();
 
-	const TestCase::CheckMap & checkPoints( this->testCase().getCheckPoints() );
+	const TestCase::CheckMap & checkPoints( this->getTestCase()->getCheckPoints() );
 	for( TestCase::CheckMap::const_iterator it = checkPoints.begin(); it != checkPoints.end(); ++it ) {
 		foreach( CheckPoint * check, it->second ) {
 			if( !check->isChecked() ) {
@@ -70,7 +72,7 @@ void ReplayUnit::doClose() {
 SimpleSocket::Packet ReplayUnit::onCheck( int id, const QString & label, const QString & value ) {
 	TestCase::CheckKey key( id, label );
 
-	const TestCase::CheckMap & checkPoints( this->testCase().getCheckPoints() );
+	const TestCase::CheckMap & checkPoints( this->getTestCase()->getCheckPoints() );
 	TestCase::CheckMap::const_iterator it = checkPoints.find( key );
 	if( it == checkPoints.end() ) {
 		// TODO invalid id, maybe new check points
@@ -121,6 +123,11 @@ SimpleSocket::Packet ReplayUnit::onInput( int /*id*/, const QString & /*label*/,
 	return SimpleSocket::Packet( "<Success>", QVariant() );
 }
 
+SimpleSocket::Packet ReplayUnit::onSocket( int /*id*/, const QString & /*message*/ ) {
+	// NOTE nop
+	return SimpleSocket::Packet( "<Success>", QVariant() );
+}
+
 void ReplayUnit::doInput( InputPoint * input ) {
 	// wait a time
 	QTimer timer;
@@ -161,4 +168,8 @@ void ReplayUnit::doCheck( CheckPoint * check ) {
 		this->p_->errorMessage.append( qMakePair( QObject::tr( "Timeout" ), check->toString() ) );
 	}
 	this->p_->waitingPoint = NULL;
+}
+
+void ReplayUnit::doSocket( SocketPoint * /*socket*/ ) {
+	// TODO send socket message
 }

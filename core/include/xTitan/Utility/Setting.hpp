@@ -4,6 +4,7 @@
 #include "xTitan/Utility/Config.hpp"
 
 #include <QtCore/QString>
+#include <QtCore/QVariant>
 
 #include <memory>
 
@@ -14,8 +15,8 @@ namespace xtitan {
 		public:
 			static Setting & getInstance();
 
-			QString get( const QString & key ) const;
-			void set( const QString & key, const QString & value );
+			QVariant get( const QString & key ) const;
+			void set( const QString & key, const QVariant & value );
 
 			void save() const;
 

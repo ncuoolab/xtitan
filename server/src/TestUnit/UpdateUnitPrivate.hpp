@@ -10,7 +10,7 @@ namespace xtitan {
 		public:
 			Private();
 
-			testcase::TestCase inputCase;
+			std::shared_ptr< testcase::TestCase > inputCase;
 		};
 
 	}

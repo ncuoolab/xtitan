@@ -2,7 +2,6 @@
 #define XTITAN_TESTCASE_TESTCASE_HPP
 
 #include "CheckPoint.hpp"
-#include "InputPoint.hpp"
 
 #include <QtCore/QPair>
 
@@ -40,6 +39,9 @@ namespace xtitan {
 			const CheckMap & getCheckPoints() const;
 
 		private:
+			TestCase( const TestCase & );
+			TestCase & operator =( const TestCase & );
+
 			class Private;
 			std::shared_ptr< Private > p_;
 		};

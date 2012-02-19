@@ -109,6 +109,20 @@ bool Spy::isTesting() const {
 	return this->p_->isTestable;
 }
 
+void Spy::finish(){
+	if( this->p_->model ) {
+		this->p_->model->deleteLater();
+		this->p_->model = NULL;
+	}
+}
+
+void Spy::sendRawCommand( const QString & tag, const QVariant & data ) {
+	if( !this->p_->model ) {
+		return;
+	}
+	this->p_->model->raw( tag, data );
+}
+
 void Spy::encodeCheck( const QString & method, const QString & id, const QString & value ){
 	if( !this->p_->isTestable ) {
 		return;
@@ -289,13 +303,6 @@ void Spy::executeScript( const QString & script ) {
 	} else {
 		this->p_->engine->clearExceptions();
 		assert( !"INVALID SCRIPT" );
-	}
-}
-
-void Spy::finish(){
-	if( this->p_->model ) {
-		this->p_->model->deleteLater();
-		this->p_->model = NULL;
 	}
 }
 

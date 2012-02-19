@@ -19,7 +19,7 @@ namespace xtitan {
 
 			void lockReplayUI( bool );
 			void lockRecordUI( bool );
-			void showSaveDialog( xtitan::testcase::TestCase );
+			void showSaveDialog( std::shared_ptr< xtitan::testcase::TestCase > );
 
 		public slots:
 			void error( const QString & type, const QString & errorString );
@@ -28,7 +28,7 @@ namespace xtitan {
 			void onStopRecord();
 			void onStopReplay();
 			void onTestSpecific();
-			void onRequestSave( const xtitan::testcase::TestCase & );
+			void onRequestSave( std::shared_ptr< xtitan::testcase::TestCase > );
 			void onUpdate();
 			void onFinished();
 

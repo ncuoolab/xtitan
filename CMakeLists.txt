@@ -10,7 +10,7 @@ set(XTITAN_VERSION "${XTITAN_VERSION_MAJOR}.${XTITAN_VERSION_MINOR}.${XTITAN_VER
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
 
-find_package(Qt4 4.7 COMPONENTS QtNetwork QtScript REQUIRED)
+find_package(Qt4 4.7 COMPONENTS QtNetwork QtScript QtSql REQUIRED)
 
 include(${QT_USE_FILE})
 

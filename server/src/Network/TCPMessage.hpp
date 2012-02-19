@@ -17,6 +17,7 @@ public:
 	//received command 
 	const static QString Check;
 	const static QString Input;
+	const static QString Socket;
 	
 	//send command
 	const static QString QuitApplicationTag;

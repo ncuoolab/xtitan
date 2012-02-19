@@ -1,18 +1,24 @@
 #include "Widget/MainWindow.hpp"
 #include "xTitan/Utility/Logger.hpp"
 #include "xTitan/Utility/Setting.hpp"
+#include "TestCase/TestCaseManager.hpp"
 
 #include <QtGui/QApplication>
 #include <QtCore/QStringList>
+#include <QtCore/QTextCodec>
 
 int main( int argc, char * argv[] ) {
 	using xtitan::utilities::Setting;
 	using xtitan::utilities::Logger;
+	using xtitan::testcase::TestCaseManager;
 	using xtitan::widget::MainWindow;
 
 	QApplication a( argc, argv );
+	QTextCodec::setCodecForCStrings( QTextCodec::codecForName( "UTF-8" ) );
+	QTextCodec::setCodecForTr( QTextCodec::codecForName( "UTF-8" ) );
 	Setting::getInstance();
 	Logger::getInstance();
+	TestCaseManager::getInstance();
 
 	QStringList args( a.arguments() );
 

@@ -33,7 +33,7 @@ namespace xtitan {
 		signals:
 			void error( const QString &, const QString & );
 			void finished();
-			void finished( const xtitan::testcase::TestCase & testCase );
+			void finished( std::shared_ptr< xtitan::testcase::TestCase > );
 			void log( const QString &, const QString & );
 
 		public:

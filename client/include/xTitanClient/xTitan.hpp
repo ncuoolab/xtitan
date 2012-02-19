@@ -6,6 +6,7 @@
 #define xCheck(...)						xtitan::spy::encodeCheck(QString::fromUtf8(__FUNCTION__),__VA_ARGS__);
 #define xInput(...)						xtitan::spy::recordInput(this->objectName(),__FUNCTION__,__VA_ARGS__);
 #define xCustomInput(object,method,...)	xtitan::spy::recordInput(object,__FUNCTION__,method,__VA_ARGS__);
+XTITAN_CLIENT_DLL void xRawCommand( const QString & tag, const QVariant & data );
 
 XTITAN_CLIENT_DLL void xRegisterObject( QObject * object, const QString & id = QString() );
 

@@ -1,6 +1,7 @@
 #include "UpdateUnitPrivate.hpp"
 #include "TestCase/CheckPoint.hpp"
 #include "TestCase/InputPoint.hpp"
+#include "TestCase/SocketPoint.hpp"
 #include "TestCase/TestCase.hpp"
 #include "Network/TCPMessage.hpp"
 
@@ -11,6 +12,7 @@ using namespace xtitan::testunit;
 using xtitan::testcase::Point;
 using xtitan::testcase::CheckPoint;
 using xtitan::testcase::InputPoint;
+using xtitan::testcase::SocketPoint;
 using xtitan::network::SimpleSocket;
 
 UpdateUnit::Private::Private():
@@ -23,14 +25,14 @@ p_( new Private ) {
 }
 
 void UpdateUnit::doOpen() {
-	this->testCase().load();
-	this->testCase().backupRemoteDatabase();
-	this->p_->inputCase = this->testCase();
-	this->p_->inputCase.importDatabase();
+	this->getTestCase()->load();
+	this->getTestCase()->backupRemoteDatabase();
+	this->p_->inputCase = this->getTestCase();
+	this->p_->inputCase->importDatabase();
 }
 
 void UpdateUnit::doTest() {
-	foreach( Point point, this->p_->inputCase.getPoints() ) {
+	foreach( Point point, this->p_->inputCase->getPoints() ) {
 		if( this->isCancled() ) {
 			break;
 		}
@@ -39,7 +41,7 @@ void UpdateUnit::doTest() {
 }
 
 void UpdateUnit::doClose() {
-	this->p_->inputCase.restoreRemoteDatabase();
+	this->p_->inputCase->restoreRemoteDatabase();
 }
 
 void UpdateUnit::doCheck( CheckPoint * /*point*/ ) {
@@ -70,16 +72,26 @@ void UpdateUnit::doInput( InputPoint * point ) {
 	// send input control
 	this->sendMessage( point->getID(), TCPMessage::Input, point->getScript() );
 	// record original input point
-	this->testCase().writeLine( point->toString() );
+	this->getTestCase()->writeLine( point->toString() );
+}
+
+void UpdateUnit::doSocket( SocketPoint * /*point*/ ) {
+	// NOT nop
 }
 
 SimpleSocket::Packet UpdateUnit::onCheck( int id, const QString & label, const QString & value ) {
 	CheckPoint point( id, label, value, -1 );
-	this->testCase().writeLine( point.toString() );
+	this->getTestCase()->writeLine( point.toString() );
 	return SimpleSocket::Packet( "<Success>", QVariant() );
 }
 
 SimpleSocket::Packet UpdateUnit::onInput( int /*id*/, const QString & /*label*/, const QString & /*script*/, qint64 /*waitTime*/ ) {
 	// NOTE nop
+	return SimpleSocket::Packet( "<Success>", QVariant() );
+}
+
+SimpleSocket::Packet UpdateUnit::onSocket( int id, const QString & message ) {
+	SocketPoint point( id, message, -1 );
+	this->getTestCase()->writeLine( point.toString() );
 	return SimpleSocket::Packet( "<Success>", QVariant() );
 }

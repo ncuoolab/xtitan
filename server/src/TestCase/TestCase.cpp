@@ -1,6 +1,8 @@
 #include "TestCase/TestCasePrivate.hpp"
 #include "xTitan/Utility/Setting.hpp"
 #include "Network/RemoteController.hpp"
+#include "InputPoint.hpp"
+#include "SocketPoint.hpp"
 
 #include <QtCore/QTextStream>
 #include <QtCore/QTextCodec>
@@ -38,7 +40,7 @@ bool TestCase::save() {
 	if( this->p_->name.isEmpty() ) {
 		return false;
 	}
-	QDir root( Setting::getInstance().get( "TestCasePath" ) );
+	QDir root( Setting::getInstance().get( "TestCasePath" ).toString() );
 	if( !root.cd( QString( "stories/%1" ).arg( this->p_->name ) ) ) {
 		if( !root.mkpath( QString( "stories/%1" ).arg( this->p_->name ) ) ) {
 			return false;
@@ -105,7 +107,7 @@ bool TestCase::load() {
 		return false;
 	}
 
-	QDir root( Setting::getInstance().get( "TestCasePath" ) );
+	QDir root( Setting::getInstance().get( "TestCasePath" ).toString() );
 	if( !root.cd( QString( "stories/%1" ).arg( this->p_->name ) ) ) {
 		// test case not exist
 		assert( !"test case not exists" );
@@ -146,6 +148,8 @@ bool TestCase::load() {
 			} else {
 				it->second.append( checkPoint );
 			}
+		} else if( tokens.at( 1 ) == "<Socket>" ) {
+			this->p_->points.append( Point( new SocketPoint( tokens.at( 0 ).toInt(), tokens.at( 2 ), lineCount ) ) );
 		} else {
 			// invalid
 			assert( !"INVALID COMMAND" );

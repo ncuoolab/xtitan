@@ -53,7 +53,7 @@ void SelectTestDialog::setVisible( bool visible ) {
 	}
 	this->p_->ui.listWidget->clear();
 
-	QDir tcDir( Setting::getInstance().get( "TestCasePath" ) );
+	QDir tcDir( Setting::getInstance().get( "TestCasePath" ).toString() );
 	QStringList files;
 	files << readFile( tcDir.filePath( "level0.txt" ) );
 	files << readFile( tcDir.filePath( "level1.txt" ) );

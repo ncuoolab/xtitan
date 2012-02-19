@@ -21,7 +21,7 @@ preference( new PreferenceDialog( this->host ) ),
 manager( new TestUnitManager( this->host ) ) {
 	this->ui.setupUi( this->host );
 
-	this->connect( this->manager, SIGNAL( finished( const xtitan::testcase::TestCase & ) ), SLOT( onRequestSave( const xtitan::testcase::TestCase & ) ) );
+	this->connect( this->manager, SIGNAL( finished( std::shared_ptr< xtitan::testcase::TestCase > ) ), SLOT( onRequestSave( std::shared_ptr< xtitan::testcase::TestCase > ) ) );
 	this->connect( this->manager, SIGNAL( log( const QString &, const QString & ) ), SLOT( log( const QString &, const QString & ) ) );
 	this->connect( this->manager, SIGNAL( error( const QString &, const QString & ) ), SLOT( error( const QString &, const QString & ) ) );
 	this->connect( this->manager, SIGNAL( finished() ), SLOT( onFinished() ) );
@@ -83,10 +83,9 @@ void MainWindow::Private::onUpdate() {
 }
 
 void MainWindow::Private::onStopRecord() {
-	TestCase tc( this->manager->stopRecord() );
+	std::shared_ptr< TestCase > tc( this->manager->stopRecord() );
 
 	this->showSaveDialog( tc );
-
 }
 
 void MainWindow::Private::onStopReplay() {
@@ -104,7 +103,7 @@ void MainWindow::Private::onTestSpecific() {
 	this->manager->specificTest( this->selectDialog->getCheckedTestCase(), !this->ui.dontKillMe->isChecked() );
 }
 
-void MainWindow::Private::onRequestSave( const TestCase & tc ) {
+void MainWindow::Private::onRequestSave( std::shared_ptr< TestCase > tc ) {
 	this->showSaveDialog( tc );
 	this->lockRecordUI( false );
 }
@@ -130,7 +129,7 @@ void MainWindow::Private::lockRecordUI( bool lock ) {
 	this->ui.toolBox->setItemEnabled( 1, !lock );
 }
 
-void MainWindow::Private::showSaveDialog( TestCase testCase ) {
+void MainWindow::Private::showSaveDialog( std::shared_ptr< TestCase > testCase ) {
 	if( this->saveDialog->exec() != QDialog::Accepted ) {
 		return;
 	}
@@ -139,16 +138,16 @@ void MainWindow::Private::showSaveDialog( TestCase testCase ) {
 	QString creator( this->saveDialog->getCreator() );
 	QString description( this->saveDialog->getDescription() );
 
-	testCase.setName( name );
-	testCase.setCreator( creator );
-	testCase.setDescription( description );
+	testCase->setName( name );
+	testCase->setCreator( creator );
+	testCase->setDescription( description );
 
-	if( !testCase.save() ) {
+	if( !testCase->save() ) {
 		QMessageBox::critical( this->host, QObject::tr( "Saving failed" ), QObject::tr( "An unknown error occured." ) );
 		return;
 	}
 
-	QDir root( Setting::getInstance().get( "TestCasePath" ) );
+	QDir root( Setting::getInstance().get( "TestCasePath" ).toString() );
 	QFile fout( root.filePath( QString( "level%1.txt" ).arg( this->saveDialog->getLevel() ) ) );
 	fout.open( QIODevice::Text | QIODevice::WriteOnly | QIODevice::Append );
 	QTextStream sout( &fout );

@@ -1,12 +1,14 @@
 #include "Spy/SpyModelPrivate.hpp"
 #include "Network/TcpMessageComposer.hpp"
 #include "xTitanClient/Spy/Spy.hpp"
+#include "xTitanClient/Command/MessageEncoder.hpp"
 
 #include <cassert>
 
 using namespace xtitan::spy;
 using xtitan::network::SimpleSocket;
 using xtitan::command::CommandParser;
+using xtitan::command::MessageEncoder;
 
 SpyModel::Private::Private( SpyModel * host ):
 QObject( host ),
@@ -47,22 +49,34 @@ void SpyModel::connectToHost( const QString & name ) {
 }
 
 void SpyModel::check( const QString & label, const QString & value ) {
-	QString sValue( value );
-	sValue.remove( '#' );
-	sValue.remove( '\r' );
-	sValue.remove( '\n' );
-	SimpleSocket::Packet msg( TcpMessageComposer::Check( label, sValue ) );
+	if( this->p_->socket->state() != QLocalSocket::ConnectedState ) {
+		return;
+	}
+	QVariantMap args;
+	args.insert( "label", label );
+	args.insert( "value", value );
+	SimpleSocket::Packet msg( MessageEncoder::getInstance().encode( "check", args ) );
 	this->p_->socket->write( msg.first, msg.second );
 }
 
 void SpyModel::input( const QString & label, const QString & script, qint64 waitTime ) {
-	QString sScript( script );
-	sScript.remove( '#' );
-	sScript.remove( '\r' );
-	sScript.remove( '\n' );
-	if( this->p_->socket->state() == QLocalSocket::ConnectedState ) {
-		this->p_->send( TcpMessageComposer::Input( label, sScript, waitTime ) );
+	if( this->p_->socket->state() != QLocalSocket::ConnectedState ) {
+		return;
 	}
+	QVariantMap args;
+	args.insert( "label", label );
+	args.insert( "script", script );
+	args.insert( "waitTime", waitTime );
+	SimpleSocket::Packet msg( MessageEncoder::getInstance().encode( "input", args ) );
+	this->p_->socket->write( msg.first, msg.second );
+}
+
+void SpyModel::raw( const QString & tag, const QVariant & data ) {
+	if( this->p_->socket->state() != QLocalSocket::ConnectedState ) {
+		return;
+	}
+	SimpleSocket::Packet msg( MessageEncoder::getInstance().encode( tag, data ) );
+	this->p_->socket->write( msg.first, msg.second );
 }
 
 void SpyModel::stop() {

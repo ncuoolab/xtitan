@@ -17,7 +17,7 @@ void Logger::Private::destroy( Logger * self ) {
 
 Logger::Private::Private():
 lock(),
-tcDir( Setting::getInstance().get( "TestCasePath" ) ),
+tcDir( Setting::getInstance().get( "TestCasePath" ).toString() ),
 fout( this->tcDir.filePath( QDateTime::currentDateTime().toString( "yyyyMMdd_hhmmss" ) + ".log" ) ),
 stream() {
 	if( !this->fout.isOpen() ) {

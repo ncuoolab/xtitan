@@ -36,7 +36,7 @@ void Setting::Private::save() {
 	QReadLocker locker( &this->lock );
 
 	QSettings s( this->filePath, QSettings::IniFormat );
-	std::for_each( this->settings.begin(), this->settings.end(), [&s]( const std::pair< QString, QString > & p )->void {
+	std::for_each( this->settings.begin(), this->settings.end(), [&s]( const std::pair< QString, QVariant > & p )->void {
 		s.setValue( p.first, p.second );
 	} );
 
@@ -80,20 +80,20 @@ void Setting::save() const {
 	this->p_->save();
 }
 
-QString Setting::get( const QString & key ) const {
+QVariant Setting::get( const QString & key ) const {
 	QReadLocker locker( &this->p_->lock );
 
-	std::map< QString, QString >::const_iterator it = this->p_->settings.find( key );
+	std::map< QString, QVariant >::const_iterator it = this->p_->settings.find( key );
 	assert( it != this->p_->settings.end() );
 
 	locker.unlock();
 	return it->second;
 }
 
-void Setting::set( const QString & key, const QString & value ) {
+void Setting::set( const QString & key, const QVariant & value ) {
 	QWriteLocker locker( &this->p_->lock );
 
-	std::map< QString, QString >::iterator it( this->p_->settings.find( key ) );
+	std::map< QString, QVariant >::iterator it( this->p_->settings.find( key ) );
 	if( it != this->p_->settings.end() ) {
 		it->second = value;
 	} else {

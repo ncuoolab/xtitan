@@ -48,7 +48,7 @@ void PreferenceDialog::Private::onBrowseSoftware() {
 void PreferenceDialog::Private::onBrowseTestcase() {
 	QString path( QFileDialog::getExistingDirectory( this->host, QObject::tr( "Select a directory which contains testcases" ), QDir::currentPath() ) );
 	if( !path.isEmpty() ) {
-		this->ui.testcasePath->setText( path );
+		this->ui.testcasePath->setText( QDir::fromNativeSeparators( path ) );
 	}
 }
 
@@ -61,8 +61,8 @@ void PreferenceDialog::setVisible( bool visible ) {
 	this->QDialog::setVisible( visible );
 	if( visible ) {
 		// show state
-		this->p_->ui.softwarePath->setText( Setting::getInstance().get( "SoftwarePath" ) );
-		this->p_->ui.testcasePath->setText( Setting::getInstance().get( "TestCasePath" ) );
+		this->p_->ui.softwarePath->setText( Setting::getInstance().get( "SoftwarePath" ).toString() );
+		this->p_->ui.testcasePath->setText( Setting::getInstance().get( "TestCasePath" ).toString() );
 	} else {
 		// hide state
 	}

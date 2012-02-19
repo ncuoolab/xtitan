@@ -25,7 +25,7 @@ void RemoteController::restartServer() {
 */
 
 bool RemoteController::importDatabase( QIODevice * data ) {
-	QUrl uri( QString( "http://%1/server/import.php" ).arg( Setting::getInstance().get( "ServerAddress" ) ) );
+	QUrl uri( QString( "http://%1/server/import.php" ).arg( Setting::getInstance().get( "ServerAddress" ).toString() ) );
 	QNetworkRequest request( uri );
 	request.setHeader( QNetworkRequest::ContentTypeHeader, "text/x-sql" );
 	if( !data->open( QIODevice::ReadOnly ) ) {
@@ -51,7 +51,7 @@ bool RemoteController::importDatabase( QIODevice * data ) {
 }
 
 bool RemoteController::exportDatabase( QIODevice * data ) {
-	QUrl uri( QString( "http://%1/server/export.php" ).arg( Setting::getInstance().get( "ServerAddress" ) ) );
+	QUrl uri( QString( "http://%1/server/export.php" ).arg( Setting::getInstance().get( "ServerAddress" ).toString() ) );
 	QNetworkRequest request( uri );
 	if( !data->open( QIODevice::WriteOnly ) ) {
 		assert( !"BUFFER OPEN ERROR" );

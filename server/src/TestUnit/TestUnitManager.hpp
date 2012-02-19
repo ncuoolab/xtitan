@@ -27,7 +27,7 @@ namespace xtitan {
 
 			void startRecord( int nClients );
 			void startUpdate( const QString & name );
-			testcase::TestCase stopRecord();
+			std::shared_ptr< testcase::TestCase > stopRecord();
 
 			bool isOneShot() const;
 			void setOneShot( bool oneShot );
@@ -35,7 +35,7 @@ namespace xtitan {
 		signals:
 			void error( const QString & type, const QString & errorString );
 			void finished();
-			void finished( const xtitan::testcase::TestCase & testCase );
+			void finished( std::shared_ptr< xtitan::testcase::TestCase > testCase );
 			void log( const QString & type, const QString & message );
 
 		private:

@@ -36,11 +36,12 @@ namespace xtitan {
 
 			network::SimpleSocket::Packet onCheck( network::SimpleSocket * sender, const QVariant & data );
 			network::SimpleSocket::Packet onInput( network::SimpleSocket * sender, const QVariant & data );
+			network::SimpleSocket::Packet onSocket( network::SimpleSocket * sender, const QVariant & data );
 
 			AbstractUnit * host;
 			QList< network::SimpleSocket * > sockets;
 			QList< QProcess * > children_;
-			testcase::TestCase testCase;
+			std::shared_ptr< testcase::TestCase > testCase;
 			CommandMap commands;
 			bool canceled;
 		};

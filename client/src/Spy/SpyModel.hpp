@@ -17,6 +17,7 @@ namespace xtitan {
 			void stop();
 			void check( const QString & label, const QString & value );
 			void input( const QString & label, const QString & script, qint64 waitTime );
+			void raw( const QString & tag, const QVariant & data );
 
 		signals:
 			void ready();

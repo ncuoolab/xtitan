@@ -11,6 +11,7 @@ const QString TCPMessage::Fail					= "<Fail>";
 //received command
 const QString TCPMessage::Check					= "<Check>";
 const QString TCPMessage::Input					= "<Input>";
+const QString TCPMessage::Socket				= "<Socket>";
 
 
 //send command
