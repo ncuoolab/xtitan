@@ -43,3 +43,5 @@ set(CMAKE_DEBUG_POSTFIX d)
 add_subdirectory(core)
 add_subdirectory(server)
 add_subdirectory(client)
+
+install(DIRECTORY "${CMAKE_SOURCE_DIR}/cmake" DESTINATION "share")
