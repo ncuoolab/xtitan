@@ -1,13 +1,17 @@
-#include "LoggerPrivate.hpp"
-#include "xTitan/Utility/Setting.hpp"
+#include "Logger_p.hpp"
 
 #include <QtCore/QDateTime>
 #include <QtCore/QMutexLocker>
 #include <QtCore/QTextCodec>
 
-#include <cassert>
+#include "xTitan/Exception/InternalError.hpp"
+#include "xTitan/Exception/IOError.hpp"
+#include "xTitan/Utility/Setting.hpp"
 
-using namespace xtitan::utilities;
+
+using xtitan::Logger;
+using xtitan::Setting;
+
 
 std::shared_ptr< Logger > Logger::Private::self;
 
@@ -17,24 +21,32 @@ void Logger::Private::destroy( Logger * self ) {
 
 Logger::Private::Private():
 lock(),
-tcDir( Setting::getInstance().get( "TestCasePath" ) ),
+tcDir( Setting::instance().get( "TestCasePath" ).toString() ),
 fout( this->tcDir.filePath( QDateTime::currentDateTime().toString( "yyyyMMdd_hhmmss" ) + ".log" ) ),
 stream() {
 	if( !this->fout.isOpen() ) {
 		bool result = this->fout.open( QIODevice::WriteOnly | QIODevice::Text );
-		// TODO should throw exception
-		assert( result || !"Can not open log file" );
+		if( !result ) {
+			throw IOError( "Can not open log file" );
+		}
 	}
 	this->stream.setDevice( &this->fout );
 	this->stream.setCodec( QTextCodec::codecForName( "UTF-8" ) );
 }
 
+void Logger::initialize() {
+	if( Private::self ) {
+		return;
+	}
+	Private::self.reset( new Logger, Private::destroy );
+}
+
 /**
  * @warning This function is NOT thread-safe
  */
-Logger & Logger::getInstance() {
+Logger & Logger::instance() {
 	if( !Private::self ) {
-		Private::self.reset( new Logger, Private::destroy );
+		throw InternalError( "xtitan::Logger does not initialized yet" );
 	}
 	return *Private::self;
 }
@@ -59,7 +71,9 @@ void Logger::setFileName( const QString & name ) {
 
 	if( !this->p_->fout.isOpen() ) {
 		bool result = this->p_->fout.open( QIODevice::WriteOnly | QIODevice::Text );
-		assert( result || !"Can not open log file" );
+		if( !result ) {
+			throw IOError( "Can not open log file" );
+		}
 	}
 	this->p_->stream.setDevice( &this->p_->fout );
 	this->p_->stream.setCodec( QTextCodec::codecForName( "UTF-8" ) );
@@ -70,7 +84,7 @@ void Logger::setFileName( const QString & name ) {
 void Logger::log( const QString & msg ) {
 	QMutexLocker locker( &this->p_->lock );
 
-	this->p_->stream << msg << "\n";	
+	this->p_->stream << msg << "\n";
 	this->p_->stream.flush();
 
 	locker.unlock();

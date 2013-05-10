@@ -1,7 +1,11 @@
-#include "SimpleServerPrivate.hpp"
+#include "SimpleServer_p.hpp"
+
 #include "xTitan/Network/SimpleSocket.hpp"
 
-using namespace xtitan::network;
+
+using xtitan::SimpleServer;
+using xtitan::SimpleSocket;
+
 
 SimpleServer::SimpleServer( QObject * parent ):
 QObject( parent ),

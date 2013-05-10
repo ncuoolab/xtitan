@@ -1,36 +1,38 @@
 #ifndef XTITAN_UTILITIES_SETTING_HPP
 #define XTITAN_UTILITIES_SETTING_HPP
 
-#include "xTitan/Utility/Config.hpp"
-
-#include <QtCore/QString>
-
 #include <memory>
 
+#include <QtCore/QVariant>
+
+#include "xTitan/Utility/CoreConfig.hpp"
+
+
 namespace xtitan {
-	namespace utilities {
 
-		class XTITAN_CORE_DLL Setting {
-		public:
-			static Setting & getInstance();
+class XTITAN_CORE_DLL Setting {
+public:
+	static void initialize();
+	static Setting & instance();
 
-			QString get( const QString & key ) const;
-			void set( const QString & key, const QString & value );
+	QVariant get( const QString & key, const QVariant & defaultValue = QVariant() ) const;
+	void set( const QString & key, const QVariant & value );
 
-			void save() const;
+	void save() const;
 
-			void setFilePath( const QString & path );
+	void setFilePath( const QString & path );
 
-		private:
-			class Private;
+private:
+	class Private;
 
-			Setting();
-			~Setting();
+	Setting();
+	Setting( const Setting & );
+	~Setting();
+	Setting & operator =( const Setting & );
 
-			std::shared_ptr< Private > p_;
-		};
+	std::shared_ptr< Private > p_;
+};
 
-	}
 }
 
 #endif

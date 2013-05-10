@@ -1,20 +1,24 @@
-#include "SettingPrivate.hpp"
+#include "Setting_p.hpp"
 
+#include <algorithm>
+
+#include <QtCore/QCoreApplication>
+#include <QtCore/QDir>
 #include <QtCore/QSettings>
 #include <QtCore/QStringList>
 #include <QtCore/QReadLocker>
 #include <QtCore/QWriteLocker>
-#include <QtCore/QCoreApplication>
-#include <QtCore/QDir>
 
-#include <algorithm>
-#include <cassert>
+#include "xTitan/Exception/InternalError.hpp"
+#include "xTitan/Exception/KeyError.hpp"
 
-using namespace xtitan::utilities;
+
+using xtitan::Setting;
+
 
 namespace {
 
-	const char * const SETTING_FILEPATH = "configuration.ini";
+const char * const SETTING_FILENAME = "configuration.ini";
 
 }
 
@@ -36,27 +40,34 @@ void Setting::Private::save() {
 	QReadLocker locker( &this->lock );
 
 	QSettings s( this->filePath, QSettings::IniFormat );
-	std::for_each( this->settings.begin(), this->settings.end(), [&s]( const std::pair< QString, QString > & p )->void {
-		s.setValue( p.first, p.second );
-	} );
+	for( auto it = this->settings.begin(); it != this->settings.end(); ++it ) {
+		s.setValue( it->first, it->second );
+	}
 
 	locker.unlock();
+}
+
+void Setting::initialize() {
+	if( Private::self ) {
+		return;
+	}
+	Private::self.reset( new Setting, Private::destroy );
 }
 
 /**
  * @warning This function is NOT thread-safe
  */
-Setting & Setting::getInstance() {
+Setting & Setting::instance() {
 	if( !Private::self ) {
-		Private::self.reset( new Setting, Private::destroy );
+		throw InternalError( "xtitan::Setting does not initialized yet" );
 	}
 	return *Private::self;
 }
 
 Setting::Setting():
 p_( new Private ) {
-	QDir appDir( QCoreApplication::applicationDirPath() );
-	this->setFilePath( appDir.filePath( SETTING_FILEPATH ) );
+	QDir appDir = QCoreApplication::applicationDirPath();
+	this->setFilePath( appDir.filePath( SETTING_FILENAME ) );
 }
 
 Setting::~Setting() {
@@ -64,6 +75,7 @@ Setting::~Setting() {
 
 void Setting::setFilePath( const QString & path ) {
 	QWriteLocker locker( &this->p_->lock );
+	Q_UNUSED( locker );
 
 	this->p_->filePath = path;
 	this->p_->settings.clear();
@@ -72,33 +84,35 @@ void Setting::setFilePath( const QString & path ) {
 	std::for_each( keys.begin(), keys.end(), [this, &s]( const QString & key )->void {
 		this->p_->settings.insert( std::make_pair( key, s.value( key ).toString() ) );
 	} );
-
-	locker.unlock();
 }
 
 void Setting::save() const {
 	this->p_->save();
 }
 
-QString Setting::get( const QString & key ) const {
+QVariant Setting::get( const QString & key, const QVariant & defaultValue /*= QVariant()*/ ) const {
 	QReadLocker locker( &this->p_->lock );
+	Q_UNUSED( locker );
 
-	std::map< QString, QString >::const_iterator it = this->p_->settings.find( key );
-	assert( it != this->p_->settings.end() );
+	auto it = this->p_->settings.find( key );
+	if( it == this->p_->settings.end() ) {
+		if( defaultValue.isValid() ) {
+			return defaultValue;
+		}
+		throw KeyError( QObject::tr( "item `%1\' not found" ).arg( key ) );
+	}
 
-	locker.unlock();
 	return it->second;
 }
 
-void Setting::set( const QString & key, const QString & value ) {
+void Setting::set( const QString & key, const QVariant & value ) {
 	QWriteLocker locker( &this->p_->lock );
+	Q_UNUSED( locker );
 
-	std::map< QString, QString >::iterator it( this->p_->settings.find( key ) );
+	auto it = this->p_->settings.find( key );
 	if( it != this->p_->settings.end() ) {
 		it->second = value;
 	} else {
 		this->p_->settings.insert( std::make_pair( key, value ) );
 	}
-
-	locker.unlock();
 }

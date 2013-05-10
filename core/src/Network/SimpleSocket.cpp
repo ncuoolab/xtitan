@@ -1,10 +1,13 @@
-#include "SimpleSocketPrivate.hpp"
+#include "SimpleSocket_p.hpp"
 
-#include <QtCore/QTimer>
 #include <QtCore/QEventLoop>
-#include <cassert>
+#include <QtCore/QTimer>
 
-using namespace xtitan::network;
+#include "xTitan/Exception/NetworkError.hpp"
+
+
+using xtitan::SimpleSocket;
+
 
 SimpleSocket::SimpleSocket( QObject * parent ):
 QObject( parent ),
@@ -75,7 +78,9 @@ QLocalSocket::LocalSocketState SimpleSocket::state() const {
 }
 
 SimpleSocket::Packet SimpleSocket::read() {
-	assert( !this->p_->queue.isEmpty() || !"QUEUE IS EMPTY" );
+	if( this->p_->queue.isEmpty() ) {
+		throw NetworkError( "no message to read" );
+	}
 	return this->p_->queue.dequeue();
 }
 

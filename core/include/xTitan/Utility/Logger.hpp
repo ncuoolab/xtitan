@@ -1,33 +1,33 @@
 #ifndef XTITAN_UTILITIES_LOGGER_HPP
 #define XTITAN_UTILITIES_LOGGER_HPP
 
-#include "xTitan/Utility/Config.hpp"
+#include <memory>
 
 #include <QtCore/QString>
 
-#include <memory>
+#include "xTitan/Utility/CoreConfig.hpp"
+
 
 namespace xtitan {
-	namespace utilities {
 
-		class XTITAN_CORE_DLL Logger {
-		public :
-			static Logger & getInstance();
+class XTITAN_CORE_DLL Logger {
+public :
+	static void initialize();
+	static Logger & instance();
 
-			void setFileName( const QString & filename );
+	void setFileName( const QString & filename );
 
-			void log( const QString & msg );
+	void log( const QString & msg );
 
-		private:
-			class Private;
+private:
+	class Private;
 
-			Logger();
-			~Logger();
+	Logger();
+	~Logger();
 
-			std::shared_ptr< Private > p_;
-		};
+	std::shared_ptr< Private > p_;
+};
 
-	}
 }
 
 #endif
