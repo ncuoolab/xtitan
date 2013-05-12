@@ -64,7 +64,7 @@ void PreferenceDialog::Private::onBrowseTCP() {
 
 void PreferenceDialog::Private::onBrowseTPP() {
 	// TODO filter executables for other OS
-	QString path( QFileDialog::getOpenFileName( this->host, QObject::tr( "Select Program to be testing" ), QString(), QObject::tr( "Executables (*.exe)" ) ) );
+	QString path = QFileDialog::getOpenFileName( this->host, QObject::tr( "Select Program to be testing" ), QString() );
 	if( path.isEmpty() ) {
 		return;
 	}
