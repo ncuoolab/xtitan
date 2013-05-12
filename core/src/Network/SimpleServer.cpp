@@ -33,8 +33,16 @@ bool SimpleServer::isListening() const {
 	return this->p_->server->isListening();
 }
 
-bool SimpleServer::listen( const QString & name ) {
-	return this->p_->server->listen( name );
+bool SimpleServer::listen( const QString & name, bool replace /*= false*/ ) {
+	bool ok = this->p_->server->listen( name );
+	if( replace && !ok && this->p_->server->serverError() == QAbstractSocket::AddressInUseError ) {
+		replace = QLocalServer::removeServer( name );
+		if( !replace ) {
+			return false;
+		}
+		ok = this->p_->server->listen( name );
+	}
+	return ok;
 }
 
 SimpleSocket * SimpleServer::nextPendingConntion() {

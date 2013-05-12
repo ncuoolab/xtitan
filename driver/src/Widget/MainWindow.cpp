@@ -126,7 +126,9 @@ modified( false ) {
 
 	this->connect( this->tuServer, SIGNAL( checkReceived( int, const QString &, const QString & ) ), SLOT( onTUServerCheck( int, const QString &, const QString & ) ) );
 	this->connect( this->tuServer, SIGNAL( inputReceived( int, int, const QString &, const QString &, const QStringList & ) ), SLOT( onTUServerInput( int, int, const QString &, const QString &, const QStringList & ) ) );
-	this->tuServer->listen( "OracleServer" );
+	if( !this->tuServer->listen( "OracleServer" ) ) {
+		QMessageBox::critical( this->host, "", this->tuServer->errorString() );
+	}
 }
 
 void MainWindow::Private::lockSikuliUI( bool lock ) {

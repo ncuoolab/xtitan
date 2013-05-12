@@ -43,12 +43,16 @@ bool TestUnitServer::check() const {
 	} );
 }
 
+QString TestUnitServer::errorString() const {
+	return this->p_->server->errorString();
+}
+
 bool TestUnitServer::isRecording() const {
 	return this->p_->recording;
 }
 
 bool TestUnitServer::listen( const QString & name ) {
-	return this->p_->server->listen( name );
+	return this->p_->server->listen( name, true );
 }
 
 void TestUnitServer::recordOracle( int id, const QString & label, const QString & value ) {

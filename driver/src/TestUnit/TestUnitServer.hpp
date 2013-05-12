@@ -12,6 +12,7 @@ public:
 	explicit TestUnitServer( QObject * parent );
 	
 	bool check() const;
+	QString errorString() const;
 	bool isRecording() const;
 	bool listen( const QString & name );
 	void recordOracle( int id, const QString & label, const QString & value );
