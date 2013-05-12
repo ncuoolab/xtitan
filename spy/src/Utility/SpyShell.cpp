@@ -25,29 +25,29 @@ SpyInput::~SpyInput() {
 	QMetaObject::invokeMethod( &Spy::instance(), "recordInput", Q_ARG( const QString &, this->p_->objectName ), Q_ARG( const QString &, this->p_->methodName ), Q_ARG( const QStringList &, this->p_->args ) );
 }
 
-SpyInput & xtitan::operator %( SpyInput & si, bool b ) {
-	si.p_->args.append( b ? "true" : "false" );
-	return si;
+SpyInput & SpyInput::operator %( bool b ) {
+	this->p_->args.append( b ? "true" : "false" );
+	return *this;
 }
 
-SpyInput & xtitan::operator %( SpyInput & si, int i ) {
-	si.p_->args.append( QString::number( i ) );
-	return si;
+SpyInput & SpyInput::operator %( int i ) {
+	this->p_->args.append( QString::number( i ) );
+	return *this;
 }
 
-SpyInput & xtitan::operator %( SpyInput & si, double d ) {
-	si.p_->args.append( QString::number( d ) );
-	return si;
+SpyInput & SpyInput::operator %( double d ) {
+	this->p_->args.append( QString::number( d ) );
+	return *this;
 }
 
-SpyInput & xtitan::operator %( SpyInput & si, const std::string & s ) {
-	si.p_->args.append( QString( "\'%1\'" ).arg( QString::fromStdString( s ) ) );
-	return si;
+SpyInput & SpyInput::operator %( const std::string & s ) {
+	this->p_->args.append( QString( "\'%1\'" ).arg( QString::fromStdString( s ) ) );
+	return *this;
 }
 
-SpyInput & xtitan::operator %( SpyInput & si, const std::wstring & ws ) {
-	si.p_->args.append( QString( "\'%1\'" ).arg( QString::fromStdWString( ws ) ) );
-	return si;
+SpyInput & SpyInput::operator %( const std::wstring & ws ) {
+	this->p_->args.append( QString( "\'%1\'" ).arg( QString::fromStdWString( ws ) ) );
+	return *this;
 }
 
 void xtitan::encodeCheck( const std::string & signature, bool value ){

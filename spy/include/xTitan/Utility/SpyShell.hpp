@@ -11,28 +11,22 @@ namespace xtitan {
 
 class XTITAN_SPY_DLL SpyInput {
 public:
-	explicit SpyInput( const char * objectName, const char * signature );
+	SpyInput( const char * objectName, const char * signature );
 	~SpyInput();
 
-private:
-	XTITAN_SPY_DLL friend SpyInput & operator %( SpyInput & si, bool b );
-	XTITAN_SPY_DLL friend SpyInput & operator %( SpyInput & si, int i );
-	XTITAN_SPY_DLL friend SpyInput & operator %( SpyInput & si, double d );
-	XTITAN_SPY_DLL friend SpyInput & operator %( SpyInput & si, const std::string & s );
-	XTITAN_SPY_DLL friend SpyInput & operator %( SpyInput & si, const std::wstring & ws );
+	SpyInput & operator %( bool b );
+	SpyInput & operator %( int i );
+	SpyInput & operator %( double d );
+	SpyInput & operator %( const std::string & s );
+	SpyInput & operator %( const std::wstring & ws );
 
+private:
 	SpyInput( const SpyInput & );
 	SpyInput & operator =( const SpyInput & );
 
 	class Private;
 	std::shared_ptr< Private > p_;
 };
-
-XTITAN_SPY_DLL SpyInput & operator %( SpyInput & si, bool b );
-XTITAN_SPY_DLL SpyInput & operator %( SpyInput & si, int i );
-XTITAN_SPY_DLL SpyInput & operator %( SpyInput & si, double d );
-XTITAN_SPY_DLL SpyInput & operator %( SpyInput & si, const std::string & s );
-XTITAN_SPY_DLL SpyInput & operator %( SpyInput & si, const std::wstring & ws );
 
 XTITAN_SPY_DLL void encodeCheck( const std::string & signature, bool value );
 XTITAN_SPY_DLL void encodeCheck( const std::string & signature, int value );
