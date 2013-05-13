@@ -21,7 +21,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef KRAPTURE_TESTCASEMANAGERPRIVATE_HPP
 #define KRAPTURE_TESTCASEMANAGERPRIVATE_HPP
 
-#include "testcasemanager.hpp"
+#include "TestCaseManager.hpp"
 
 #include <QtSql/QSqlDatabase>
 

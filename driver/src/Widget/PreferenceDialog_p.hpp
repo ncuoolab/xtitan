@@ -25,7 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <QtGui/QAbstractButton>
 
-#include "ui_preferencedialog.h"
+#include "ui_PreferenceDialog.h"
 
 
 namespace xtitan {

@@ -169,7 +169,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -317,7 +317,7 @@
   <customwidget>
    <class>xtitan::TextEdit</class>
    <extends>QTextEdit</extends>
-   <header>widget/textedit.hpp</header>
+   <header>Widget/TextEdit.hpp</header>
   </customwidget>
  </customwidgets>
  <resources/>

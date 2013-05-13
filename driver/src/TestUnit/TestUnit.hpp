@@ -1,6 +1,8 @@
 #ifndef XTITAN_TESTUNIT_TESTUNIT_HPP
 #define XTITAN_TESTUNIT_TESTUNIT_HPP
 
+#include <memory>
+
 #include <QtCore/QObject>
 #include <QtCore/QVariant>
 
