@@ -12,13 +12,18 @@ namespace xtitan {
 
 class SpyModel;
 
-class Spy::Private {
+class Spy::Private: public QObject {
+	Q_OBJECT
 public:
 	static std::shared_ptr< Spy > self;
 	static void destory( Spy * );
 
 	Private();
 
+public slots:
+	void executeScript( const QString & script );
+
+public:
 	//model
 	std::shared_ptr< SpyModel > model;
 	//engine

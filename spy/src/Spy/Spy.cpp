@@ -26,6 +26,15 @@ filename(),
 tokens() {
 }
 
+void Spy::Private::executeScript( const QString & script ) {
+	if( this->engine->canEvaluate( script ) ){
+		this->engine->evaluate( script );
+	} else {
+		this->engine->clearExceptions();
+		// TODO send warning
+	}
+}
+
 /**
  * @warning This function is NOT thread safe!
  */
@@ -49,6 +58,7 @@ void Spy::activate() {
 
 	// TODO spawn from a factory, for user library
 	SpyModel * m = new SpyModel;
+	this->p_->connect( m, SIGNAL( scriptReceived( const QString & ) ), SLOT( executeScript( const QString & ) ) );
 	this->connect( m, SIGNAL( ready() ), SIGNAL( ready() ) );
 	m->connectToHost( "OracleServer" );
 
@@ -103,16 +113,7 @@ void Spy::recordInput( const QString & objectName, const QString & methodName, c
 	}
 }
 
-void Spy::executeScript( const QString & script ) {
-	if( this->p_->engine->canEvaluate( script ) ){
-		this->p_->engine->evaluate( script );
-	} else {
-		this->p_->engine->clearExceptions();
-		// TODO send warning
-	}
-}
-
-void Spy::finish(){
+void Spy::finish() {
 	if( this->p_->model ) {
 		this->p_->model->deleteLater();
 		this->p_->model = nullptr;

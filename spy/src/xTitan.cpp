@@ -6,6 +6,10 @@
 using xtitan::Spy;
 
 
+void spyWait() {
+	QMetaObject::invokeMethod( &Spy::instance(), "wait" );
+}
+
 void xRegisterObject( QObject * object, const QString & id /* = QString */ ) {
 	if( object->objectName().isEmpty() && id.isEmpty() ) {
 		return;

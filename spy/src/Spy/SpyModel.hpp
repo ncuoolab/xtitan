@@ -20,6 +20,7 @@ public :
 
 signals:
 	void ready();
+	void scriptReceived( const QString & script );
 
 private:
 	class Private;

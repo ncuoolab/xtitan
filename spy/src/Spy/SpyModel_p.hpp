@@ -1,9 +1,10 @@
 #ifndef XTITAN_CLIENT_SPY_SPYMODEL_PRIVATE_HPP
 #define XTITAN_CLIENT_SPY_SPYMODEL_PRIVATE_HPP
 
+#include <functional>
+
 #include "Spy/SpyModel.hpp"
 #include "xTitan/Network/SimpleSocket.hpp"
-#include "Command/CommandParser.hpp"
 
 namespace xtitan {
 
@@ -20,10 +21,11 @@ public slots:
 
 signals:
 	void ready();
+	void scriptReceived( const QString & );
 
 public:
 	SimpleSocket * socket;
-	command::CommandParser commands;
+	std::map< QString, std::function< void ( const QVariant & ) > > commands;
 };
 
 }

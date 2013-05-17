@@ -18,7 +18,6 @@ public:
 
 	void activate();
 	Q_INVOKABLE void encodeCheck( const QString & id, const QString & value );
-	Q_INVOKABLE void executeScript( const QString & script );
 	void finish();
 	QObject * getObject( const QString & key ) const;
 	bool isTesting() const;
