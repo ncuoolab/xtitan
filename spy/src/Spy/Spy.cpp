@@ -26,22 +26,6 @@ filename(),
 tokens() {
 }
 
-void Spy::Private::check( const QString & label, const QString & msg ) {
-	if( this->model ){
-		this->model->check( label, msg );
-	}
-}
-
-void Spy::Private::recordScript( const QString & object, const QString & method, const QStringList & args ) {
-	if( !this->isTestable ) {
-		return;
-	}
-
-	if( this->model ) {
-		this->model->input( object, method, args, QDateTime::currentMSecsSinceEpoch() );
-	}
-}
-
 /**
  * @warning This function is NOT thread safe!
  */
@@ -55,8 +39,6 @@ Spy & Spy::instance() {
 Spy::Spy():
 QObject(),
 p_( new Private ) {
-	// NOTE: this connection **MUST** be Qt::QueuedConnection, or you will suffer shit of threads
-//	this->connect( this, SIGNAL( scriptProxy_( const QString & ) ), SLOT( executeScript_( const QString & ) ), Qt::QueuedConnection );
 }
 
 Spy::~Spy(){
@@ -82,7 +64,9 @@ void Spy::encodeCheck( const QString & id, const QString & value ) {
 		return;
 	}
 
-	this->p_->check( id, value );
+	if( this->p_->model ){
+		this->p_->model->check( id, value );
+	}
 }
 
 void Spy::registerObject( QObject * obj ){
@@ -110,7 +94,13 @@ QObject * Spy::getObject( const QString & key ) const {
 }
 
 void Spy::recordInput( const QString & objectName, const QString & methodName, const QStringList & args ) {
-	this->p_->recordScript( objectName, methodName, args );
+	if( !this->p_->isTestable ) {
+		return;
+	}
+
+	if( this->p_->model ) {
+		this->p_->model->input( objectName, methodName, args, QDateTime::currentMSecsSinceEpoch() );
+	}
 }
 
 void Spy::executeScript( const QString & script ) {

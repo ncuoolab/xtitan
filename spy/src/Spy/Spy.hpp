@@ -17,18 +17,13 @@ public:
 	static Spy & instance();
 
 	void activate();
-	bool isTesting() const;
-
-	Q_INVOKABLE void registerObject( QObject * obj );
-	QObject * getObject( const QString & key ) const;
-
-	Q_INVOKABLE void recordInput( const QString & objectName, const QString & id, const QStringList & args );
-
-	void finish();
-
 	Q_INVOKABLE void encodeCheck( const QString & id, const QString & value );
-
 	Q_INVOKABLE void executeScript( const QString & script );
+	void finish();
+	QObject * getObject( const QString & key ) const;
+	bool isTesting() const;
+	Q_INVOKABLE void recordInput( const QString & objectName, const QString & id, const QStringList & args );
+	Q_INVOKABLE void registerObject( QObject * obj );
 
 signals:
 	void ready();

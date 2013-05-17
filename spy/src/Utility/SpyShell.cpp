@@ -5,6 +5,15 @@
 #include "Spy/Spy.hpp"
 
 
+namespace {
+
+void encodeCheckHelper( const std::string & signature, const QArgument< const QString & > & arg ) {
+	QMetaObject::invokeMethod( &xtitan::Spy::instance(), "encodeCheck", Q_ARG( const QString &, QString::fromStdString( signature ) ), arg );
+}
+
+}
+
+
 using xtitan::Spy;
 using xtitan::SpyInput;
 
@@ -51,21 +60,21 @@ SpyInput & SpyInput::operator %( const std::wstring & ws ) {
 }
 
 void xtitan::encodeCheck( const std::string & signature, bool value ){
-	QMetaObject::invokeMethod( &Spy::instance(), "encodeCheck", Q_ARG( const QString &, QString::fromStdString( signature ) ), Q_ARG( const QString &, value ? "true" : "false" ) );
+	encodeCheckHelper( signature, Q_ARG( const QString &, value ? "true" : "false" ) );
 }
 
 void xtitan::encodeCheck( const std::string & signature, int value ){
-	QMetaObject::invokeMethod( &Spy::instance(), "encodeCheck", Q_ARG( const QString &, QString::fromStdString( signature ) ), Q_ARG( const QString &, QString::number( value ) ) );
+	encodeCheckHelper( signature, Q_ARG( const QString &, QString::number( value ) ) );
 }
 
 void xtitan::encodeCheck( const std::string & signature, double value ){
-	QMetaObject::invokeMethod( &Spy::instance(), "encodeCheck", Q_ARG( const QString &, QString::fromStdString( signature ) ), Q_ARG( const QString &, QString::number( value ) ) );
+	encodeCheckHelper( signature, Q_ARG( const QString &, QString::number( value ) ) );
 }
 
 void xtitan::encodeCheck( const std::string & signature, const std::string & value ) {
-	QMetaObject::invokeMethod( &Spy::instance(), "encodeCheck", Q_ARG( const QString &, QString::fromStdString( signature ) ), Q_ARG( const QString &, QString::fromStdString( value ) ) );
+	encodeCheckHelper( signature, Q_ARG( const QString &, QString::fromStdString( value ) ) );
 }
 
 void xtitan::encodeCheck( const std::string & signature, const std::wstring & value ) {
-	QMetaObject::invokeMethod( &Spy::instance(), "encodeCheck", Q_ARG( const QString &, QString::fromStdString( signature ) ), Q_ARG( const QString &, QString::fromStdWString( value ) ) );
+	encodeCheckHelper( signature, Q_ARG( const QString &, QString::fromStdWString( value ) ) );
 }

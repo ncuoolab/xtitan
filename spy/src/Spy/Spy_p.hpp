@@ -19,10 +19,6 @@ public:
 
 	Private();
 
-	void check( const QString & label, const QString & msg );
-	void recordScript( const QString & object, const QString & method, const QStringList & args );
-
-public:
 	//model
 	std::shared_ptr< SpyModel > model;
 	//engine
