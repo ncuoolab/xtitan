@@ -30,7 +30,8 @@ signals:
 	void captured( const QString & path );
 	void error( const QString & message );
 	void executed( bool success, const QString & response );
-	void checkRequired( int id, const QString & label, const QString & value );
+	void checkRequired( int id, const QString & value );
+	void asyncCheckRequired( int id, const QString & value );
 	void inputRequired( int id, const QString & object, const QString & method, const QVariantList & args );
 	void log( const QString & message );
 	void ready();

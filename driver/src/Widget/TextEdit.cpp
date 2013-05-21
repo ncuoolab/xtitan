@@ -180,16 +180,16 @@ void TextEdit::insertSingleCommand( const QString & name, const QString & path )
 	this->setTextCursor( cursor );
 }
 
-void TextEdit::insertSpyCheck( int id, const QString & label, const QString & value ) {
+void TextEdit::insertSpyCheck( int id, const QString & feature, const QString & value ) {
 	auto cursor = this->textCursor();
 	QStringList tmp;
 	QString tpl = "\'%1\'";
 
 	tmp.append( QString::number( id ) );
-	tmp.append( tpl.arg( label ) );
+//	tmp.append( tpl.arg( label ) );
 	tmp.append( tpl.arg( value ) );
 
-	cursor.insertText( "spyCheck" );
+	cursor.insertText( feature );
 	cursor.insertText( "( " );
 	cursor.insertText( tmp.join( ", " ) );
 	cursor.insertText( " )\n" );

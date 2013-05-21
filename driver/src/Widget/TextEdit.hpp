@@ -16,7 +16,7 @@ public:
 
 	void insertImage( const QString & path );
 	void insertSingleCommand( const QString & name, const QString & path );
-	void insertSpyCheck( int id, const QString & label, const QString & value );
+	void insertSpyCheck( int id, const QString & feature, const QString & value );
 	void insertSpyInput( int id, int delay, const QString & object, const QString & method, const QStringList & args );
 	void insertTypeCommand();
 	void setTestCase( std::shared_ptr< TestCase > testCase );

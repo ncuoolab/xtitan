@@ -30,13 +30,13 @@ private:
 	std::shared_ptr< Private > p_;
 };
 
-XTITAN_SPY_DLL void encodeCheck( const std::string & signature, bool value );
-XTITAN_SPY_DLL void encodeCheck( const std::string & signature, int value );
-XTITAN_SPY_DLL void encodeCheck( const std::string & signature, double value );
-XTITAN_SPY_DLL void encodeCheck( const std::string & signature, const char * value );
-XTITAN_SPY_DLL void encodeCheck( const std::string & signature, const std::string & value );
-XTITAN_SPY_DLL void encodeCheck( const std::string & signature, const wchar_t * value );
-XTITAN_SPY_DLL void encodeCheck( const std::string & signature, const std::wstring & value );
+XTITAN_SPY_DLL void encodeCheck( const std::string & signature, const std::string & feature, bool value );
+XTITAN_SPY_DLL void encodeCheck( const std::string & signature, const std::string & feature, int value );
+XTITAN_SPY_DLL void encodeCheck( const std::string & signature, const std::string & feature, double value );
+XTITAN_SPY_DLL void encodeCheck( const std::string & signature, const std::string & feature, const char * value );
+XTITAN_SPY_DLL void encodeCheck( const std::string & signature, const std::string & feature, const std::string & value );
+XTITAN_SPY_DLL void encodeCheck( const std::string & signature, const std::string & feature, const wchar_t * value );
+XTITAN_SPY_DLL void encodeCheck( const std::string & signature, const std::string & feature, const std::wstring & value );
 
 }
 

@@ -7,7 +7,8 @@
 
 
 #define spyInput xtitan::SpyInput(this->objectName().toUtf8(),__FUNCTION__)
-#define spyCheck(value) xtitan::encodeCheck(__FUNCTION__,value)
+#define spyCheck(value) xtitan::encodeCheck(__FUNCTION__,"spyCheck",value)
+#define spyAsyncCheck(value) xtitan::encodeCheck(__FUNCTION__,"spyAsyncCheck",value);
 
 XTITAN_SPY_DLL void xRegisterObject( QObject * object, const QString & id = QString() );
 

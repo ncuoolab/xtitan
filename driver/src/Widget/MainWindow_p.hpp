@@ -95,10 +95,11 @@ public slots:
 	void onSikuliClientExecuted( bool, const QString & );
 	void onSikuliClientTaskCompleted( const QString &, bool, const QString & );
 	void onSikuliClientBundlesExecuted();
-	void onSikuliClientCheck( int id, const QString & label, const QString & value );
+	void onSikuliClientCheck( int id, const QString & value );
+	void onSikuliClientAsyncCheck( int id, const QString & value );
 	void onSikuliClientInput( int id, const QString & object, const QString & method, const QVariantList & args );
 	void onSpyInputClicked();
-	void onTUServerCheck( int id, const QString & label, const QString & value );
+	void onTUServerCheck( int id, const QString & feature, const QString & value );
 	void onTUServerInput( int id, int delay, const QString & object, const QString & method, const QStringList & args );
 	void onRestartSikuliServer();
 	void onReopenTestCaseManager();

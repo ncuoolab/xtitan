@@ -33,14 +33,15 @@ public class CommandParser {
 
 		this.python_.exec( "from sikuli.Sikuli import *" );
 		this.python_.exec( "def spyInput(id_, delay, object_, method, *args):\n    from edu.ncu.csie.oolab import CommandParser\n    CommandParser.input(id_, delay, object_, method, args)\n\n" );
-		this.python_.exec( "def spyCheck(id_, label, value):\n    from edu.ncu.csie.oolab import CommandParser\n    CommandParser.check(id_, label, value)\n\n" );
+		this.python_.exec( "def spyCheck(id_, value):\n    from edu.ncu.csie.oolab import CommandParser\n    CommandParser.check(id_, value)\n\n" );
+		this.python_.exec( "def spyAsyncCheck(id_, value):\n    from edu.ncu.csie.oolab import CommandParser\n    CommandParser.asyncCheck(id_, value)\n\n" );
 	}
 
 	/**
 	 * Executes commands.
-	 * 
+	 *
 	 * b64Data must has command field.
-	 * 
+	 *
 	 * @param b64Data
 	 *            Base64 encoded JSON string
 	 * @return null if command is invalid; Base64 encoded JSON string otherwise.
@@ -64,18 +65,18 @@ public class CommandParser {
 		Settings.InfoLogs = verbose;
 		Settings.ProfileLogs = verbose;
 	}
-	
+
 	private HashMap< String, Object > decodeCommand( String b64Data ) {
 		String json = new String( Base64.decodeBase64( b64Data.getBytes( this.CHARSET ) ), this.CHARSET );
 		return this.json_.fromJson( json, this.HASH_TYPE );
 	}
-	
+
 	private String encodeResult( HashMap< String, Object > result ) {
 		String json = this.json_.toJson( result );
 		String b64Data = new String( Base64.encodeBase64( json.getBytes( this.CHARSET ) ), this.CHARSET );
 		return b64Data;
 	}
-	
+
 	public static void input( Integer id, Integer delay, String object, String method, List<Object> args ) {
 		try {
 			Thread.sleep( delay );
@@ -94,12 +95,21 @@ public class CommandParser {
 		String b64data = self.encodeResult( data );
 		System.out.println( b64data );
 	}
-	
-	public static void check( Integer id, String label, String value ) {
+
+	public static void check( Integer id, String value ) {
 		HashMap< String, Object > data = new HashMap< String, Object >();
 		data.put( "result", "check" );
 		data.put( "id", id );
-		data.put( "label", label );
+		data.put( "value", value );
+
+		String b64data = self.encodeResult( data );
+		System.out.println( b64data );
+	}
+
+	public static void asyncCheck( Integer id, String value ) {
+		HashMap< String, Object > data = new HashMap< String, Object >();
+		data.put( "result", "async_check" );
+		data.put( "id", id );
 		data.put( "value", value );
 
 		String b64data = self.encodeResult( data );

@@ -18,7 +18,8 @@ public:
 	TestUnit( int id, SimpleSocket * socket, TestUnitServer * server, QObject * parent );
 
 	bool check() const;
-	void recordOracle( const QString & label, const QString & value );
+	void recordOracle( const QString & value );
+	void recordAsyncOracle( const QString & value );
 	void sendInput( const QString & object, const QString & method, const QVariantList & args );
 
 signals:

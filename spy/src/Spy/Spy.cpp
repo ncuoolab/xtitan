@@ -69,13 +69,13 @@ bool Spy::isTesting() const {
 	return this->p_->isTestable;
 }
 
-void Spy::encodeCheck( const QString & id, const QString & value ) {
+void Spy::encodeCheck( const QString & id, const QString & feature, const QString & value ) {
 	if( !this->p_->isTestable ) {
 		return;
 	}
 
 	if( this->p_->model ){
-		this->p_->model->check( id, value );
+		this->p_->model->check( id, feature, value );
 	}
 }
 

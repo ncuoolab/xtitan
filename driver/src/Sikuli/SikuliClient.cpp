@@ -128,9 +128,12 @@ void SikuliClient::Private::readExecute() {
 			emit this->inputRequired( id, object, method, args );
 		} else if( result == "check" ) {
 			auto id = data.value( "id" ).toInt();
-			auto label = data.value( "label" ).toString();
 			auto value = data.value( "value" ).toString();
-			emit this->checkRequired( id, label, value );
+			emit this->checkRequired( id, value );
+		} else if( result == "async_check" ) {
+			auto id = data.value( "id" ).toInt();
+			auto value = data.value( "value" ).toString();
+			emit this->asyncCheckRequired( id, value );
 		} else {
 			assert( !"invalid value" );
 		}
@@ -242,7 +245,8 @@ p_( new Private ) {
 	this->connect( this->p_.get(), SIGNAL( captured( const QString & ) ), SIGNAL( captured( const QString & ) ) );
 	this->connect( this->p_.get(), SIGNAL( error( const QString & ) ), SIGNAL( error( const QString & ) ) );
 	this->connect( this->p_.get(), SIGNAL( executed( bool, const QString & ) ), SIGNAL( executed( bool, const QString & ) ) );
-	this->connect( this->p_.get(), SIGNAL( checkRequired( int, const QString &, const QString & ) ), SIGNAL( checkRequired( int, const QString &, const QString & ) ) );
+	this->connect( this->p_.get(), SIGNAL( checkRequired( int, const QString & ) ), SIGNAL( checkRequired( int, const QString & ) ) );
+	this->connect( this->p_.get(), SIGNAL( asyncCheckRequired( int, const QString & ) ), SIGNAL( asyncCheckRequired( int, const QString & ) ) );
 	this->connect( this->p_.get(), SIGNAL( inputRequired( int, const QString &, const QString &, const QVariantList & ) ), SIGNAL( inputRequired( int, const QString &, const QString &, const QVariantList & ) ) );
 	this->connect( this->p_.get(), SIGNAL( log( const QString & ) ), SIGNAL( log( const QString & ) ) );
 	this->connect( this->p_.get(), SIGNAL( ready() ), SIGNAL( ready() ) );

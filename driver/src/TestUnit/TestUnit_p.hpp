@@ -24,7 +24,7 @@ public slots:
 	void onReadyRead();
 
 signals:
-	void checkReceived( int id, const QString & label, const QString & value );
+	void checkReceived( int id, const QString & feature, const QString & value );
 	void inputReceived( int id, int delay, const QString & object, const QString & method, const QStringList & args );
 
 public:
@@ -34,7 +34,9 @@ public:
 	std::map< QString, Command > commands;
 	qint64 lastTimestamp;
 	std::vector< QString > sutCheckPoints;
+	std::vector< QString > sutAsyncCheckPoints;
 	std::vector< QString > oracleCheckPoints;
+	std::vector< QString > oracleAsyncCheckPoints;
 };
 
 }

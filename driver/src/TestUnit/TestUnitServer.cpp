@@ -55,10 +55,16 @@ bool TestUnitServer::listen( const QString & name ) {
 	return this->p_->server->listen( name, true );
 }
 
-void TestUnitServer::recordOracle( int id, const QString & label, const QString & value ) {
+void TestUnitServer::recordOracle( int id, const QString & value ) {
 	auto testUnit = this->p_->clients.at( id );
-	testUnit->recordOracle( label, value );
+	testUnit->recordOracle( value );
 }
+
+void TestUnitServer::recordAsyncOracle( int id, const QString & value ) {
+	auto testUnit = this->p_->clients.at( id );
+	testUnit->recordAsyncOracle( value );
+}
+
 
 void TestUnitServer::sendInput( int id, const QString & object, const QString & method, const QVariantList & args ) {
 	auto testUnit = this->p_->clients.at( id );

@@ -67,7 +67,8 @@ modified( false ) {
 	this->connect( this->client.get(), SIGNAL( executed( bool, const QString & ) ), SLOT( onSikuliClientExecuted( bool, const QString & ) ) );
 	this->connect( this->client.get(), SIGNAL( taskCompleted( const QString &, bool, const QString & ) ), SLOT( onSikuliClientTaskCompleted( const QString &, bool, const QString & ) ) );
 	this->connect( this->client.get(), SIGNAL( bundlesExecuted() ), SLOT( onSikuliClientBundlesExecuted() ) );
-	this->connect( this->client.get(), SIGNAL( checkRequired( int, const QString &, const QString & ) ), SLOT( onSikuliClientCheck( int, const QString &, const QString & ) ) );
+	this->connect( this->client.get(), SIGNAL( checkRequired( int, const QString & ) ), SLOT( onSikuliClientCheck( int, const QString & ) ) );
+	this->connect( this->client.get(), SIGNAL( asyncCheckRequired( int, const QString & ) ), SLOT( onSikuliClientAsyncCheck( int, const QString & ) ) );
 	this->connect( this->client.get(), SIGNAL( inputRequired( int, const QString &, const QString &, const QVariantList & ) ), SLOT( onSikuliClientInput( int, const QString &, const QString &, const QVariantList & ) ) );
 
 	this->connect( this->buttonTimer, SIGNAL( timeout() ), SLOT( onButtonTimeout() ) );
@@ -446,16 +447,20 @@ void MainWindow::Private::showAbout() {
 	QMessageBox::information( this->host, i18n::aboutWidgetTitle, aboutWidgetBody );
 }
 
-void MainWindow::Private::onTUServerCheck( int id, const QString & label, const QString & value ) {
-	this->ui.textEdit->insertSpyCheck( id, label, value );
+void MainWindow::Private::onTUServerCheck( int id, const QString & feature, const QString & value ) {
+	this->ui.textEdit->insertSpyCheck( id, feature, value );
 }
 
 void MainWindow::Private::onTUServerInput( int id, int delay, const QString & object, const QString & method, const QStringList & args ) {
 	this->ui.textEdit->insertSpyInput( id, delay, object, method, args );
 }
 
-void MainWindow::Private::onSikuliClientCheck( int id, const QString & label, const QString & value ) {
-	this->tuServer->recordOracle( id, label, value );
+void MainWindow::Private::onSikuliClientCheck( int id, const QString & value ) {
+	this->tuServer->recordOracle( id, value );
+}
+
+void MainWindow::Private::onSikuliClientAsyncCheck( int id, const QString & value ) {
+	this->tuServer->recordAsyncOracle( id, value );
 }
 
 void MainWindow::Private::onSikuliClientInput( int id, const QString & object, const QString & method, const QVariantList & args ) {

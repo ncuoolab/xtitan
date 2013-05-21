@@ -5,9 +5,10 @@
 
 namespace {
 
-xtitan::SimpleSocket::Packet makeCheck( const QString & label, const QString & value ) {
+xtitan::SimpleSocket::Packet makeCheck( const QString & label, const QString & feature, const QString & value ) {
 	QVariantMap data;
 	data.insert( "label", label );
+	data.insert( "feature", feature );
 	data.insert( "value", value );
 	return xtitan::SimpleSocket::Packet( "<Check>", data );
 }
@@ -104,8 +105,8 @@ void SpyModel::connectToHost( const QString & name ) {
 	this->p_->socket->connectToServer( name );
 }
 
-void SpyModel::check( const QString & label, const QString & value ) {
-	SimpleSocket::Packet msg = makeCheck( label, value );
+void SpyModel::check( const QString & label, const QString & feature, const QString & value ) {
+	SimpleSocket::Packet msg = makeCheck( label, feature, value );
 	this->p_->socket->write( msg.first, msg.second );
 }
 

@@ -1,5 +1,7 @@
 #include "TestUnit_p.hpp"
 
+#include <cassert>
+
 #include <QtCore/QStringList>
 
 
@@ -16,7 +18,9 @@ server( server ),
 commands(),
 lastTimestamp( -1LL ),
 sutCheckPoints(),
-oracleCheckPoints() {
+sutAsyncCheckPoints(),
+oracleCheckPoints(),
+oracleAsyncCheckPoints() {
 	// input handler
 	this->commands.insert( std::make_pair( "<Input>", [this]( const QVariant & data )->void {
 		if( !this->server->isRecording() ) {
@@ -42,14 +46,21 @@ oracleCheckPoints() {
 	this->commands.insert( std::make_pair( "<Check>", [this]( const QVariant & data )->void {
 		auto kwargs = data.toMap();
 
-		auto label = kwargs.value( "label" ).toString();
+		//auto label = kwargs.value( "label" ).toString();
+		auto feature = kwargs.value( "feature" ).toString();
 		auto value = kwargs.value( "value" ).toString();
 
 		if( this->server->isRecording() ) {
-			emit this->checkReceived( this->id, label, value );
+			emit this->checkReceived( this->id, feature, value );
 		} else {
 			// TODO thread lock?
-			this->sutCheckPoints.push_back( value );
+			if( feature == "spyCheck" ) {
+				this->sutCheckPoints.push_back( value );
+			} else if( feature == "spyAsyncCheck" ) {
+				this->sutAsyncCheckPoints.push_back( value );
+			} else {
+				assert( !"invalid check feature" );
+			}
 		}
 	} ) );
 
@@ -86,11 +97,25 @@ p_( new Private( id, socket, server ) ) {
 }
 
 bool TestUnit::check() const {
-	return this->p_->oracleCheckPoints == this->p_->sutCheckPoints;
+	bool syncPassed = this->p_->oracleCheckPoints == this->p_->sutCheckPoints;
+	for( auto it = this->p_->sutAsyncCheckPoints.begin(); it != this->p_->sutAsyncCheckPoints.end(); ++it ) {
+		auto it2 = std::find( this->p_->oracleAsyncCheckPoints.begin(), this->p_->oracleAsyncCheckPoints.end(), *it );
+		if( it2 == this->p_->sutAsyncCheckPoints.end() ) {
+			// not found
+			return false;
+		}
+		this->p_->oracleAsyncCheckPoints.erase( it2 );
+	}
+	bool asyncPassed = this->p_->oracleAsyncCheckPoints.empty();
+	return syncPassed && asyncPassed;
 }
 
-void TestUnit::recordOracle( const QString & label, const QString & value ) {
+void TestUnit::recordOracle( const QString & value ) {
 	this->p_->oracleCheckPoints.push_back( value );
+}
+
+void TestUnit::recordAsyncOracle( const QString & value ) {
+	this->p_->oracleAsyncCheckPoints.push_back( value );
 }
 
 void TestUnit::sendInput( const QString & object, const QString & method, const QVariantList & args ) {

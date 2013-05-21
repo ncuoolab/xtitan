@@ -15,7 +15,7 @@ public :
 	void connectToHost( const QString & name );
 
 	void stop();
-	void check( const QString & label, const QString & value );
+	void check( const QString & label, const QString & feature, const QString & value );
 	void input( const QString & object, const QString & method, const QStringList & args, qint64 timeStamp );
 
 signals:
