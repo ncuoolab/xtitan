@@ -7,8 +7,8 @@
 
 namespace {
 
-void encodeCheckHelper( const std::string & signature, const QArgument< const QString & > & arg ) {
-	QMetaObject::invokeMethod( &xtitan::Spy::instance(), "encodeCheck", Q_ARG( const QString &, QString::fromStdString( signature ) ), arg );
+void encodeCheckHelper( const std::string & signature, const QString & arg ) {
+	QMetaObject::invokeMethod( &xtitan::Spy::instance(), "encodeCheck", Q_ARG( const QString &, QString::fromStdString( signature ) ), Q_ARG( const QString &, arg ) );
 }
 
 }
@@ -49,8 +49,18 @@ SpyInput & SpyInput::operator %( double d ) {
 	return *this;
 }
 
+SpyInput & SpyInput::operator %( const char * s ) {
+	this->p_->args.append( QString( "\'%1\'" ).arg( QString::fromAscii( s ) ) );
+	return *this;
+}
+
 SpyInput & SpyInput::operator %( const std::string & s ) {
 	this->p_->args.append( QString( "\'%1\'" ).arg( QString::fromStdString( s ) ) );
+	return *this;
+}
+
+SpyInput & SpyInput::operator %( const wchar_t * ws ) {
+	this->p_->args.append( QString( "\'%1\'" ).arg( QString::fromWCharArray( ws ) ) );
 	return *this;
 }
 
@@ -60,21 +70,29 @@ SpyInput & SpyInput::operator %( const std::wstring & ws ) {
 }
 
 void xtitan::encodeCheck( const std::string & signature, bool value ){
-	encodeCheckHelper( signature, Q_ARG( const QString &, value ? "true" : "false" ) );
+	encodeCheckHelper( signature, value ? "true" : "false" );
 }
 
 void xtitan::encodeCheck( const std::string & signature, int value ){
-	encodeCheckHelper( signature, Q_ARG( const QString &, QString::number( value ) ) );
+	encodeCheckHelper( signature, QString::number( value ) );
 }
 
 void xtitan::encodeCheck( const std::string & signature, double value ){
-	encodeCheckHelper( signature, Q_ARG( const QString &, QString::number( value ) ) );
+	encodeCheckHelper( signature, QString::number( value ) );
+}
+
+void xtitan::encodeCheck( const std::string & signature, const char * value ) {
+	encodeCheckHelper( signature, QString::fromAscii( value ) );
 }
 
 void xtitan::encodeCheck( const std::string & signature, const std::string & value ) {
-	encodeCheckHelper( signature, Q_ARG( const QString &, QString::fromStdString( value ) ) );
+	encodeCheckHelper( signature, QString::fromStdString( value ) );
+}
+
+void xtitan::encodeCheck( const std::string & signature, const wchar_t * value ) {
+	encodeCheckHelper( signature, QString::fromWCharArray( value ) );
 }
 
 void xtitan::encodeCheck( const std::string & signature, const std::wstring & value ) {
-	encodeCheckHelper( signature, Q_ARG( const QString &, QString::fromStdWString( value ) ) );
+	encodeCheckHelper( signature, QString::fromStdWString( value ) );
 }

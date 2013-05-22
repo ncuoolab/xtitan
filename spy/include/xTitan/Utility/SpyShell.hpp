@@ -17,7 +17,9 @@ public:
 	SpyInput & operator %( bool b );
 	SpyInput & operator %( int i );
 	SpyInput & operator %( double d );
+	SpyInput & operator %( const char * s );
 	SpyInput & operator %( const std::string & s );
+	SpyInput & operator %( const wchar_t * ws );
 	SpyInput & operator %( const std::wstring & ws );
 
 private:
@@ -31,7 +33,9 @@ private:
 XTITAN_SPY_DLL void encodeCheck( const std::string & signature, bool value );
 XTITAN_SPY_DLL void encodeCheck( const std::string & signature, int value );
 XTITAN_SPY_DLL void encodeCheck( const std::string & signature, double value );
+XTITAN_SPY_DLL void encodeCheck( const std::string & signature, const char * value );
 XTITAN_SPY_DLL void encodeCheck( const std::string & signature, const std::string & value );
+XTITAN_SPY_DLL void encodeCheck( const std::string & signature, const wchar_t * value );
 XTITAN_SPY_DLL void encodeCheck( const std::string & signature, const std::wstring & value );
 
 }
