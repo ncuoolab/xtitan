@@ -33,8 +33,8 @@ public class CommandParser {
 
 		this.python_.exec( "from sikuli.Sikuli import *" );
 		this.python_.exec( "def spyInput(id_, delay, object_, method, *args):\n    from edu.ncu.csie.oolab import CommandParser\n    CommandParser.input(id_, delay, object_, method, args)\n\n" );
-		this.python_.exec( "def spyCheck(id_, value):\n    from edu.ncu.csie.oolab import CommandParser\n    CommandParser.check(id_, value)\n\n" );
-		this.python_.exec( "def spyAsyncCheck(id_, value):\n    from edu.ncu.csie.oolab import CommandParser\n    CommandParser.asyncCheck(id_, value)\n\n" );
+		this.python_.exec( "def spyCheck(id_, file_, line, cpid, *args):\n    from edu.ncu.csie.oolab import CommandParser\n    CommandParser.check(id_, file_, line, cpid, *args)\n\n" );
+		this.python_.exec( "def spyAsyncCheck(id_, file_, line, acpid, pre, *args):\n    from edu.ncu.csie.oolab import CommandParser\n    CommandParser.asyncCheck(id_, file_, line, acpid, pre, *args)\n\n" );
 	}
 
 	/**
@@ -96,21 +96,32 @@ public class CommandParser {
 		System.out.println( b64data );
 	}
 
-	public static void check( Integer id, String value ) {
+	public static void check( Integer id, String file, Integer line, String cpid, List<Object> args ) {
 		HashMap< String, Object > data = new HashMap< String, Object >();
 		data.put( "result", "check" );
 		data.put( "id", id );
-		data.put( "value", value );
+		HashMap< String, Object > cp = new HashMap< String, Object >();
+		cp.put( "file", file );
+		cp.put( "line", line );
+		cp.put( "id", cpid );
+		cp.put( "args", args );
+		data.put( "cp", cp );
 
 		String b64data = self.encodeResult( data );
 		System.out.println( b64data );
 	}
 
-	public static void asyncCheck( Integer id, String value ) {
+	public static void asyncCheck( Integer id, String file, Integer line, String acpid, String pre, List<Object> args ) {
 		HashMap< String, Object > data = new HashMap< String, Object >();
 		data.put( "result", "async_check" );
 		data.put( "id", id );
-		data.put( "value", value );
+		HashMap< String, Object > acp = new HashMap< String, Object >();
+		acp.put( "file", file );
+		acp.put( "line", line );
+		acp.put( "id", acpid );
+		acp.put( "pre", pre );
+		acp.put( "args", args );
+		data.put( "acp", acp );
 
 		String b64data = self.encodeResult( data );
 		System.out.println( b64data );
