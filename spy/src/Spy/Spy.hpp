@@ -17,7 +17,8 @@ public:
 	static Spy & instance();
 
 	void activate();
-	Q_INVOKABLE void encodeCheck( const QString & id, const QString & feature, const QString & value );
+	Q_INVOKABLE void encodeCheck( const QString & file, int line, const QString & id, const QStringList & args );
+	Q_INVOKABLE void encodeAsyncCheck( const QString & file, int line, const QString & id, const QString pre, const QStringList & args );
 	void finish();
 	QObject * getObject( const QString & key ) const;
 	bool isTesting() const;

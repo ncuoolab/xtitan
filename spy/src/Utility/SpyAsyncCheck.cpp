@@ -28,7 +28,7 @@ SpyAsyncCheck::~SpyAsyncCheck() {
 	// commit chained input
 	// NOTE this indirect invoke is necessary
 	// because Spy::instance().thread() may different from QThread::currentThread()
-	QMetaObject::invokeMethod( &xtitan::Spy::instance(), "encodeCheck", Q_ARG( const QString &, this->p_->file ), Q_ARG( int, this->p_->line ), Q_ARG( const QString &, this->p_->id ), Q_ARG( const QString &, this->p_->pre ), Q_ARG( const QStringList &, this->p_->args ) );
+	QMetaObject::invokeMethod( &xtitan::Spy::instance(), "encodeAsyncCheck", Q_ARG( const QString &, this->p_->file ), Q_ARG( int, this->p_->line ), Q_ARG( const QString &, this->p_->id ), Q_ARG( const QString &, this->p_->pre ), Q_ARG( const QStringList &, this->p_->args ) );
 }
 
 SpyAsyncCheck & SpyAsyncCheck::id( const std::string & s ) {

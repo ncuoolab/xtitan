@@ -5,11 +5,22 @@
 
 namespace {
 
-xtitan::SimpleSocket::Packet makeCheck( const QString & label, const QString & feature, const QString & value ) {
+xtitan::SimpleSocket::Packet makeAsyncCheck( const QString & file, int line, const QString & id, const QString & pre, const QStringList & args ) {
 	QVariantMap data;
-	data.insert( "label", label );
-	data.insert( "feature", feature );
-	data.insert( "value", value );
+	data.insert( "file", file );
+	data.insert( "line", line );
+	data.insert( "id", id );
+	data.insert( "pre", pre );
+	data.insert( "args", args );
+	return xtitan::SimpleSocket::Packet( "<AsyncCheck>", data );
+}
+
+xtitan::SimpleSocket::Packet makeCheck( const QString & file, int line, const QString & id, const QStringList & args ) {
+	QVariantMap data;
+	data.insert( "file", file );
+	data.insert( "line", line );
+	data.insert( "id", id );
+	data.insert( "args", args );
 	return xtitan::SimpleSocket::Packet( "<Check>", data );
 }
 
@@ -101,12 +112,17 @@ SpyModel::~SpyModel(){
 	this->p_->socket->disconnectFromServer();
 }
 
+void SpyModel::asyncCheck( const QString & file, int line, const QString & id, const QString & pre, const QStringList & args ) {
+	auto msg = makeAsyncCheck( file, line, id, pre, args );
+	this->p_->socket->write( msg.first, msg.second );
+}
+
 void SpyModel::connectToHost( const QString & name ) {
 	this->p_->socket->connectToServer( name );
 }
 
-void SpyModel::check( const QString & label, const QString & feature, const QString & value ) {
-	SimpleSocket::Packet msg = makeCheck( label, feature, value );
+void SpyModel::check( const QString & file, int line, const QString & id, const QStringList & args ) {
+	auto msg = makeCheck( file, line, id, args );
 	this->p_->socket->write( msg.first, msg.second );
 }
 

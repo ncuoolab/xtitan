@@ -15,8 +15,9 @@ public :
 	void connectToHost( const QString & name );
 
 	void stop();
-	void check( const QString & label, const QString & feature, const QString & value );
+	void check( const QString & file, int line, const QString & id, const QStringList & args );
 	void input( const QString & object, const QString & method, const QStringList & args, qint64 timeStamp );
+	void asyncCheck( const QString & file, int line, const QString & id, const QString & pre, const QStringList & args );
 
 signals:
 	void ready();
