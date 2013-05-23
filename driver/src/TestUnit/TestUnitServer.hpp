@@ -8,6 +8,9 @@
 
 namespace xtitan {
 
+struct AsyncCheckPoint;
+struct CheckPoint;
+
 class TestUnitServer: public QObject {
 	Q_OBJECT
 public:
@@ -17,14 +20,15 @@ public:
 	QString errorString() const;
 	bool isRecording() const;
 	bool listen( const QString & name );
-	void recordOracle( int id, const QString & value );
-	void recordAsyncOracle( int id, const QString & value );
+	void recordAsyncOracle( int id, const AsyncCheckPoint & acp );
+	void recordOracle( int id, const CheckPoint & cp );
 	void sendInput( int id, const QString & object, const QString & method, const QVariantList & args );
 	void startRecording();
 	void stopRecording();
 
 signals:
-	void checkReceived( int id, const QString & feature, const QString & value );
+	void asyncCheckReceived( int id, const xtitan::AsyncCheckPoint & acp );
+	void checkReceived( int id, const xtitan::CheckPoint & cp );
 	void inputReceived( int id, int delay, const QString & object, const QString & method, const QStringList & args );
 
 private:

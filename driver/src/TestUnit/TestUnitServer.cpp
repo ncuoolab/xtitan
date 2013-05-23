@@ -3,6 +3,7 @@
 using xtitan::TestUnitServer;
 using xtitan::SimpleServer;
 
+
 TestUnitServer::Private::Private( TestUnitServer * owner ):
 QObject(),
 owner( owner ),
@@ -55,14 +56,14 @@ bool TestUnitServer::listen( const QString & name ) {
 	return this->p_->server->listen( name, true );
 }
 
-void TestUnitServer::recordOracle( int id, const QString & value ) {
+void TestUnitServer::recordOracle( int id, const CheckPoint & cp ) {
 	auto testUnit = this->p_->clients.at( id );
-	testUnit->recordOracle( value );
+	testUnit->recordOracle( cp );
 }
 
-void TestUnitServer::recordAsyncOracle( int id, const QString & value ) {
+void TestUnitServer::recordAsyncOracle( int id, const AsyncCheckPoint & acp ) {
 	auto testUnit = this->p_->clients.at( id );
-	testUnit->recordAsyncOracle( value );
+	testUnit->recordAsyncOracle( acp );
 }
 
 

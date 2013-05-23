@@ -12,6 +12,8 @@
 #include "xTitan/Exception/IOError.hpp"
 #include "xTitan/Utility/Setting.hpp"
 
+#include "TestUnit/CheckPoint.hpp"
+
 
 namespace {
 
@@ -128,12 +130,23 @@ void SikuliClient::Private::readExecute() {
 			emit this->inputRequired( id, object, method, args );
 		} else if( result == "check" ) {
 			auto id = data.value( "id" ).toInt();
-			auto value = data.value( "value" ).toString();
-			emit this->checkRequired( id, value );
+			auto cp = data.value( "cp" ).toMap();
+			CheckPoint tmp;
+			tmp.file = cp.value( "file" ).toString();
+			tmp.line = cp.value( "line" ).toInt();
+			tmp.id = cp.value( "id" ).toString();
+			tmp.args = cp.value( "args" ).toStringList();
+			emit this->checkRequired( id, tmp );
 		} else if( result == "async_check" ) {
 			auto id = data.value( "id" ).toInt();
-			auto value = data.value( "value" ).toString();
-			emit this->asyncCheckRequired( id, value );
+			auto acp = data.value( "acp" ).toMap();
+			AsyncCheckPoint tmp;
+			tmp.file = acp.value( "file" ).toString();
+			tmp.line = acp.value( "line" ).toInt();
+			tmp.id = acp.value( "id" ).toString();
+			tmp.pre = acp.value( "pre" ).toString();
+			tmp.args = acp.value( "args" ).toStringList();
+			emit this->asyncCheckRequired( id, tmp );
 		} else {
 			assert( !"invalid value" );
 		}

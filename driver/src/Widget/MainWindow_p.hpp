@@ -36,6 +36,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "Sikuli/SikuliClient.hpp"
 #include "TestCase/TestCase.hpp"
 #include "TestUnit/TestUnitServer.hpp"
+#include "TestUnit/CheckPoint.hpp"
 
 #include "ui_MainWindow.h"
 
@@ -95,11 +96,12 @@ public slots:
 	void onSikuliClientExecuted( bool, const QString & );
 	void onSikuliClientTaskCompleted( const QString &, bool, const QString & );
 	void onSikuliClientBundlesExecuted();
-	void onSikuliClientCheck( int id, const QString & value );
-	void onSikuliClientAsyncCheck( int id, const QString & value );
+	void onSikuliClientCheck( int id, const xtitan::CheckPoint & cp );
+	void onSikuliClientAsyncCheck( int id, const xtitan::AsyncCheckPoint & acp );
 	void onSikuliClientInput( int id, const QString & object, const QString & method, const QVariantList & args );
 	void onSpyInputClicked();
-	void onTUServerCheck( int id, const QString & feature, const QString & value );
+	void onTUServerAsyncCheck( int id, const xtitan::AsyncCheckPoint & acp );
+	void onTUServerCheck( int id, const xtitan::CheckPoint & cp );
 	void onTUServerInput( int id, int delay, const QString & object, const QString & method, const QStringList & args );
 	void onRestartSikuliServer();
 	void onReopenTestCaseManager();

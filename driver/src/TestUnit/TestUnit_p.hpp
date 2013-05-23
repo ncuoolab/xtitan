@@ -9,6 +9,7 @@
 
 #include "xTitan/Network/SimpleSocket.hpp"
 #include "TestUnitServer.hpp"
+#include "CheckPoint.hpp"
 
 namespace xtitan {
 
@@ -24,7 +25,8 @@ public slots:
 	void onReadyRead();
 
 signals:
-	void checkReceived( int id, const QString & feature, const QString & value );
+	void asyncCheckReceived( int id, const AsyncCheckPoint & acp );
+	void checkReceived( int id, const CheckPoint & cp );
 	void inputReceived( int id, int delay, const QString & object, const QString & method, const QStringList & args );
 
 public:
@@ -33,10 +35,10 @@ public:
 	TestUnitServer * server;
 	std::map< QString, Command > commands;
 	qint64 lastTimestamp;
-	std::vector< QString > sutCheckPoints;
-	std::vector< QString > sutAsyncCheckPoints;
-	std::vector< QString > oracleCheckPoints;
-	std::vector< QString > oracleAsyncCheckPoints;
+	std::vector< CheckPoint > sutCheckPoints;
+	std::vector< AsyncCheckPoint > sutAsyncCheckPoints;
+	std::vector< CheckPoint > oracleCheckPoints;
+	std::vector< AsyncCheckPoint > oracleAsyncCheckPoints;
 };
 
 }

@@ -5,9 +5,11 @@
 #include <QtCore/QStringList>
 
 
+using xtitan::AsyncCheckPoint;
+using xtitan::CheckPoint;
+using xtitan::SimpleSocket;
 using xtitan::TestUnit;
 using xtitan::TestUnitServer;
-using xtitan::SimpleSocket;
 
 
 TestUnit::Private::Private( int id, SimpleSocket * socket, TestUnitServer * server ):
@@ -46,26 +48,41 @@ oracleAsyncCheckPoints() {
 	this->commands.insert( std::make_pair( "<Check>", [this]( const QVariant & data )->void {
 		auto kwargs = data.toMap();
 
-		//auto label = kwargs.value( "label" ).toString();
-		auto feature = kwargs.value( "feature" ).toString();
-		auto value = kwargs.value( "value" ).toString();
+		CheckPoint cp;
+		cp.file = kwargs.value( "file" ).toString();
+		cp.line = kwargs.value( "line" ).toInt();
+		cp.id = kwargs.value( "id" ).toString();
+		cp.args = kwargs.value( "args" ).toStringList();
 
 		if( this->server->isRecording() ) {
-			emit this->checkReceived( this->id, feature, value );
+			emit this->checkReceived( this->id, cp );
 		} else {
 			// TODO thread lock?
-			if( feature == "spyCheck" ) {
-				this->sutCheckPoints.push_back( value );
-			} else if( feature == "spyAsyncCheck" ) {
-				this->sutAsyncCheckPoints.push_back( value );
-			} else {
-				assert( !"invalid check feature" );
-			}
+			this->sutCheckPoints.push_back( cp );
+		}
+	} ) );
+	// async check handler
+	this->commands.insert( std::make_pair( "<AsyncCheck>", [this]( const QVariant & data )->void {
+		auto kwargs = data.toMap();
+
+		AsyncCheckPoint acp;
+		acp.file = kwargs.value( "file" ).toString();
+		acp.line = kwargs.value( "line" ).toInt();
+		acp.id = kwargs.value( "id" ).toString();
+		acp.pre = kwargs.value( "pre" ).toString();
+		acp.args = kwargs.value( "args" ).toStringList();
+
+		if( this->server->isRecording() ) {
+			emit this->asyncCheckReceived( this->id, acp );
+		} else {
+			// TODO thread lock?
+			this->sutAsyncCheckPoints.push_back( acp );
 		}
 	} ) );
 
 	this->connect( socket, SIGNAL( readyRead() ), SLOT( onReadyRead() ) );
-	server->connect( this, SIGNAL( checkReceived( int, const QString &, const QString & ) ), SIGNAL( checkReceived( int, const QString &, const QString & ) ) );
+	server->connect( this, SIGNAL( asyncCheckReceived( int, const AsyncCheckPoint & ) ), SIGNAL( asyncCheckReceived( int, const AsyncCheckPoint & ) ) );
+	server->connect( this, SIGNAL( checkReceived( int, const CheckPoint & ) ), SIGNAL( checkReceived( int, const CheckPoint & ) ) );
 	server->connect( this, SIGNAL( inputReceived( int, int, const QString &, const QString &, const QStringList & ) ), SIGNAL( inputReceived( int, int, const QString &, const QString &, const QStringList & ) ) );
 }
 
@@ -110,12 +127,12 @@ bool TestUnit::check() const {
 	return syncPassed && asyncPassed;
 }
 
-void TestUnit::recordOracle( const QString & value ) {
-	this->p_->oracleCheckPoints.push_back( value );
+void TestUnit::recordOracle( const CheckPoint & cp ) {
+	this->p_->oracleCheckPoints.push_back( cp );
 }
 
-void TestUnit::recordAsyncOracle( const QString & value ) {
-	this->p_->oracleAsyncCheckPoints.push_back( value );
+void TestUnit::recordAsyncOracle( const AsyncCheckPoint & acp ) {
+	this->p_->oracleAsyncCheckPoints.push_back( acp );
 }
 
 void TestUnit::sendInput( const QString & object, const QString & method, const QVariantList & args ) {

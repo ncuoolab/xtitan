@@ -13,6 +13,8 @@
 #include <QtCore/QUrl>
 #include <QtCore/QDir>
 
+#include "TestUnit/CheckPoint.hpp"
+
 
 using xtitan::TestCase;
 using xtitan::TextEdit;
@@ -180,16 +182,36 @@ void TextEdit::insertSingleCommand( const QString & name, const QString & path )
 	this->setTextCursor( cursor );
 }
 
-void TextEdit::insertSpyCheck( int id, const QString & feature, const QString & value ) {
+void TextEdit::insertSpyAsyncCheck( int id, const AsyncCheckPoint & acp ) {
 	auto cursor = this->textCursor();
 	QStringList tmp;
 	QString tpl = "\'%1\'";
 
 	tmp.append( QString::number( id ) );
-//	tmp.append( tpl.arg( label ) );
-	tmp.append( tpl.arg( value ) );
+	tmp.append( tpl.arg( acp.file ) );
+	tmp.append( QString::number( acp.line ) );
+	tmp.append( tpl.arg( acp.id ) );
+	tmp.append( tpl.arg( acp.pre ) );
+	tmp.append( acp.args );
 
-	cursor.insertText( feature );
+	cursor.insertText( "spyAsyncCheck" );
+	cursor.insertText( "( " );
+	cursor.insertText( tmp.join( ", " ) );
+	cursor.insertText( " )\n" );
+}
+
+void TextEdit::insertSpyCheck( int id, const CheckPoint & cp ) {
+	auto cursor = this->textCursor();
+	QStringList tmp;
+	QString tpl = "\'%1\'";
+
+	tmp.append( QString::number( id ) );
+	tmp.append( tpl.arg( cp.file ) );
+	tmp.append( QString::number( cp.line ) );
+	tmp.append( tpl.arg( cp.id ) );
+	tmp.append( cp.args );
+
+	cursor.insertText( "spyCheck" );
 	cursor.insertText( "( " );
 	cursor.insertText( tmp.join( ", " ) );
 	cursor.insertText( " )\n" );

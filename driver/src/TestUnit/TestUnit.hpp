@@ -8,8 +8,9 @@
 
 namespace xtitan {
 
+struct AsyncCheckPoint;
+struct CheckPoint;
 class SimpleSocket;
-
 class TestUnitServer;
 
 class TestUnit: public QObject {
@@ -18,8 +19,8 @@ public:
 	TestUnit( int id, SimpleSocket * socket, TestUnitServer * server, QObject * parent );
 
 	bool check() const;
-	void recordOracle( const QString & value );
-	void recordAsyncOracle( const QString & value );
+	void recordOracle( const CheckPoint & cp );
+	void recordAsyncOracle( const AsyncCheckPoint & acp );
 	void sendInput( const QString & object, const QString & method, const QVariantList & args );
 
 signals:

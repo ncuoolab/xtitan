@@ -10,6 +10,9 @@
 
 namespace xtitan {
 
+struct AsyncCheckPoint;
+struct CheckPoint;
+
 class SikuliClient : public QObject {
 	Q_OBJECT
 
@@ -30,8 +33,8 @@ signals:
 	void captured( const QString & path );
 	void error( const QString & message );
 	void executed( bool success, const QString & response );
-	void checkRequired( int id, const QString & value );
-	void asyncCheckRequired( int id, const QString & value );
+	void checkRequired( int id, const xtitan::CheckPoint & cp );
+	void asyncCheckRequired( int id, const xtitan::AsyncCheckPoint & acp );
 	void inputRequired( int id, const QString & object, const QString & method, const QVariantList & args );
 	void log( const QString & message );
 	void ready();
