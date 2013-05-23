@@ -3,12 +3,14 @@
 
 #include <QtCore/QObject>
 
-#include "xTitan/Utility/SpyShell.hpp"
+#include "xTitan/Utility/SpyInput.hpp"
+#include "xTitan/Utility/SpyCheck.hpp"
+#include "xTitan/Utility/SpyAsyncCheck.hpp"
 
 
-#define spyInput xtitan::SpyInput(this->objectName().toUtf8(),__FUNCTION__)
-#define spyCheck(value) xtitan::encodeCheck(__FUNCTION__,"spyCheck",value)
-#define spyAsyncCheck(value) xtitan::encodeCheck(__FUNCTION__,"spyAsyncCheck",value);
+#define spyInput xtitan::detail::SpyInput(this->objectName().toUtf8(),__FUNCTION__)
+#define spyCheck xtitan::detail::SpyCheck(__FILE__,__LINE__)
+#define spyAsyncCheck xtitan::detail::SpyAsyncCheck(__FILE__,__LINE__)
 
 XTITAN_SPY_DLL void xRegisterObject( QObject * object, const QString & id = QString() );
 
