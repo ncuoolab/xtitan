@@ -1,7 +1,10 @@
 #include "TestUnitServer_p.hpp"
 
-using xtitan::TestUnitServer;
+
+using xtitan::AsyncCheckPoint;
+using xtitan::CheckPoint;
 using xtitan::SimpleServer;
+using xtitan::TestUnitServer;
 
 
 TestUnitServer::Private::Private( TestUnitServer * owner ):

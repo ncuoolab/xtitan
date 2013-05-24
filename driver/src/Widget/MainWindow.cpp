@@ -24,6 +24,8 @@ namespace i18n {
 }
 
 
+using xtitan::AsyncCheckPoint;
+using xtitan::CheckPoint;
 using xtitan::MainWindow;
 using xtitan::Setting;
 using xtitan::BasicError;

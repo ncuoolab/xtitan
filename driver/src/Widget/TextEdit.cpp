@@ -16,6 +16,8 @@
 #include "TestUnit/CheckPoint.hpp"
 
 
+using xtitan::AsyncCheckPoint;
+using xtitan::CheckPoint;
 using xtitan::TestCase;
 using xtitan::TextEdit;
 
