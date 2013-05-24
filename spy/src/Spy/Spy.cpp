@@ -89,19 +89,18 @@ void Spy::encodeAsyncCheck( const QString & file, int line, const QString & id, 
 	}
 }
 
-void Spy::registerObject( QObject * obj ){
+void Spy::registerObject( QObject * object, const QString & id ){
 	if( !this->p_->isTestable ) {
 		return;
 	}
 
-	QString objName = obj->objectName();
-	QRegExp exp( "[^a-zA-Z0-9_]" );
+	QString objName = id;
+	QRegExp exp( "[^a-zA-Z0-9_\'\"]" );
 	objName = objName.replace( exp, "" );
-	obj->setObjectName( objName );
 	QScriptValue scriptObj;
-	scriptObj = this->p_->engine->newQObject( obj );
-	this->p_->engine->globalObject().setProperty( objName , scriptObj);
-	this->p_->tokens.insert( objName, obj );
+	scriptObj = this->p_->engine->newQObject( object );
+	this->p_->engine->globalObject().setProperty( objName , scriptObj );
+	this->p_->tokens.insert( objName, object );
 }
 
 QObject * Spy::getObject( const QString & key ) const {

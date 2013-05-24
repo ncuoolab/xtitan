@@ -10,13 +10,12 @@ void spyWait() {
 	QMetaObject::invokeMethod( &Spy::instance(), "wait" );
 }
 
-void xRegisterObject( QObject * object, const QString & id /* = QString */ ) {
-	if( object->objectName().isEmpty() && id.isEmpty() ) {
+void xRegisterObject( QObject * object, const QString & id ) {
+	if( id.isEmpty() ) {
 		return;
 	}
 
-	object->setObjectName( object->objectName() + id );
-	QMetaObject::invokeMethod( &Spy::instance(), "registerObject", Q_ARG( QObject *, object ) );
+	QMetaObject::invokeMethod( &Spy::instance(), "registerObject", Q_ARG( QObject *, object ), Q_ARG( const QString &, id ) );
 }
 
 QObject * xGetObject( const QString & token ) {

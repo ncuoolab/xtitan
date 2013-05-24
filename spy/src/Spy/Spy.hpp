@@ -23,7 +23,7 @@ public:
 	QObject * getObject( const QString & key ) const;
 	bool isTesting() const;
 	Q_INVOKABLE void recordInput( const QString & objectName, const QString & id, const QStringList & args );
-	Q_INVOKABLE void registerObject( QObject * obj );
+	Q_INVOKABLE void registerObject( QObject * object, const QString & id );
 
 signals:
 	void ready();

@@ -12,7 +12,7 @@
 #define spyCheck xtitan::detail::SpyCheck(__FILE__,__LINE__)
 #define spyAsyncCheck xtitan::detail::SpyAsyncCheck(__FILE__,__LINE__)
 
-XTITAN_SPY_DLL void xRegisterObject( QObject * object, const QString & id = QString() );
+XTITAN_SPY_DLL void xRegisterObject( QObject * object, const QString & id );
 
 XTITAN_SPY_DLL QString xGetToken( QObject * object );
 XTITAN_SPY_DLL QObject * xGetObject( const QString & token );
