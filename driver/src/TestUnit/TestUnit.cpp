@@ -81,8 +81,8 @@ oracleAsyncCheckPoints() {
 	} ) );
 
 	this->connect( socket, SIGNAL( readyRead() ), SLOT( onReadyRead() ) );
-	server->connect( this, SIGNAL( asyncCheckReceived( int, const AsyncCheckPoint & ) ), SIGNAL( asyncCheckReceived( int, const AsyncCheckPoint & ) ) );
-	server->connect( this, SIGNAL( checkReceived( int, const CheckPoint & ) ), SIGNAL( checkReceived( int, const CheckPoint & ) ) );
+	server->connect( this, SIGNAL( asyncCheckReceived( int, const xtitan::AsyncCheckPoint & ) ), SIGNAL( asyncCheckReceived( int, const xtitan::AsyncCheckPoint & ) ) );
+	server->connect( this, SIGNAL( checkReceived( int, const xtitan::CheckPoint & ) ), SIGNAL( checkReceived( int, const xtitan::CheckPoint & ) ) );
 	server->connect( this, SIGNAL( inputReceived( int, int, const QString &, const QString &, const QStringList & ) ), SIGNAL( inputReceived( int, int, const QString &, const QString &, const QStringList & ) ) );
 }
 

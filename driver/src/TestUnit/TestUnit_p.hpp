@@ -25,8 +25,8 @@ public slots:
 	void onReadyRead();
 
 signals:
-	void asyncCheckReceived( int id, const AsyncCheckPoint & acp );
-	void checkReceived( int id, const CheckPoint & cp );
+	void asyncCheckReceived( int id, const xtitan::AsyncCheckPoint & acp );
+	void checkReceived( int id, const xtitan::CheckPoint & cp );
 	void inputReceived( int id, int delay, const QString & object, const QString & method, const QStringList & args );
 
 public:
