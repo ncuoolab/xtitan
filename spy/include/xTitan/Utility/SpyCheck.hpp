@@ -16,6 +16,7 @@ public:
 	~SpyCheck();
 
 	SpyCheck & id( const std::string & s );
+	SpyCheck & id( const std::wstring & ws );
 
 	SpyCheck & operator %( bool b );
 	SpyCheck & operator %( int i );

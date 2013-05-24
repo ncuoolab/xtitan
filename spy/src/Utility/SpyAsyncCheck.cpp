@@ -36,8 +36,18 @@ SpyAsyncCheck & SpyAsyncCheck::id( const std::string & s ) {
 	return *this;
 }
 
+SpyAsyncCheck & SpyAsyncCheck::id( const std::wstring & ws ) {
+	this->p_->id = toQString( ws );
+	return *this;
+}
+
 SpyAsyncCheck & SpyAsyncCheck::pre( const std::string & s ) {
 	this->p_->pre = toQString( s );
+	return *this;
+}
+
+SpyAsyncCheck & SpyAsyncCheck::pre( const std::wstring & ws ) {
+	this->p_->pre = toQString( ws );
 	return *this;
 }
 

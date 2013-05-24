@@ -35,6 +35,11 @@ SpyCheck & SpyCheck::id( const std::string & s ) {
 	return *this;
 }
 
+SpyCheck & SpyCheck::id( const std::wstring & ws ) {
+	this->p_->id = toQString( ws );
+	return *this;
+}
+
 SpyCheck & SpyCheck::operator %( bool b ) {
 	this->p_->args.append( toQString( b ) );
 	return *this;

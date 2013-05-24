@@ -16,7 +16,9 @@ public:
 	~SpyAsyncCheck();
 
 	SpyAsyncCheck & id( const std::string & s );
+	SpyAsyncCheck & id( const std::wstring & ws );
 	SpyAsyncCheck & pre( const std::string & s );
+	SpyAsyncCheck & pre( const std::wstring & ws );
 
 	SpyAsyncCheck & operator %( bool b );
 	SpyAsyncCheck & operator %( int i );
