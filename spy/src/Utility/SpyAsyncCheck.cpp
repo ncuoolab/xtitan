@@ -32,22 +32,22 @@ SpyAsyncCheck::~SpyAsyncCheck() {
 }
 
 SpyAsyncCheck & SpyAsyncCheck::id( const std::string & s ) {
-	this->p_->id = toQString( s );
+	this->p_->id = QString::fromStdString( s );
 	return *this;
 }
 
 SpyAsyncCheck & SpyAsyncCheck::id( const std::wstring & ws ) {
-	this->p_->id = toQString( ws );
+	this->p_->id = QString::fromStdWString( ws );
 	return *this;
 }
 
 SpyAsyncCheck & SpyAsyncCheck::pre( const std::string & s ) {
-	this->p_->pre = toQString( s );
+	this->p_->pre = QString::fromStdString( s );
 	return *this;
 }
 
 SpyAsyncCheck & SpyAsyncCheck::pre( const std::wstring & ws ) {
-	this->p_->pre = toQString( ws );
+	this->p_->pre = QString::fromStdWString( ws );
 	return *this;
 }
 

@@ -31,12 +31,12 @@ SpyCheck::~SpyCheck() {
 }
 
 SpyCheck & SpyCheck::id( const std::string & s ) {
-	this->p_->id = toQString( s );
+	this->p_->id = QString::fromStdString( s );
 	return *this;
 }
 
 SpyCheck & SpyCheck::id( const std::wstring & ws ) {
-	this->p_->id = toQString( ws );
+	this->p_->id = QString::fromStdWString( ws );
 	return *this;
 }
 
