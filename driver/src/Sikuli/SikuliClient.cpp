@@ -258,8 +258,8 @@ p_( new Private ) {
 	this->connect( this->p_.get(), SIGNAL( captured( const QString & ) ), SIGNAL( captured( const QString & ) ) );
 	this->connect( this->p_.get(), SIGNAL( error( const QString & ) ), SIGNAL( error( const QString & ) ) );
 	this->connect( this->p_.get(), SIGNAL( executed( bool, const QString & ) ), SIGNAL( executed( bool, const QString & ) ) );
-	this->connect( this->p_.get(), SIGNAL( checkRequired( int, const QString & ) ), SIGNAL( checkRequired( int, const QString & ) ) );
-	this->connect( this->p_.get(), SIGNAL( asyncCheckRequired( int, const QString & ) ), SIGNAL( asyncCheckRequired( int, const QString & ) ) );
+	this->connect( this->p_.get(), SIGNAL( checkRequired( int, const xtitan::CheckPoint & ) ), SIGNAL( checkRequired( int, const xtitan::CheckPoint & ) ) );
+	this->connect( this->p_.get(), SIGNAL( asyncCheckRequired( int, const xtitan::AsyncCheckPoint & ) ), SIGNAL( asyncCheckRequired( int, const xtitan::AsyncCheckPoint & ) ) );
 	this->connect( this->p_.get(), SIGNAL( inputRequired( int, const QString &, const QString &, const QVariantList & ) ), SIGNAL( inputRequired( int, const QString &, const QString &, const QVariantList & ) ) );
 	this->connect( this->p_.get(), SIGNAL( log( const QString & ) ), SIGNAL( log( const QString & ) ) );
 	this->connect( this->p_.get(), SIGNAL( ready() ), SIGNAL( ready() ) );
