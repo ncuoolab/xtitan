@@ -114,12 +114,26 @@ p_( new Private( id, socket, server ) ) {
 }
 
 bool TestUnit::check() const {
+	// synchronized check points must exactly same
 	bool syncPassed = this->p_->oracleCPs == this->p_->sutCPs;
+	// asynchronized check points
+	// they could be unordered
+	// but pre-cond must exists
 	for( auto it = this->p_->sutACPs.begin(); it != this->p_->sutACPs.end(); ++it ) {
 		auto it2 = std::find( this->p_->oracleACPs.begin(), this->p_->oracleACPs.end(), *it );
 		if( it2 == this->p_->sutACPs.end() ) {
 			// not found
 			return false;
+		}
+		if( !it2->pre.isEmpty() ) {
+			auto pre = it2->pre;
+			auto it3 = std::find_if( this->p_->sutACPs.begin(), it, [&pre]( const AsyncCheckPoint & acp )->bool {
+				return pre == acp.id;
+			} );
+			if( it3 == it ) {
+				// pre-cond not found
+				return false;
+			}
 		}
 		this->p_->oracleACPs.erase( it2 );
 	}
