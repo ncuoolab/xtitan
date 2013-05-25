@@ -35,10 +35,10 @@ public:
 	TestUnitServer * server;
 	std::map< QString, Command > commands;
 	qint64 lastTimestamp;
-	std::vector< CheckPoint > sutCheckPoints;
-	std::vector< AsyncCheckPoint > sutAsyncCheckPoints;
-	std::vector< CheckPoint > oracleCheckPoints;
-	std::vector< AsyncCheckPoint > oracleAsyncCheckPoints;
+	std::vector< CheckPoint > sutCPs;
+	std::vector< AsyncCheckPoint > sutACPs;
+	std::vector< CheckPoint > oracleCPs;
+	std::vector< AsyncCheckPoint > oracleACPs;
 };
 
 }

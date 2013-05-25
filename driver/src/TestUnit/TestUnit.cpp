@@ -19,10 +19,10 @@ socket( socket ),
 server( server ),
 commands(),
 lastTimestamp( -1LL ),
-sutCheckPoints(),
-sutAsyncCheckPoints(),
-oracleCheckPoints(),
-oracleAsyncCheckPoints() {
+sutCPs(),
+sutACPs(),
+oracleCPs(),
+oracleACPs() {
 	// input handler
 	this->commands.insert( std::make_pair( "<Input>", [this]( const QVariant & data )->void {
 		if( !this->server->isRecording() ) {
@@ -58,7 +58,7 @@ oracleAsyncCheckPoints() {
 			emit this->checkReceived( this->id, cp );
 		} else {
 			// TODO thread lock?
-			this->sutCheckPoints.push_back( cp );
+			this->sutCPs.push_back( cp );
 		}
 	} ) );
 	// async check handler
@@ -76,7 +76,7 @@ oracleAsyncCheckPoints() {
 			emit this->asyncCheckReceived( this->id, acp );
 		} else {
 			// TODO thread lock?
-			this->sutAsyncCheckPoints.push_back( acp );
+			this->sutACPs.push_back( acp );
 		}
 	} ) );
 
@@ -114,25 +114,25 @@ p_( new Private( id, socket, server ) ) {
 }
 
 bool TestUnit::check() const {
-	bool syncPassed = this->p_->oracleCheckPoints == this->p_->sutCheckPoints;
-	for( auto it = this->p_->sutAsyncCheckPoints.begin(); it != this->p_->sutAsyncCheckPoints.end(); ++it ) {
-		auto it2 = std::find( this->p_->oracleAsyncCheckPoints.begin(), this->p_->oracleAsyncCheckPoints.end(), *it );
-		if( it2 == this->p_->sutAsyncCheckPoints.end() ) {
+	bool syncPassed = this->p_->oracleCPs == this->p_->sutCPs;
+	for( auto it = this->p_->sutACPs.begin(); it != this->p_->sutACPs.end(); ++it ) {
+		auto it2 = std::find( this->p_->oracleACPs.begin(), this->p_->oracleACPs.end(), *it );
+		if( it2 == this->p_->sutACPs.end() ) {
 			// not found
 			return false;
 		}
-		this->p_->oracleAsyncCheckPoints.erase( it2 );
+		this->p_->oracleACPs.erase( it2 );
 	}
-	bool asyncPassed = this->p_->oracleAsyncCheckPoints.empty();
+	bool asyncPassed = this->p_->oracleACPs.empty();
 	return syncPassed && asyncPassed;
 }
 
 void TestUnit::recordOracle( const CheckPoint & cp ) {
-	this->p_->oracleCheckPoints.push_back( cp );
+	this->p_->oracleCPs.push_back( cp );
 }
 
 void TestUnit::recordAsyncOracle( const AsyncCheckPoint & acp ) {
-	this->p_->oracleAsyncCheckPoints.push_back( acp );
+	this->p_->oracleACPs.push_back( acp );
 }
 
 void TestUnit::sendInput( const QString & object, const QString & method, const QVariantList & args ) {
