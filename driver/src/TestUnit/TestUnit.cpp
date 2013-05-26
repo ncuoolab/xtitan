@@ -2,6 +2,8 @@
 
 #include <cassert>
 
+#include <set>
+
 #include <QtCore/QStringList>
 
 
@@ -119,18 +121,19 @@ bool TestUnit::check() const {
 	// asynchronized check points
 	// they could be unordered
 	// but pre-cond must exists
+	std::set< QString > ids;
 	for( auto it = this->p_->sutACPs.begin(); it != this->p_->sutACPs.end(); ++it ) {
 		auto it2 = std::find( this->p_->oracleACPs.begin(), this->p_->oracleACPs.end(), *it );
 		if( it2 == this->p_->sutACPs.end() ) {
 			// not found
 			return false;
 		}
+		if( !it2->id.isEmpty() ) {
+			ids.insert( it2->id );
+		}
 		if( !it2->pre.isEmpty() ) {
-			auto pre = it2->pre;
-			auto it3 = std::find_if( this->p_->sutACPs.begin(), it, [&pre]( const AsyncCheckPoint & acp )->bool {
-				return pre == acp.id;
-			} );
-			if( it3 == it ) {
+			auto it3 = ids.find( it2->pre );
+			if( it3 == ids.end() ) {
 				// pre-cond not found
 				return false;
 			}
