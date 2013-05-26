@@ -2,6 +2,7 @@
 
 #include "xTitan/Exception/NetworkError.hpp"
 #include "Spy.hpp"
+#include "Utility/Utility.hpp"
 
 namespace {
 
@@ -54,16 +55,16 @@ commands() {
 		for( auto it = args.begin(); it != args.end(); ++it ) {
 			if( it->type() == QVariant::Bool ) {
 				auto b = it->toBool();
-				sArgs.append( b ? "true" : "false" );
+				sArgs.append( toQString( b ) );
 			} else if( it->type() == QVariant::Int ) {
 				auto i = it->toInt();
-				sArgs.append( QString::number( i ) );
+				sArgs.append( toQString( i ) );
 			} else if( it->type() == QVariant::Double ) {
 				auto d = it->toDouble();
-				sArgs.append( QString::number( d ) );
+				sArgs.append( toQString( d ) );
 			} else if( it->type() == QVariant::String ) {
 				auto s = it->toString();
-				sArgs.append( QString( "\'%1\'" ).arg( s ) );
+				sArgs.append( toQString( s ) );
 			} else {
 				throw NetworkError( QObject::tr( "unknown data type: %1" ).arg( it->typeName() ) );
 			}

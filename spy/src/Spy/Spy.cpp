@@ -7,7 +7,6 @@
 #include "Spy/SpyModel.hpp"
 //#include "Util/SignalSpy/Q4puGenericSignalSpy.hpp"
 
-
 using xtitan::Spy;
 using xtitan::SpyModel;
 

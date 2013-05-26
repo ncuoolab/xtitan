@@ -38,4 +38,8 @@ QString toQString( const std::wstring & ws ) {
 	return QString( "\'%1\'" ).arg( escape( QString::fromStdWString( ws ) ) );
 }
 
+QString toQString( const QString & us ) {
+	return QString( "\'%1\'" ).arg( escape( QString( us ) ) );
+}
+
 }

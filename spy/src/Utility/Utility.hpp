@@ -12,6 +12,7 @@ QString toQString( const char * s );
 QString toQString( const std::string & s );
 QString toQString( const wchar_t * ws );
 QString toQString( const std::wstring & ws );
+QString toQString( const QString & us );
 
 }
 
