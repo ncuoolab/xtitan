@@ -33,8 +33,8 @@ public class CommandParser {
 
 		this.python_.exec( "from sikuli.Sikuli import *" );
 		this.python_.exec( "def spyInput(id_, delay, object_, method, *args):\n    from edu.ncu.csie.oolab import CommandParser\n    CommandParser.input(id_, delay, object_, method, args)\n\n" );
-		this.python_.exec( "def spyCheck(id_, file_, line, cpid, *args):\n    from edu.ncu.csie.oolab import CommandParser\n    CommandParser.check(id_, file_, line, cpid, *args)\n\n" );
-		this.python_.exec( "def spyAsyncCheck(id_, file_, line, acpid, pre, *args):\n    from edu.ncu.csie.oolab import CommandParser\n    CommandParser.asyncCheck(id_, file_, line, acpid, pre, *args)\n\n" );
+		this.python_.exec( "def spyCheck(id_, file_, line, cpid, *args):\n    from edu.ncu.csie.oolab import CommandParser\n    CommandParser.check(id_, file_, line, cpid, args)\n\n" );
+		this.python_.exec( "def spyAsyncCheck(id_, file_, line, acpid, pre, *args):\n    from edu.ncu.csie.oolab import CommandParser\n    CommandParser.asyncCheck(id_, file_, line, acpid, pre, args)\n\n" );
 	}
 
 	/**
