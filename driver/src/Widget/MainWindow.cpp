@@ -92,7 +92,7 @@ modified( false ) {
 	this->connect( this->ui.activated, SIGNAL( stateChanged( int ) ), SLOT( onEFRChanged( int ) ) );
 	this->connect( this->ui.textEdit, SIGNAL( textChanged() ), SLOT( onTextChanged() ) );
 	this->connect( this->ui.type, SIGNAL( clicked() ), SLOT( onTypeClicked() ) );
-	this->connect( this->ui.spyInput, SIGNAL( clicked() ), SLOT( onSpyInputClicked() ) );
+	this->connect( this->ui.action_Spawn_Client, SIGNAL( triggered() ), SLOT( onSpawnClientClicked() ) );
 
 	// Capture-related buttons behaves similar
 	this->connect( this->mapper, SIGNAL( mapped( const QString & ) ), SLOT( onButtonPressed( const QString & ) ) );
@@ -398,7 +398,7 @@ void MainWindow::Private::onTypeClicked() {
 	this->ui.textEdit->setFocus();
 }
 
-void MainWindow::Private::onSpyInputClicked() {
+void MainWindow::Private::onSpawnClientClicked() {
 	if( this->tuServer->isRecording() ) {
 		this->tuServer->stopRecording();
 	} else {

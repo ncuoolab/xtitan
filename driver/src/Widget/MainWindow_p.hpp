@@ -99,7 +99,7 @@ public slots:
 	void onSikuliClientCheck( int id, const xtitan::CheckPoint & cp );
 	void onSikuliClientAsyncCheck( int id, const xtitan::AsyncCheckPoint & acp );
 	void onSikuliClientInput( int id, const QString & object, const QString & method, const QVariantList & args );
-	void onSpyInputClicked();
+	void onSpawnClientClicked();
 	void onTUServerAsyncCheck( int id, const xtitan::AsyncCheckPoint & acp );
 	void onTUServerCheck( int id, const xtitan::CheckPoint & cp );
 	void onTUServerInput( int id, int delay, const QString & object, const QString & method, const QStringList & args );

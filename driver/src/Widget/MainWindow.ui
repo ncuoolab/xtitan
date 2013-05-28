@@ -107,13 +107,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="spyInput">
-          <property name="text">
-           <string>spyInput</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <spacer name="verticalSpacer">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -169,7 +162,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -203,6 +196,8 @@
     <property name="title">
      <string>&amp;Tools</string>
     </property>
+    <addaction name="action_Spawn_Client"/>
+    <addaction name="separator"/>
     <addaction name="action_Run"/>
     <addaction name="actionRun_Regression"/>
     <addaction name="separator"/>
@@ -270,7 +265,7 @@
   </action>
   <action name="actionRestart_Sikuli_Server">
    <property name="text">
-    <string>Restart &amp;Sikuli Server</string>
+    <string>Restart &amp;Agent</string>
    </property>
   </action>
   <action name="actionReopen_Test_Case_Manager">
@@ -310,6 +305,11 @@
   <action name="actionOpen_Testsuite">
    <property name="text">
     <string>Open Testsuite</string>
+   </property>
+  </action>
+  <action name="action_Spawn_Client">
+   <property name="text">
+    <string>&amp;Spawn Client</string>
    </property>
   </action>
  </widget>
