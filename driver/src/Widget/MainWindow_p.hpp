@@ -35,7 +35,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "SavingDialog.hpp"
 #include "Sikuli/SikuliClient.hpp"
 #include "TestCase/TestCase.hpp"
-#include "TestUnit/TestUnitServer.hpp"
+#include "TestUnit/TestServer.hpp"
 #include "TestUnit/CheckPoint.hpp"
 
 #include "ui_MainWindow.h"
@@ -66,7 +66,7 @@ public:
 	PreferenceDialog * preference;
 	SavingDialog * saving;
 	QSignalMapper * mapper;
-	TestUnitServer * tuServer;
+	TestServer * tuServer;
 	std::shared_ptr< SikuliClient > client;
 	QTimer * buttonTimer;
 	CommandTable commands;

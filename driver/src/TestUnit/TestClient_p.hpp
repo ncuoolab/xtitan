@@ -1,24 +1,24 @@
-#ifndef XTITAN_TESTUNIT_TESTUNIT_HPP_
-#define XTITAN_TESTUNIT_TESTUNIT_HPP_
+#ifndef XTITAN_TESTUNIT_TESTCLIENT_HPP_
+#define XTITAN_TESTUNIT_TESTCLIENT_HPP_
 
-#include "TestUnit.hpp"
+#include "TestClient.hpp"
 
 #include <functional>
 #include <map>
 #include <vector>
 
 #include "xTitan/Network/SimpleSocket.hpp"
-#include "TestUnitServer.hpp"
+#include "TestServer.hpp"
 #include "CheckPoint.hpp"
 
 namespace xtitan {
 
-class TestUnit::Private: public QObject {
+class TestClient::Private: public QObject {
 	Q_OBJECT
 public:
 	typedef std::function< void ( const QVariant & ) > Command;
 
-	Private( int id, SimpleSocket * socket, TestUnitServer * server );
+	Private( int id, SimpleSocket * socket, TestServer * server );
 	virtual ~Private();
 
 public slots:
@@ -32,7 +32,7 @@ signals:
 public:
 	int id;
 	SimpleSocket * socket;
-	TestUnitServer * server;
+	TestServer * server;
 	std::map< QString, Command > commands;
 	qint64 lastTimestamp;
 	std::vector< CheckPoint > sutCPs;

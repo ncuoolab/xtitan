@@ -1,4 +1,4 @@
-#include "TestUnit_p.hpp"
+#include "TestClient_p.hpp"
 
 #include <cassert>
 
@@ -10,11 +10,11 @@
 using xtitan::AsyncCheckPoint;
 using xtitan::CheckPoint;
 using xtitan::SimpleSocket;
-using xtitan::TestUnit;
-using xtitan::TestUnitServer;
+using xtitan::TestClient;
+using xtitan::TestServer;
 
 
-TestUnit::Private::Private( int id, SimpleSocket * socket, TestUnitServer * server ):
+TestClient::Private::Private( int id, SimpleSocket * socket, TestServer * server ):
 QObject(),
 id( id ),
 socket( socket ),
@@ -88,7 +88,7 @@ oracleACPs() {
 	server->connect( this, SIGNAL( inputReceived( int, int, const QString &, const QString &, const QStringList & ) ), SIGNAL( inputReceived( int, int, const QString &, const QString &, const QStringList & ) ) );
 }
 
-TestUnit::Private::~Private() {
+TestClient::Private::~Private() {
 	if( this->socket ) {
 		if( this->socket->isValid() ) {
 			this->socket->disconnectFromServer();
@@ -97,7 +97,7 @@ TestUnit::Private::~Private() {
 	}
 }
 
-void TestUnit::Private::onReadyRead() {
+void TestClient::Private::onReadyRead() {
 	while( !this->socket->atEnd() ) {
 		auto packet = this->socket->read();
 		auto it = this->commands.find( packet.first );
@@ -109,13 +109,13 @@ void TestUnit::Private::onReadyRead() {
 	}
 }
 
-TestUnit::TestUnit( int id, SimpleSocket * socket, TestUnitServer * server, QObject * parent ):
+TestClient::TestClient( int id, SimpleSocket * socket, TestServer * server, QObject * parent ):
 QObject( parent ),
 p_( new Private( id, socket, server ) ) {
 	this->connect( socket, SIGNAL( disconnected() ), SIGNAL( disconnected() ) );
 }
 
-bool TestUnit::check() const {
+bool TestClient::check() const {
 	// synchronized check points must exactly same
 	bool syncPassed = this->p_->oracleCPs == this->p_->sutCPs;
 	// asynchronized check points
@@ -144,15 +144,15 @@ bool TestUnit::check() const {
 	return syncPassed && asyncPassed;
 }
 
-void TestUnit::recordOracle( const CheckPoint & cp ) {
+void TestClient::recordOracle( const CheckPoint & cp ) {
 	this->p_->oracleCPs.push_back( cp );
 }
 
-void TestUnit::recordAsyncOracle( const AsyncCheckPoint & acp ) {
+void TestClient::recordAsyncOracle( const AsyncCheckPoint & acp ) {
 	this->p_->oracleACPs.push_back( acp );
 }
 
-void TestUnit::sendInput( const QString & object, const QString & method, const QVariantList & args ) {
+void TestClient::sendInput( const QString & object, const QString & method, const QVariantList & args ) {
 	QVariantMap kwargs;
 	kwargs.insert( "object", object );
 	kwargs.insert( "method", method );

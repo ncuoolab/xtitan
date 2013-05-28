@@ -1,5 +1,5 @@
-#ifndef XTITAN_TESTUNIT_TESTUNITSERVER_HPP
-#define XTITAN_TESTUNIT_TESTUNITSERVER_HPP
+#ifndef XTITAN_TESTUNIT_TESTSERVER_HPP
+#define XTITAN_TESTUNIT_TESTSERVER_HPP
 
 #include <memory>
 
@@ -11,10 +11,10 @@ namespace xtitan {
 struct AsyncCheckPoint;
 struct CheckPoint;
 
-class TestUnitServer: public QObject {
+class TestServer: public QObject {
 	Q_OBJECT
 public:
-	explicit TestUnitServer( QObject * parent );
+	explicit TestServer( QObject * parent );
 
 	bool check() const;
 	QString errorString() const;
