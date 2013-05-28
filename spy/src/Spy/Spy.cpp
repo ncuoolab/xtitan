@@ -99,15 +99,25 @@ void Spy::registerObject( QObject * object, const QString & id ){
 	QScriptValue scriptObj;
 	scriptObj = this->p_->engine->newQObject( object );
 	this->p_->engine->globalObject().setProperty( objName , scriptObj );
-	this->p_->tokens.insert( objName, object );
+	this->p_->tokens.insert( std::make_pair( objName, object ) );
+}
+
+QString Spy::getToken( QObject * object ) const {
+	auto it = std::find_if( this->p_->tokens.begin(), this->p_->tokens.end(), [object]( const std::map< QString, QObject * >::value_type & p )->bool {
+		return p.second == object;
+	} );
+	if( it != this->p_->tokens.end() ) {
+		return it->first;
+	}
+	return QString();
 }
 
 QObject * Spy::getObject( const QString & key ) const {
-	QMap< QString, QObject * >::const_iterator it = this->p_->tokens.find( key );
+	auto it = this->p_->tokens.find( key );
 	if( it == this->p_->tokens.end() ) {
-		return NULL;
+		return nullptr;
 	} else {
-		return it.value();
+		return it->second;
 	}
 }
 

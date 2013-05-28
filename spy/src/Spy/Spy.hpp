@@ -20,6 +20,7 @@ public:
 	Q_INVOKABLE void encodeCheck( const QString & file, int line, const QString & id, const QStringList & args );
 	Q_INVOKABLE void encodeAsyncCheck( const QString & file, int line, const QString & id, const QString pre, const QStringList & args );
 	void finish();
+	QString getToken( QObject * object ) const;
 	QObject * getObject( const QString & key ) const;
 	bool isTesting() const;
 	Q_INVOKABLE void recordInput( const QString & objectName, const QString & id, const QStringList & args );

@@ -30,7 +30,7 @@ public:
 	std::shared_ptr< QScriptEngine > engine;
 	bool isTestable;
 	QString filename;
-	QMap< QString, QObject * > tokens;
+	std::map< QString, QObject * > tokens;
 };
 
 }

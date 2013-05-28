@@ -18,6 +18,10 @@ void xRegisterObject( QObject * object, const QString & id ) {
 	QMetaObject::invokeMethod( &Spy::instance(), "registerObject", Q_ARG( QObject *, object ), Q_ARG( const QString &, id ) );
 }
 
+QString xGetToken( QObject * object ) {
+	return Spy::instance().getToken( object );
+}
+
 QObject * xGetObject( const QString & token ) {
 	return Spy::instance().getObject( token );
 }
