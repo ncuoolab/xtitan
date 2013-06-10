@@ -6,7 +6,7 @@
 using xtitan::Spy;
 
 
-void xRegisterObject( QObject * object, const QString & id ) {
+void spyRegisterObject( QObject * object, const QString & id ) {
 	if( id.isEmpty() ) {
 		return;
 	}
@@ -14,23 +14,23 @@ void xRegisterObject( QObject * object, const QString & id ) {
 	QMetaObject::invokeMethod( &Spy::instance(), "registerObject", Q_ARG( QObject *, object ), Q_ARG( const QString &, id ) );
 }
 
-QString xGetToken( QObject * object ) {
+QString spyGetToken( QObject * object ) {
 	return Spy::instance().getToken( object );
 }
 
-QObject * xGetObject( const QString & token ) {
+QObject * spyGetObject( const QString & token ) {
 	return Spy::instance().getObject( token );
 }
 
-void xTryTestAutomation() {
+void spyTryTestAutomation() {
 	Spy::instance().activate();
 }
 
-bool xIsTesting() {
+bool spyIsTesting() {
 	return Spy::instance().isTesting();
 }
 
-QString xMakeSafeName( const QString & objName ) {
+QString spyMakeSafeName( const QString & objName ) {
 	QString sName( objName );
 	return sName.replace( QRegExp( "[^a-zA-Z0-9_]" ), "" );
 }

@@ -12,15 +12,15 @@
 #define spyCheck xtitan::detail::SpyCheck(__FILE__,__LINE__)
 #define spyAsyncCheck xtitan::detail::SpyAsyncCheck(__FILE__,__LINE__)
 
-XTITAN_SPY_DLL void xRegisterObject( QObject * object, const QString & id );
+XTITAN_SPY_DLL void spyRegisterObject( QObject * object, const QString & id );
 
-XTITAN_SPY_DLL QString xGetToken( QObject * object );
-XTITAN_SPY_DLL QObject * xGetObject( const QString & token );
+XTITAN_SPY_DLL QString spyGetToken( QObject * object );
+XTITAN_SPY_DLL QObject * spyGetObject( const QString & token );
 
-XTITAN_SPY_DLL void xTryTestAutomation();
+XTITAN_SPY_DLL void spyTryTestAutomation();
 
-XTITAN_SPY_DLL bool xIsTesting();
+XTITAN_SPY_DLL bool spyIsTesting();
 
-XTITAN_SPY_DLL QString xMakeSafeName( const QString & objName );
+XTITAN_SPY_DLL QString spyMakeSafeName( const QString & objName );
 
 #endif
