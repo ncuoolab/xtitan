@@ -30,7 +30,7 @@ public:
 signals:
 	void asyncCheckReceived( int id, const xtitan::AsyncCheckPoint & acp );
 	void checkReceived( int id, const xtitan::CheckPoint & cp );
-	void inputReceived( int id, int delay, const QString & object, const QString & method, const QStringList & args );
+	void inputReceived( int id, int delay, const xtitan::InputPoint & ip );
 
 private:
 	class Private;
