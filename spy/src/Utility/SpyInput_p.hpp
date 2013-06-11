@@ -2,7 +2,7 @@
 #define XTITAN_SPY_SPYINPUT_HPP_
 
 #include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QtCore/QVariant>
 
 #include "xTitan/Utility/SpyInput.hpp"
 
@@ -16,7 +16,7 @@ public:
 
 	QString objectName;
 	QString methodName;
-	QStringList args;
+	QVariantList args;
 };
 
 }

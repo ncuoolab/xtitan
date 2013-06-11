@@ -27,7 +27,7 @@ SpyCheck::~SpyCheck() {
 	// commit chained input
 	// NOTE this indirect invoke is necessary
 	// because Spy::instance().thread() may different from QThread::currentThread()
-	QMetaObject::invokeMethod( &xtitan::Spy::instance(), "encodeCheck", Q_ARG( const QString &, this->p_->file ), Q_ARG( int, this->p_->line ), Q_ARG( const QString &, this->p_->id ), Q_ARG( const QStringList &, this->p_->args ) );
+	QMetaObject::invokeMethod( &xtitan::Spy::instance(), "check", Q_ARG( const QString &, this->p_->file ), Q_ARG( int, this->p_->line ), Q_ARG( const QString &, this->p_->id ), Q_ARG( const QVariantList &, this->p_->args ) );
 }
 
 SpyCheck & SpyCheck::id( const std::string & s ) {
@@ -41,36 +41,36 @@ SpyCheck & SpyCheck::id( const std::wstring & ws ) {
 }
 
 SpyCheck & SpyCheck::operator %( bool b ) {
-	this->p_->args.append( toQString( b ) );
+	this->p_->args.append( toVariant( b ) );
 	return *this;
 }
 
 SpyCheck & SpyCheck::operator %( int i ) {
-	this->p_->args.append( toQString( i ) );
+	this->p_->args.append( toVariant( i ) );
 	return *this;
 }
 
 SpyCheck & SpyCheck::operator %( double d ) {
-	this->p_->args.append( toQString( d ) );
+	this->p_->args.append( toVariant( d ) );
 	return *this;
 }
 
 SpyCheck & SpyCheck::operator %( const char * s ) {
-	this->p_->args.append( toQString( s ) );
+	this->p_->args.append( toVariant( s ) );
 	return *this;
 }
 
 SpyCheck & SpyCheck::operator %( const std::string & s ) {
-	this->p_->args.append( toQString( s ) );
+	this->p_->args.append( toVariant( s ) );
 	return *this;
 }
 
 SpyCheck & SpyCheck::operator %( const wchar_t * ws ) {
-	this->p_->args.append( toQString( ws ) );
+	this->p_->args.append( toVariant( ws ) );
 	return *this;
 }
 
 SpyCheck & SpyCheck::operator %( const std::wstring & ws ) {
-	this->p_->args.append( toQString( ws ) );
+	this->p_->args.append( toVariant( ws ) );
 	return *this;
 }

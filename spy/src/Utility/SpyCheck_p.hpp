@@ -2,7 +2,7 @@
 #define XTITAN_SPY_SPYCHECK_HPP_
 
 #include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QtCore/QVariant>
 
 #include "xTitan/Utility/SpyCheck.hpp"
 
@@ -17,7 +17,7 @@ public:
 	QString file;
 	int line;
 	QString id;
-	QStringList args;
+	QVariantList args;
 };
 
 }

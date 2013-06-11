@@ -1,5 +1,7 @@
 #include "xTitan/xTitan.hpp"
 
+#include <QtCore/QRegExp>
+
 #include "Spy/Spy.hpp"
 
 

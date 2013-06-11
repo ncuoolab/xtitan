@@ -1,6 +1,7 @@
 #include "Spy/Spy_p.hpp"
 
 #include <QtCore/QDateTime>
+#include <QtCore/QRegExp>
 #include <QtNetwork/QHostAddress>
 
 #include "xTitan/Utility/Logger.hpp"
@@ -68,22 +69,22 @@ bool Spy::isTesting() const {
 	return this->p_->isTestable;
 }
 
-void Spy::encodeCheck( const QString & file, int line, const QString & id, const QStringList & args ) {
+void Spy::check( const QString & file, int line, const QString & id, const QVariantList & args ) {
 	if( !this->p_->isTestable ) {
 		return;
 	}
 
-	if( this->p_->model ){
+	if( this->p_->model ) {
 		this->p_->model->check( file, line, id, args );
 	}
 }
 
-void Spy::encodeAsyncCheck( const QString & file, int line, const QString & id, const QString pre, const QStringList & args ) {
+void Spy::asyncCheck( const QString & file, int line, const QString & id, const QString pre, const QVariantList & args ) {
 	if( !this->p_->isTestable ) {
 		return;
 	}
 
-	if( this->p_->model ){
+	if( this->p_->model ) {
 		this->p_->model->asyncCheck( file, line, id, pre, args );
 	}
 }
@@ -121,7 +122,7 @@ QObject * Spy::getObject( const QString & key ) const {
 	}
 }
 
-void Spy::recordInput( const QString & objectName, const QString & methodName, const QStringList & args ) {
+void Spy::input( const QString & objectName, const QString & methodName, const QVariantList & args ) {
 	if( !this->p_->isTestable ) {
 		return;
 	}

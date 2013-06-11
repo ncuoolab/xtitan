@@ -1,12 +1,14 @@
 #include "Spy/SpyModel_p.hpp"
 
+#include <QtCore/QStringList>
+
 #include "xTitan/Exception/NetworkError.hpp"
 #include "Spy.hpp"
 #include "Utility/Utility.hpp"
 
 namespace {
 
-xtitan::SimpleSocket::Packet makeAsyncCheck( const QString & file, int line, const QString & id, const QString & pre, const QStringList & args ) {
+xtitan::SimpleSocket::Packet makeAsyncCheck( const QString & file, int line, const QString & id, const QString & pre, const QVariantList & args ) {
 	QVariantMap data;
 	data.insert( "file", file );
 	data.insert( "line", line );
@@ -16,7 +18,7 @@ xtitan::SimpleSocket::Packet makeAsyncCheck( const QString & file, int line, con
 	return xtitan::SimpleSocket::Packet( "<AsyncCheck>", data );
 }
 
-xtitan::SimpleSocket::Packet makeCheck( const QString & file, int line, const QString & id, const QStringList & args ) {
+xtitan::SimpleSocket::Packet makeCheck( const QString & file, int line, const QString & id, const QVariantList & args ) {
 	QVariantMap data;
 	data.insert( "file", file );
 	data.insert( "line", line );
@@ -25,7 +27,7 @@ xtitan::SimpleSocket::Packet makeCheck( const QString & file, int line, const QS
 	return xtitan::SimpleSocket::Packet( "<Check>", data );
 }
 
-xtitan::SimpleSocket::Packet makeInput( const QString & object, const QString & method, const QStringList & args, qint64 timeStamp ) {
+xtitan::SimpleSocket::Packet makeInput( const QString & object, const QString & method, const QVariantList & args, qint64 timeStamp ) {
 	QVariantMap data;
 	data.insert( "object", object );
 	data.insert( "method", method );
@@ -55,16 +57,16 @@ commands() {
 		for( auto it = args.begin(); it != args.end(); ++it ) {
 			if( it->type() == QVariant::Bool ) {
 				auto b = it->toBool();
-				sArgs.append( toQString( b ) );
+				sArgs.append( toJSON( b ) );
 			} else if( it->type() == QVariant::Int ) {
 				auto i = it->toInt();
-				sArgs.append( toQString( i ) );
+				sArgs.append( toJSON( i ) );
 			} else if( it->type() == QVariant::Double ) {
 				auto d = it->toDouble();
-				sArgs.append( toQString( d ) );
+				sArgs.append( toJSON( d ) );
 			} else if( it->type() == QVariant::String ) {
 				auto s = it->toString();
-				sArgs.append( toQString( s ) );
+				sArgs.append( toJSON( s ) );
 			} else {
 				throw NetworkError( QObject::tr( "unknown data type: %1" ).arg( it->typeName() ) );
 			}
@@ -113,7 +115,7 @@ SpyModel::~SpyModel(){
 	this->p_->socket->disconnectFromServer();
 }
 
-void SpyModel::asyncCheck( const QString & file, int line, const QString & id, const QString & pre, const QStringList & args ) {
+void SpyModel::asyncCheck( const QString & file, int line, const QString & id, const QString & pre, const QVariantList & args ) {
 	auto msg = makeAsyncCheck( file, line, id, pre, args );
 	this->p_->socket->write( msg.first, msg.second );
 }
@@ -122,12 +124,12 @@ void SpyModel::connectToHost( const QString & name ) {
 	this->p_->socket->connectToServer( name );
 }
 
-void SpyModel::check( const QString & file, int line, const QString & id, const QStringList & args ) {
+void SpyModel::check( const QString & file, int line, const QString & id, const QVariantList & args ) {
 	auto msg = makeCheck( file, line, id, args );
 	this->p_->socket->write( msg.first, msg.second );
 }
 
-void SpyModel::input( const QString & object, const QString & method, const QStringList & args, qint64 timeStamp ) {
+void SpyModel::input( const QString & object, const QString & method, const QVariantList & args, qint64 timeStamp ) {
 	if( this->p_->socket->state() == QLocalSocket::ConnectedState ) {
 		this->p_->send( makeInput( object, method, args, timeStamp ) );
 	}

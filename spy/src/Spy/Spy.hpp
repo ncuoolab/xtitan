@@ -4,7 +4,7 @@
 #include <memory>
 
 #include <QtCore/QObject>
-#include <QtCore/QStringList>
+#include <QtCore/QVariant>
 
 #include "xTitan/Utility/SpyConfig.hpp"
 
@@ -17,13 +17,13 @@ public:
 	static Spy & instance();
 
 	void activate();
-	Q_INVOKABLE void encodeCheck( const QString & file, int line, const QString & id, const QStringList & args );
-	Q_INVOKABLE void encodeAsyncCheck( const QString & file, int line, const QString & id, const QString pre, const QStringList & args );
+	Q_INVOKABLE void check( const QString & file, int line, const QString & id, const QVariantList & args );
+	Q_INVOKABLE void asyncCheck( const QString & file, int line, const QString & id, const QString pre, const QVariantList & args );
 	void finish();
 	QString getToken( QObject * object ) const;
 	QObject * getObject( const QString & key ) const;
 	bool isTesting() const;
-	Q_INVOKABLE void recordInput( const QString & objectName, const QString & id, const QStringList & args );
+	Q_INVOKABLE void input( const QString & objectName, const QString & id, const QVariantList & args );
 	Q_INVOKABLE void registerObject( QObject * object, const QString & id );
 
 signals:

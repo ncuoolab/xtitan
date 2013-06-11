@@ -28,7 +28,7 @@ SpyAsyncCheck::~SpyAsyncCheck() {
 	// commit chained input
 	// NOTE this indirect invoke is necessary
 	// because Spy::instance().thread() may different from QThread::currentThread()
-	QMetaObject::invokeMethod( &xtitan::Spy::instance(), "encodeAsyncCheck", Q_ARG( const QString &, this->p_->file ), Q_ARG( int, this->p_->line ), Q_ARG( const QString &, this->p_->id ), Q_ARG( const QString &, this->p_->pre ), Q_ARG( const QStringList &, this->p_->args ) );
+	QMetaObject::invokeMethod( &xtitan::Spy::instance(), "asyncCheck", Q_ARG( const QString &, this->p_->file ), Q_ARG( int, this->p_->line ), Q_ARG( const QString &, this->p_->id ), Q_ARG( const QString &, this->p_->pre ), Q_ARG( const QVariantList &, this->p_->args ) );
 }
 
 SpyAsyncCheck & SpyAsyncCheck::id( const std::string & s ) {
@@ -52,36 +52,36 @@ SpyAsyncCheck & SpyAsyncCheck::pre( const std::wstring & ws ) {
 }
 
 SpyAsyncCheck & SpyAsyncCheck::operator %( bool b ) {
-	this->p_->args.append( toQString( b ) );
+	this->p_->args.append( toVariant( b ) );
 	return *this;
 }
 
 SpyAsyncCheck & SpyAsyncCheck::operator %( int i ) {
-	this->p_->args.append( toQString( i ) );
+	this->p_->args.append( toVariant( i ) );
 	return *this;
 }
 
 SpyAsyncCheck & SpyAsyncCheck::operator %( double d ) {
-	this->p_->args.append( toQString( d ) );
+	this->p_->args.append( toVariant( d ) );
 	return *this;
 }
 
 SpyAsyncCheck & SpyAsyncCheck::operator %( const char * s ) {
-	this->p_->args.append( toQString( s ) );
+	this->p_->args.append( toVariant( s ) );
 	return *this;
 }
 
 SpyAsyncCheck & SpyAsyncCheck::operator %( const std::string & s ) {
-	this->p_->args.append( toQString( s ) );
+	this->p_->args.append( toVariant( s ) );
 	return *this;
 }
 
 SpyAsyncCheck & SpyAsyncCheck::operator %( const wchar_t * ws ) {
-	this->p_->args.append( toQString( ws ) );
+	this->p_->args.append( toVariant( ws ) );
 	return *this;
 }
 
 SpyAsyncCheck & SpyAsyncCheck::operator %( const std::wstring & ws ) {
-	this->p_->args.append( toQString( ws ) );
+	this->p_->args.append( toVariant( ws ) );
 	return *this;
 }

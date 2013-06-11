@@ -2,6 +2,7 @@
 #define XTITAN_CLIENT_SPY_SPYMODEL_HPP
 
 #include <QtCore/QObject>
+#include <QtCore/QVariant>
 
 
 namespace xtitan {
@@ -15,9 +16,9 @@ public :
 	void connectToHost( const QString & name );
 
 	void stop();
-	void check( const QString & file, int line, const QString & id, const QStringList & args );
-	void input( const QString & object, const QString & method, const QStringList & args, qint64 timeStamp );
-	void asyncCheck( const QString & file, int line, const QString & id, const QString & pre, const QStringList & args );
+	void check( const QString & file, int line, const QString & id, const QVariantList & args );
+	void input( const QString & object, const QString & method, const QVariantList & args, qint64 timeStamp );
+	void asyncCheck( const QString & file, int line, const QString & id, const QString & pre, const QVariantList & args );
 
 signals:
 	void ready();

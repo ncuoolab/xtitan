@@ -1,18 +1,27 @@
 #ifndef XTITAN_SPY_UTILITY_HPP
 #define XTITAN_SPY_UTILITY_HPP
 
-#include <QtCore/QString>
+#include <QtCore/QVariant>
 
 namespace xtitan {
 
-QString toQString( bool b );
-QString toQString( int i );
-QString toQString( double d );
-QString toQString( const char * s );
-QString toQString( const std::string & s );
-QString toQString( const wchar_t * ws );
-QString toQString( const std::wstring & ws );
-QString toQString( const QString & us );
+QString toJSON( bool b );
+QString toJSON( int i );
+QString toJSON( double d );
+QString toJSON( const char * s );
+QString toJSON( const std::string & s );
+QString toJSON( const wchar_t * ws );
+QString toJSON( const std::wstring & ws );
+QString toJSON( const QString & us );
+
+QVariant toVariant( bool b );
+QVariant toVariant( int i );
+QVariant toVariant( double d );
+QVariant toVariant( const char * s );
+QVariant toVariant( const std::string & s );
+QVariant toVariant( const wchar_t * ws );
+QVariant toVariant( const std::wstring & ws );
+QVariant toVariant( const QString & us );
 
 }
 

@@ -10,36 +10,68 @@ QString escape( QString && us ) {
 
 namespace xtitan {
 
-QString toQString( bool b ) {
+QString toJSON( bool b ) {
 	return b ? "true" : "false";
 }
 
-QString toQString( int i ) {
+QString toJSON( int i ) {
 	return QString::number( i );
 }
 
-QString toQString( double d ) {
+QString toJSON( double d ) {
 	return QString::number( d );
 }
 
-QString toQString( const char * s ) {
+QString toJSON( const char * s ) {
 	return QString( "\'%1\'" ).arg( escape( QString::fromAscii( s ) ) );
 }
 
-QString toQString( const std::string & s ) {
+QString toJSON( const std::string & s ) {
 	return QString( "\'%1\'" ).arg( escape( QString::fromStdString( s ) ) );
 }
 
-QString toQString( const wchar_t * ws ) {
+QString toJSON( const wchar_t * ws ) {
 	return QString( "\'%1\'" ).arg( escape( QString::fromWCharArray( ws ) ) );
 }
 
-QString toQString( const std::wstring & ws ) {
+QString toJSON( const std::wstring & ws ) {
 	return QString( "\'%1\'" ).arg( escape( QString::fromStdWString( ws ) ) );
 }
 
-QString toQString( const QString & us ) {
+QString toJSON( const QString & us ) {
 	return QString( "\'%1\'" ).arg( escape( QString( us ) ) );
+}
+
+QVariant toVariant( bool b ) {
+	return b;
+}
+
+QVariant toVariant( int i ) {
+	return i;
+}
+
+QVariant toVariant( double d ) {
+	return d;
+}
+
+QVariant toVariant( const char * s ) {
+	return QString::fromAscii( s );
+}
+
+QVariant toVariant( const std::string & s ) {
+	return QString::fromStdString( s );
+}
+
+QVariant toVariant( const wchar_t * ws ) {
+	return QString::fromWCharArray( ws );
+}
+
+QVariant toVariant( const std::wstring & ws ) {
+	return QString::fromStdWString( ws );
+}
+
+QVariant toVariant( const QString & us ) {
+	return us;
 }
 
 }

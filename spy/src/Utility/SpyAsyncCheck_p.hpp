@@ -2,7 +2,7 @@
 #define XTITAN_SPY_SPYASYNCCHECK_HPP_
 
 #include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QtCore/QVariant>
 
 #include "xTitan/Utility/SpyAsyncCheck.hpp"
 
@@ -18,7 +18,7 @@ public:
 	int line;
 	QString id;
 	QString pre;
-	QStringList args;
+	QVariantList args;
 };
 
 }
