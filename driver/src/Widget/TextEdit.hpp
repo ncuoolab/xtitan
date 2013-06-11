@@ -10,6 +10,7 @@ namespace xtitan {
 
 struct AsyncCheckPoint;
 struct CheckPoint;
+struct InputPoint;
 class TestCase;
 
 class TextEdit : public QTextEdit {
@@ -20,7 +21,7 @@ public:
 	void insertSingleCommand( const QString & name, const QString & path );
 	void insertSpyAsyncCheck( int id, const AsyncCheckPoint & acp );
 	void insertSpyCheck( int id, const CheckPoint & cp );
-	void insertSpyInput( int id, int delay, const QString & object, const QString & method, const QStringList & args );
+	void insertSpyInput( int id, int delay, const InputPoint & ip );
 	void insertTypeCommand();
 	void setTestCase( std::shared_ptr< TestCase > testCase );
 	QStringList dumpScript() const;

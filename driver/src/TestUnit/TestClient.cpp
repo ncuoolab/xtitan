@@ -9,6 +9,7 @@
 
 using xtitan::AsyncCheckPoint;
 using xtitan::CheckPoint;
+using xtitan::InputPoint;
 using xtitan::SimpleSocket;
 using xtitan::TestClient;
 using xtitan::TestServer;
@@ -33,18 +34,20 @@ oracleACPs() {
 
 		auto kwargs = data.toMap();
 
-		auto object = kwargs.value( "object" ).toString();
-		auto method = kwargs.value( "method" ).toString();
-		auto args = kwargs.value( "args" ).toStringList();
-		auto timestamp = kwargs.value( "timestamp" ).toLongLong();
-		int delay = ( this->lastTimestamp < 0LL ) ? 0 : timestamp - this->lastTimestamp;
-		this->lastTimestamp = timestamp;
+		InputPoint ip;
+		ip.object = kwargs.value( "object" ).toString();
+		ip.method = kwargs.value( "method" ).toString();
+		ip.args = kwargs.value( "args" ).toList();
+		ip.timestamp = kwargs.value( "timestamp" ).toLongLong();
+
+		int delay = ( this->lastTimestamp < 0LL ) ? 0 : ip.timestamp - this->lastTimestamp;
+		this->lastTimestamp = ip.timestamp;
 		if( delay < 0LL ) {
 			// prevent event flush
 			return;
 		}
 
-		emit this->inputReceived( this->id, delay, object, method, args );
+		emit this->inputReceived( this->id, delay, ip );
 	} ) );
 	// check handler
 	this->commands.insert( std::make_pair( "<Check>", [this]( const QVariant & data )->void {
@@ -54,7 +57,7 @@ oracleACPs() {
 		cp.file = kwargs.value( "file" ).toString();
 		cp.line = kwargs.value( "line" ).toInt();
 		cp.id = kwargs.value( "id" ).toString();
-		cp.args = kwargs.value( "args" ).toStringList();
+		cp.args = kwargs.value( "args" ).toList();
 
 		if( this->server->isRecording() ) {
 			emit this->checkReceived( this->id, cp );
@@ -72,7 +75,7 @@ oracleACPs() {
 		acp.line = kwargs.value( "line" ).toInt();
 		acp.id = kwargs.value( "id" ).toString();
 		acp.pre = kwargs.value( "pre" ).toString();
-		acp.args = kwargs.value( "args" ).toStringList();
+		acp.args = kwargs.value( "args" ).toList();
 
 		if( this->server->isRecording() ) {
 			emit this->asyncCheckReceived( this->id, acp );
@@ -152,10 +155,10 @@ void TestClient::recordAsyncOracle( const AsyncCheckPoint & acp ) {
 	this->p_->oracleACPs.push_back( acp );
 }
 
-void TestClient::sendInput( const QString & object, const QString & method, const QVariantList & args ) {
+void TestClient::sendInput( const InputPoint & ip ) {
 	QVariantMap kwargs;
-	kwargs.insert( "object", object );
-	kwargs.insert( "method", method );
-	kwargs.insert( "args", args );
+	kwargs.insert( "object", ip.object );
+	kwargs.insert( "method", ip.method );
+	kwargs.insert( "args", ip.args );
 	this->p_->socket->write( "<Input>", kwargs );
 }

@@ -45,7 +45,7 @@ signals:
 	void executed( bool, const QString & );
 	void checkRequired( int id, const xtitan::CheckPoint & cp );
 	void asyncCheckRequired( int id, const xtitan::AsyncCheckPoint & acp );
-	void inputRequired( int id, const QString & object, const QString & method, const QVariantList & args );
+	void inputRequired( int id, const xtitan::InputPoint & ip );
 	void log( const QString & );
 	void ready();
 	void taskCompleted( const QString &, bool, const QString & );

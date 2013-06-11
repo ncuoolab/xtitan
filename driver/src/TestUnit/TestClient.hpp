@@ -10,6 +10,7 @@ namespace xtitan {
 
 struct AsyncCheckPoint;
 struct CheckPoint;
+struct InputPoint;
 class SimpleSocket;
 class TestServer;
 
@@ -21,7 +22,7 @@ public:
 	bool check() const;
 	void recordOracle( const CheckPoint & cp );
 	void recordAsyncOracle( const AsyncCheckPoint & acp );
-	void sendInput( const QString & object, const QString & method, const QVariantList & args );
+	void sendInput( const InputPoint & ip );
 
 signals:
 	void disconnected();

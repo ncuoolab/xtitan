@@ -1,10 +1,17 @@
 #ifndef XTITAN_DRIVER_TESTUNIT_CHECKPOINT_HPP
 #define XTITAN_DRIVER_TESTUNIT_CHECKPOINT_HPP
 
-#include <QtCore/QStringList>
+#include <QtCore/QVariant>
 
 
 namespace xtitan {
+
+struct InputPoint {
+	QString object;
+	QString method;
+	QVariantList args;
+	qlonglong timestamp;
+};
 
 struct CheckPoint {
 	bool operator ==( const CheckPoint & that ) const;
@@ -12,7 +19,7 @@ struct CheckPoint {
 	QString file;
 	int line;
 	QString id;
-	QStringList args;
+	QVariantList args;
 };
 
 struct AsyncCheckPoint {
@@ -22,7 +29,7 @@ struct AsyncCheckPoint {
 	int line;
 	QString id;
 	QString pre;
-	QStringList args;
+	QVariantList args;
 };
 
 }

@@ -3,6 +3,7 @@
 
 using xtitan::AsyncCheckPoint;
 using xtitan::CheckPoint;
+using xtitan::InputPoint;
 using xtitan::SimpleServer;
 using xtitan::TestServer;
 
@@ -72,10 +73,10 @@ void TestServer::recordAsyncOracle( int id, const AsyncCheckPoint & acp ) {
 }
 
 
-void TestServer::sendInput( int id, const QString & object, const QString & method, const QVariantList & args ) {
+void TestServer::sendInput( int id, const InputPoint & ip ) {
 	// TODO catch exception
 	auto testUnit = this->p_->clients.at( id );
-	testUnit->sendInput( object, method, args );
+	testUnit->sendInput( ip );
 }
 
 void TestServer::startRecording() {

@@ -26,6 +26,7 @@ namespace i18n {
 
 using xtitan::AsyncCheckPoint;
 using xtitan::CheckPoint;
+using xtitan::InputPoint;
 using xtitan::MainWindow;
 using xtitan::Setting;
 using xtitan::BasicError;
@@ -71,7 +72,7 @@ modified( false ) {
 	this->connect( this->client.get(), SIGNAL( bundlesExecuted() ), SLOT( onSikuliClientBundlesExecuted() ) );
 	this->connect( this->client.get(), SIGNAL( checkRequired( int, const xtitan::CheckPoint & ) ), SLOT( onSikuliClientCheck( int, const xtitan::CheckPoint & ) ) );
 	this->connect( this->client.get(), SIGNAL( asyncCheckRequired( int, const xtitan::AsyncCheckPoint & ) ), SLOT( onSikuliClientAsyncCheck( int, const xtitan::AsyncCheckPoint & ) ) );
-	this->connect( this->client.get(), SIGNAL( inputRequired( int, const QString &, const QString &, const QVariantList & ) ), SLOT( onSikuliClientInput( int, const QString &, const QString &, const QVariantList & ) ) );
+	this->connect( this->client.get(), SIGNAL( inputRequired( int, const xtitan::InputPoint & ) ), SLOT( onSikuliClientInput( int, const xtitan::InputPoint & ) ) );
 
 	this->connect( this->buttonTimer, SIGNAL( timeout() ), SLOT( onButtonTimeout() ) );
 
@@ -129,7 +130,7 @@ modified( false ) {
 
 	this->connect( this->tuServer, SIGNAL( asyncCheckReceived( int, const xtitan::AsyncCheckPoint & ) ), SLOT( onTUServerAsyncCheck( int, const xtitan::AsyncCheckPoint & ) ) );
 	this->connect( this->tuServer, SIGNAL( checkReceived( int, const xtitan::CheckPoint & ) ), SLOT( onTUServerCheck( int, const xtitan::CheckPoint & ) ) );
-	this->connect( this->tuServer, SIGNAL( inputReceived( int, int, const QString &, const QString &, const QStringList & ) ), SLOT( onTUServerInput( int, int, const QString &, const QString &, const QStringList & ) ) );
+	this->connect( this->tuServer, SIGNAL( inputReceived( int, int, const xtitan::InputPoint & ) ), SLOT( onTUServerInput( int, int, const xtitan::InputPoint & ) ) );
 	if( !this->tuServer->listen( "OracleServer" ) ) {
 		QMessageBox::critical( this->host, "", this->tuServer->errorString() );
 	}
@@ -458,8 +459,8 @@ void MainWindow::Private::onTUServerCheck( int id, const CheckPoint & cp ) {
 	this->ui.textEdit->insertSpyCheck( id, cp );
 }
 
-void MainWindow::Private::onTUServerInput( int id, int delay, const QString & object, const QString & method, const QStringList & args ) {
-	this->ui.textEdit->insertSpyInput( id, delay, object, method, args );
+void MainWindow::Private::onTUServerInput( int id, int delay, const InputPoint & ip ) {
+	this->ui.textEdit->insertSpyInput( id, delay, ip );
 }
 
 void MainWindow::Private::onSikuliClientCheck( int id, const CheckPoint & cp ) {
@@ -470,8 +471,8 @@ void MainWindow::Private::onSikuliClientAsyncCheck( int id, const AsyncCheckPoin
 	this->tuServer->recordAsyncOracle( id, acp );
 }
 
-void MainWindow::Private::onSikuliClientInput( int id, const QString & object, const QString & method, const QVariantList & args ) {
-	this->tuServer->sendInput( id, object, method, args );
+void MainWindow::Private::onSikuliClientInput( int id, const InputPoint & ip ) {
+	this->tuServer->sendInput( id, ip );
 }
 
 MainWindow::MainWindow():

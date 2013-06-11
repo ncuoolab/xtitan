@@ -124,10 +124,11 @@ void SikuliClient::Private::readExecute() {
 			return;
 		} else if( result == "input" ) {
 			auto id = data.value( "id" ).toInt();
-			auto object = data.value( "object" ).toString();
-			auto method = data.value( "method" ).toString();
-			auto args = data.value( "args" ).toList();
-			emit this->inputRequired( id, object, method, args );
+			InputPoint tmp;
+			tmp.object = data.value( "object" ).toString();
+			tmp.method = data.value( "method" ).toString();
+			tmp.args = data.value( "args" ).toList();
+			emit this->inputRequired( id, tmp );
 		} else if( result == "check" ) {
 			auto id = data.value( "id" ).toInt();
 			auto cp = data.value( "cp" ).toMap();
@@ -135,7 +136,7 @@ void SikuliClient::Private::readExecute() {
 			tmp.file = cp.value( "file" ).toString();
 			tmp.line = cp.value( "line" ).toInt();
 			tmp.id = cp.value( "id" ).toString();
-			tmp.args = cp.value( "args" ).toStringList();
+			tmp.args = cp.value( "args" ).toList();
 			emit this->checkRequired( id, tmp );
 		} else if( result == "async_check" ) {
 			auto id = data.value( "id" ).toInt();
@@ -145,7 +146,7 @@ void SikuliClient::Private::readExecute() {
 			tmp.line = acp.value( "line" ).toInt();
 			tmp.id = acp.value( "id" ).toString();
 			tmp.pre = acp.value( "pre" ).toString();
-			tmp.args = acp.value( "args" ).toStringList();
+			tmp.args = acp.value( "args" ).toList();
 			emit this->asyncCheckRequired( id, tmp );
 		} else {
 			assert( !"invalid value" );
@@ -260,7 +261,7 @@ p_( new Private ) {
 	this->connect( this->p_.get(), SIGNAL( executed( bool, const QString & ) ), SIGNAL( executed( bool, const QString & ) ) );
 	this->connect( this->p_.get(), SIGNAL( checkRequired( int, const xtitan::CheckPoint & ) ), SIGNAL( checkRequired( int, const xtitan::CheckPoint & ) ) );
 	this->connect( this->p_.get(), SIGNAL( asyncCheckRequired( int, const xtitan::AsyncCheckPoint & ) ), SIGNAL( asyncCheckRequired( int, const xtitan::AsyncCheckPoint & ) ) );
-	this->connect( this->p_.get(), SIGNAL( inputRequired( int, const QString &, const QString &, const QVariantList & ) ), SIGNAL( inputRequired( int, const QString &, const QString &, const QVariantList & ) ) );
+	this->connect( this->p_.get(), SIGNAL( inputRequired( int, const xtitan::InputPoint & ) ), SIGNAL( inputRequired( int, const xtitan::InputPoint & ) ) );
 	this->connect( this->p_.get(), SIGNAL( log( const QString & ) ), SIGNAL( log( const QString & ) ) );
 	this->connect( this->p_.get(), SIGNAL( ready() ), SIGNAL( ready() ) );
 	this->connect( this->p_.get(), SIGNAL( taskCompleted( const QString &, bool, const QString & ) ), SIGNAL( taskCompleted( const QString &, bool, const QString & ) ) );

@@ -16,8 +16,37 @@
 #include "TestUnit/CheckPoint.hpp"
 
 
+namespace {
+
+QString & escape( QString & us ) {
+	return us.replace( '\\', "\\\\" ).replace( '\'', "\\\'" );
+}
+
+QString toPython( const QVariant & v ) {
+	auto type = v.type();
+	if( type == QVariant::Bool ) {
+		auto b = v.toBool();
+		return b ? "True" : "False";
+	} else if( type == QVariant::Int ) {
+		auto i = v.toInt();
+		return QString::number( i );
+	} else if( type == QVariant::Double ) {
+		auto d = v.toDouble();
+		return QString::number( d );
+	} else if( type == QVariant::String ) {
+		auto s = v.toString();
+		return QString( "u\'%1\'" ).arg( escape( s ) );
+	} else {
+		return "None";
+	}
+}
+
+}
+
+
 using xtitan::AsyncCheckPoint;
 using xtitan::CheckPoint;
+using xtitan::InputPoint;
 using xtitan::TestCase;
 using xtitan::TextEdit;
 
@@ -187,14 +216,15 @@ void TextEdit::insertSingleCommand( const QString & name, const QString & path )
 void TextEdit::insertSpyAsyncCheck( int id, const AsyncCheckPoint & acp ) {
 	auto cursor = this->textCursor();
 	QStringList tmp;
-	QString tpl = "\'%1\'";
 
-	tmp.append( QString::number( id ) );
-	tmp.append( tpl.arg( acp.file ) );
-	tmp.append( QString::number( acp.line ) );
-	tmp.append( tpl.arg( acp.id ) );
-	tmp.append( tpl.arg( acp.pre ) );
-	tmp.append( acp.args );
+	tmp.append( toPython( id ) );
+	tmp.append( toPython( acp.file ) );
+	tmp.append( toPython( acp.line ) );
+	tmp.append( toPython( acp.id ) );
+	tmp.append( toPython( acp.pre ) );
+	for( auto it = acp.args.begin(); it != acp.args.end(); ++it ) {
+		tmp.append( toPython( *it ) );
+	}
 
 	cursor.insertText( "spyAsyncCheck" );
 	cursor.insertText( "( " );
@@ -205,13 +235,14 @@ void TextEdit::insertSpyAsyncCheck( int id, const AsyncCheckPoint & acp ) {
 void TextEdit::insertSpyCheck( int id, const CheckPoint & cp ) {
 	auto cursor = this->textCursor();
 	QStringList tmp;
-	QString tpl = "\'%1\'";
 
-	tmp.append( QString::number( id ) );
-	tmp.append( tpl.arg( cp.file ) );
-	tmp.append( QString::number( cp.line ) );
-	tmp.append( tpl.arg( cp.id ) );
-	tmp.append( cp.args );
+	tmp.append( toPython( id ) );
+	tmp.append( toPython( cp.file ) );
+	tmp.append( toPython( cp.line ) );
+	tmp.append( toPython( cp.id ) );
+	for( auto it = cp.args.begin(); it != cp.args.end(); ++it ) {
+		tmp.append( toPython( *it ) );
+	}
 
 	cursor.insertText( "spyCheck" );
 	cursor.insertText( "( " );
@@ -219,16 +250,17 @@ void TextEdit::insertSpyCheck( int id, const CheckPoint & cp ) {
 	cursor.insertText( " )\n" );
 }
 
-void TextEdit::insertSpyInput( int id, int delay, const QString & object, const QString & method, const QStringList & args ) {
+void TextEdit::insertSpyInput( int id, int delay, const InputPoint & ip ) {
 	auto cursor = this->textCursor();
 	QStringList tmp;
-	QString tpl = "\'%1\'";
 
-	tmp.append( QString::number( id ) );
-	tmp.append( QString::number( delay ) );
-	tmp.append( tpl.arg( object ) );
-	tmp.append( tpl.arg( method ) );
-	tmp.append( args );
+	tmp.append( toPython( id ) );
+	tmp.append( toPython( delay ) );
+	tmp.append( toPython( ip.object ) );
+	tmp.append( toPython( ip.method ) );
+	for( auto it = ip.args.begin(); it != ip.args.end(); ++it ) {
+		tmp.append( toPython( *it ) );
+	}
 
 	cursor.insertText( "spyInput" );
 	cursor.insertText( "( " );

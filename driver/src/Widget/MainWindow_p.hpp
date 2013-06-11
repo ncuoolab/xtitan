@@ -98,11 +98,11 @@ public slots:
 	void onSikuliClientBundlesExecuted();
 	void onSikuliClientCheck( int id, const xtitan::CheckPoint & cp );
 	void onSikuliClientAsyncCheck( int id, const xtitan::AsyncCheckPoint & acp );
-	void onSikuliClientInput( int id, const QString & object, const QString & method, const QVariantList & args );
+	void onSikuliClientInput( int id, const xtitan::InputPoint & ip );
 	void onSpawnClientClicked();
 	void onTUServerAsyncCheck( int id, const xtitan::AsyncCheckPoint & acp );
 	void onTUServerCheck( int id, const xtitan::CheckPoint & cp );
-	void onTUServerInput( int id, int delay, const QString & object, const QString & method, const QStringList & args );
+	void onTUServerInput( int id, int delay, const xtitan::InputPoint & ip );
 	void onRestartSikuliServer();
 	void onReopenTestCaseManager();
 	void onRecreateTestCaseDatabase();
