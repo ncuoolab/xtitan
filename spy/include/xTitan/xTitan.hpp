@@ -8,7 +8,7 @@
 #include "xTitan/Utility/SpyAsyncCheck.hpp"
 
 
-#define spyInput xtitan::detail::SpyInput(xGetToken(this).toUtf8(),__FUNCTION__)
+#define spyInput xtitan::detail::SpyInput(spyGetToken(this).toUtf8(),__FUNCTION__)
 #define spyCheck xtitan::detail::SpyCheck(__FILE__,__LINE__)
 #define spyAsyncCheck xtitan::detail::SpyAsyncCheck(__FILE__,__LINE__)
 
