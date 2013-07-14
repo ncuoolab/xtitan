@@ -7,7 +7,7 @@ eXtreme Toolkit of Intrusive Test AutomatioN
 ### Build Dependency
 
 This project is a C++11 project.
-The fallowing toolkits are tested on each platforms.
+The following toolkits are tested on each platforms.
 
 * Windows: [Microsoft Visual C++] >= 2010
 * GNU/Linux: [GNU Compiler Collection] >= 4.6
@@ -31,7 +31,7 @@ You need [Eclipse] to open it.
 Install the fallowing libraries, then add them to build path in the Eclipse
 project.
 
-* [Sikuli X] >= 1.0, as User Library named **Sikuli**
+* [Sikuli] >= 1.0, as User Library named **Sikuli**
 * [Gson], as User Library named **Gson**
 * [Commons Codec], as User Library named **Commons Codec**
 
@@ -43,13 +43,7 @@ different packages.
 
 ### Run-time Dependency
 
-**Sikuli X** is developed and only tested with [Java Runtime Environment] 6.
-JRE 7 has known issues and may not work properly.
-
-#### Note for Windows
-
-**Sikuli X** only provides 32-bits JNI binding, which means you must use
-32-bits JVM.
+**Sikuli X** supports [Java Runtime Environment] 6 and 7, but JRE 7 is recommended.
 
 
 [Commons Codec]: http://commons.apache.org/codec/
@@ -61,5 +55,5 @@ JRE 7 has known issues and may not work properly.
 [Jython]: http://www.jython.org/
 [Microsoft Visual C++]: http://msdn.microsoft.com/en-us/vstudio/aa718325
 [Qt toolkit]: http://qt.nokia.com/
-[Sikuli X]: http://sikuli.org/
+[Sikuli]: http://sikuli.org/
 [XCode]: https://developer.apple.com/xcode/
