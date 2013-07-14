@@ -16,6 +16,7 @@ using xtitan::Spy;
  * @ingroup spy
  * @def spyInput
  * @brief Records function call
+ * @sa spyRegisterObject
  *
  * This macro records function call, so that test driver can replay this
  * function later.
@@ -48,6 +49,7 @@ using xtitan::Spy;
  * @ingroup spy
  * @def spyCheck
  * @brief Creates synchronized check point
+ * @sa spyAsyncCheck
  *
  * This macro creates a synchronized check point, which can record variables or
  * function results while recording, and compares their values in each replay.
@@ -80,6 +82,7 @@ using xtitan::Spy;
  * @ingroup spy
  * @def spyAsyncCheck
  * @brief Creates asynchronized check point
+ * @sa spyCheck
  *
  * Similar to spyCheck, except that check points can reorder. Because execution
  * order may randomly interleave in multi-thread context, you must use this
@@ -107,11 +110,12 @@ using xtitan::Spy;
  * @brief Register object for record/replay
  * @param [in] object object being register
  * @param [in] id unique ID for this object
+ * @sa spyInput
  *
- * If @p id is an empty string, this function does **nothing**.
+ * If @p object is nullptr, or @p id is an empty string, this function does **nothing**.
  *
  * Objects must register by this method first before they can be recording by
- * spyInput.
+ * spyInput. A common place for this function is inside a constructor.
  */
 void spyRegisterObject( QObject * object, const QString & id ) {
 	if( !object || id.isEmpty() ) {
@@ -123,18 +127,50 @@ void spyRegisterObject( QObject * object, const QString & id ) {
 	QMetaObject::invokeMethod( &Spy::instance(), "registerObject", Q_ARG( QObject *, object ), Q_ARG( const QString &, id ) );
 }
 
+/**
+ * @ingroup spy
+ * @brief Get ID of a registered object
+ * @param [in] object
+ * @return ID of @p object
+ * @sa spyGetObject spyRegisterObject
+ *
+ * This function can retrive ID which registered by spyRegisterObject.
+ */
 QString spyGetToken( QObject * object ) {
 	return Spy::instance().getToken( object );
 }
 
+/**
+ * @ingroup spy
+ * @brief Get a registered object by ID
+ * @param [in] token
+ * @return object that ID is @p token
+ * @sa spyGetToken spyRegisterObject
+ *
+ * This function can retrive object which registered by spyRegisterObject.
+ */
 QObject * spyGetObject( const QString & token ) {
 	return Spy::instance().getObject( token );
 }
 
+/**
+ * @ingroup spy
+ * @brief Start record/replay
+ * @sa spyIsTesting
+ *
+ * Without calling this function, record/replay won't start. Please call this
+ * function as early as possible, e.g. in the main function.
+ */
 void spyTryTestAutomation() {
 	Spy::instance().activate();
 }
 
+/**
+ * @ingroup spy
+ * @brief record/replay is start or not
+ * @return true if started
+ * @sa spyTryTestAutomation
+ */
 bool spyIsTesting() {
 	return Spy::instance().isTesting();
 }
