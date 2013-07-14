@@ -114,7 +114,7 @@ using xtitan::Spy;
  * spyInput.
  */
 void spyRegisterObject( QObject * object, const QString & id ) {
-	if( id.isEmpty() ) {
+	if( !object || id.isEmpty() ) {
 		return;
 	}
 
