@@ -15,6 +15,14 @@ The following toolkits are tested on each platforms.
 * [CMake] >= 2.6
 * [Qt toolkit] >= 4.7
 
+### How To Build
+
+First, use [CMake] to generate build script (e.g.: VC solution, Makefile ...
+etc.). There are some usable variables:
+
+* CMAKE_INSTALL_PREFIX: install to this path
+* CMAKE_BUILD_TYPE: Release or Debug. VC don't need this.
+
 ### Run-time Dependency
 
 It needs **Agent** to work.
@@ -43,7 +51,7 @@ different packages.
 
 ### Run-time Dependency
 
-**Sikuli X** supports [Java Runtime Environment] 6 and 7, but JRE 7 is recommended.
+[Sikuli] supports [Java Runtime Environment] 6 and 7, but JRE 7 is recommended.
 
 
 [Commons Codec]: http://commons.apache.org/codec/
