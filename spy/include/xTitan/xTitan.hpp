@@ -21,6 +21,4 @@ XTITAN_SPY_DLL void spyTryTestAutomation();
 
 XTITAN_SPY_DLL bool spyIsTesting();
 
-XTITAN_SPY_DLL QString spyMakeSafeName(const QString & objName);
-
 #endif
