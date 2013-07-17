@@ -13,6 +13,19 @@
 #include "xTitan/Exception/KeyError.hpp"
 
 
+/**
+ * @defgroup core Core feature
+ */
+
+/**
+ * @ingroup core
+ * @class xtitan::Setting
+ * @brief Global setting utility
+ *
+ * This class provides simply setting features.
+ */
+
+
 using xtitan::Setting;
 
 
@@ -47,6 +60,9 @@ void Setting::Private::save() {
 	locker.unlock();
 }
 
+/**
+ * @breif Initialize singleton
+ */
 void Setting::initialize() {
 	if( Private::self ) {
 		return;
@@ -55,7 +71,10 @@ void Setting::initialize() {
 }
 
 /**
+ * @breif Get global instance
+ * @note Must call initialize first
  * @warning This function is NOT thread-safe
+ * @sa initialize()
  */
 Setting & Setting::instance() {
 	if( !Private::self ) {
