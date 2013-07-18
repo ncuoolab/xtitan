@@ -1,4 +1,4 @@
-# xTitanClient
+# spy
 
 include(xTitanUtility)
 
@@ -17,19 +17,13 @@ file(GLOB_RECURSE XTITAN_SPY_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} src/*.
 group_sources("include")
 group_sources("src")
 
-find_moc_headers(XTITAN_SPY_MOC_HEADERS ${XTITAN_SPY_HEADERS})
-
 include_directories(
     "${CMAKE_SOURCE_DIR}/core/include"
     "include"
     "src"
     ${CMAKE_CURRENT_BINARY_DIR})
 
-qt4_wrap_cpp(XTITAN_SPY_MOC_SOURCES ${XTITAN_SPY_MOC_HEADERS})
-
-source_group("Generated Files" FILES ${XTITAN_SPY_MOC_SOURCES})
-
-set(XTITAN_SPY_COMPILE_UNIT ${XTITAN_SPY_HEADERS} ${XTITAN_SPY_SOURCES} ${XTITAN_SPY_MOC_SOURCES})
+set(XTITAN_SPY_COMPILE_UNIT ${XTITAN_SPY_HEADERS} ${XTITAN_SPY_SOURCES})
 set(XTITAN_SPY_LINK_UNIT xTitanCore ${QT_QTCORE_LIBRARY} ${QT_QTSCRIPT_LIBRARY})
 add_library(xTitanSpy SHARED ${XTITAN_SPY_COMPILE_UNIT})
 add_dependencies(xTitanSpy xTitanCore)

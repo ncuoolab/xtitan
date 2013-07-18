@@ -18,17 +18,6 @@ function(group_sources root)
 	__group_sources__("${CMAKE_CURRENT_SOURCE_DIR}/${root}" "${prefix}")
 endfunction()
 
-# automatically find all moc headers
-function(find_moc_headers results)
-	foreach(header ${ARGN})
-		file(STRINGS ${header} moc_token REGEX "Q_OBJECT")
-		if(moc_token)
-			list(APPEND tmp ${header})
-		endif()
-	endforeach()
-	set(${results} ${tmp} PARENT_SCOPE)
-endfunction()
-
 # get path from env
 function(path_from_env native_path)
 	file(TO_CMAKE_PATH "$ENV{${native_path}}" tmp)

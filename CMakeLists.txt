@@ -1,6 +1,6 @@
 # root
 
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8.6)
 
 project(xTitan)
 set(XTITAN_VERSION_MAJOR "2")
@@ -11,6 +11,7 @@ set(XTITAN_VERSION "${XTITAN_VERSION_MAJOR}.${XTITAN_VERSION_MINOR}.${XTITAN_VER
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
 
 find_package(Qt4 4.7 COMPONENTS QtNetwork QtScript REQUIRED)
+set(CMAKE_AUTOMOC TRUE)
 
 include(${QT_USE_FILE})
 
