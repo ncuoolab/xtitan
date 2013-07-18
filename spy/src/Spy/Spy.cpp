@@ -4,9 +4,8 @@
 #include <QtCore/QRegExp>
 #include <QtNetwork/QHostAddress>
 
-#include "xTitan/Utility/Logger.hpp"
 #include "Spy/SpyModel.hpp"
-//#include "Util/SignalSpy/Q4puGenericSignalSpy.hpp"
+
 
 using xtitan::Spy;
 using xtitan::SpyModel;

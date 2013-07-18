@@ -3,7 +3,6 @@
 #include <QtCore/QStringList>
 
 #include "xTitan/Exception/NetworkError.hpp"
-#include "Spy.hpp"
 #include "Utility/Utility.hpp"
 
 namespace {
