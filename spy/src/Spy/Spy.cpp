@@ -1,3 +1,6 @@
+/*
+Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
+*/
 #include "Spy/Spy_p.hpp"
 
 #include <QtCore/QDateTime>

@@ -1,3 +1,5 @@
+# Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
+
 # groups source files with directory
 function(group_sources root)
 	function(__group_sources__ root prefix)

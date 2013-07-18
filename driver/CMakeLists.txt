@@ -1,3 +1,5 @@
+# Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
+
 # driver
 
 set(XTITAN_DRIVER_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")

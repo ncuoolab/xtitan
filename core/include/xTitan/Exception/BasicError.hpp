@@ -1,8 +1,8 @@
 /*
 Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
 */
-#ifndef XTITAN_ERROR_BASICERROR_HPP
-#define XTITAN_ERROR_BASICERROR_HPP
+#ifndef XTITAN_BASICERROR_HPP
+#define XTITAN_BASICERROR_HPP
 
 #include <exception>
 #include <memory>

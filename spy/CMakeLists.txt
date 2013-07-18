@@ -1,3 +1,5 @@
+# Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
+
 # spy
 
 include(xTitanUtility)

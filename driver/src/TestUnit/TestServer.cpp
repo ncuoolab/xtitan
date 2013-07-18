@@ -1,3 +1,6 @@
+/*
+Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
+*/
 #include "TestServer_p.hpp"
 
 

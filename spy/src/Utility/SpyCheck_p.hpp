@@ -1,3 +1,6 @@
+/*
+Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
+*/
 #ifndef XTITAN_SPY_SPYCHECK_HPP_
 #define XTITAN_SPY_SPYCHECK_HPP_
 

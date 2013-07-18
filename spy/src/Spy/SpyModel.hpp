@@ -1,3 +1,6 @@
+/*
+Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
+*/
 #ifndef XTITAN_CLIENT_SPY_SPYMODEL_HPP
 #define XTITAN_CLIENT_SPY_SPYMODEL_HPP
 

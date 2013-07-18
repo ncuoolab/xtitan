@@ -1,5 +1,8 @@
-#ifndef KRAPTURE_TESTCASEPRIVATE_HPP
-#define KRAPTURE_TESTCASEPRIVATE_HPP
+/*
+Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
+*/
+#ifndef XTITAN_TESTCASE_HPP_
+#define XTITAN_TESTCASE_HPP_
 
 #include "TestCase.hpp"
 

@@ -1,3 +1,6 @@
+/*
+Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
+*/
 #ifndef XTITAN_TESTUNIT_TESTSERVER_HPP_
 #define XTITAN_TESTUNIT_TESTSERVER_HPP_
 

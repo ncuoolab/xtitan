@@ -1,5 +1,8 @@
-#ifndef KRAPTURE_WIDGET_TEXTEDIT_PRIVATE_HPP
-#define KRAPTURE_WIDGET_TEXTEDIT_PRIVATE_HPP
+/*
+Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
+*/
+#ifndef XTITAN_TEXTEDIT_HPP_
+#define XTITAN_TEXTEDIT_HPP_
 
 #include "TextEdit.hpp"
 

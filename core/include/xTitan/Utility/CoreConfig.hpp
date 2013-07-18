@@ -1,3 +1,6 @@
+/*
+Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
+*/
 #ifndef XTITAN_CORE_UTILITY_CONFIG_HPP
 #define XTITAN_CORE_UTILITY_CONFIG_HPP
 

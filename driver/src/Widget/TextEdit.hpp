@@ -1,5 +1,8 @@
-#ifndef KRAPTURE_WIDGET_TEXTEDIT_HPP
-#define KRAPTURE_WIDGET_TEXTEDIT_HPP
+/*
+Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
+*/
+#ifndef XTITAN_TEXTEDIT_HPP
+#define XTITAN_TEXTEDIT_HPP
 
 #include <memory>
 

@@ -1,3 +1,6 @@
+/*
+Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
+*/
 #ifndef XTITAN_UTILITIES_LOGGER_PRIVATE_HPP
 #define XTITAN_UTILITIES_LOGGER_PRIVATE_HPP
 

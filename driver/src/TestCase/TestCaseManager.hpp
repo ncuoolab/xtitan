@@ -1,5 +1,8 @@
-#ifndef KRAPTURE_TESTCASEMANAGER_HPP
-#define KRAPTURE_TESTCASEMANAGER_HPP
+/*
+Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
+*/
+#ifndef XTITAN_TESTCASEMANAGER_HPP
+#define XTITAN_TESTCASEMANAGER_HPP
 
 #include <QtCore/QString>
 #include <QtSql/QSqlQueryModel>
@@ -17,7 +20,7 @@ namespace xtitan {
 	public:
 		static void initialize();
 		static TestCaseManager & instance();
-		
+
 		void close();
 		void create();
 		bool isOpen() const;

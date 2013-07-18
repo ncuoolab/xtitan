@@ -1,3 +1,6 @@
+/*
+Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
+*/
 #ifndef XTITAN_NETWORK_SIMPLESOCKETPRIVATE_HPP
 #define XTITAN_NETWORK_SIMPLESOCKETPRIVATE_HPP
 

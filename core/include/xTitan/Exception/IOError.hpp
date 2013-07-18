@@ -1,8 +1,8 @@
 /*
 Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
 */
-#ifndef KRAPTURE_ERROR_IOERROR_HPP
-#define KRAPTURE_ERROR_IOERROR_HPP
+#ifndef XTITAN_IOERROR_HPP
+#define XTITAN_IOERROR_HPP
 
 #include "xTitan/Exception/BasicError.hpp"
 

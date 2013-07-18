@@ -1,5 +1,8 @@
-#ifndef KRAPTURE_ERROR_SQLERROR_HPP
-#define KRAPTURE_ERROR_SQLERROR_HPP
+/*
+Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
+*/
+#ifndef XTITAN_SQLERROR_HPP
+#define XTITAN_SQLERROR_HPP
 
 #include "xTitan/Exception/IOError.hpp"
 

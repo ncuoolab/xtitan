@@ -1,3 +1,6 @@
+/*
+Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
+*/
 #include "SimpleServer_p.hpp"
 
 #include "xTitan/Network/SimpleSocket.hpp"

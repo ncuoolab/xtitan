@@ -1,3 +1,6 @@
+/*
+Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
+*/
 #include "SpyCheck_p.hpp"
 
 #include <QtCore/QMetaObject>

@@ -1,5 +1,8 @@
-#ifndef KRAPTURE_SIKULICLIENT_HPP
-#define KRAPTURE_SIKULICLIENT_HPP
+/*
+Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
+*/
+#ifndef XTITAN_SIKULICLIENT_HPP
+#define XTITAN_SIKULICLIENT_HPP
 
 #include <memory>
 #include <tuple>

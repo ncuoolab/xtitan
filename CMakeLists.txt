@@ -1,3 +1,5 @@
+# Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
+
 # root
 
 cmake_minimum_required(VERSION 2.8.6)

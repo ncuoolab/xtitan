@@ -1,5 +1,8 @@
-#ifndef KRAPTURE_SIKULICLIENT_PRIVATE_HPP
-#define KRAPTURE_SIKULICLIENT_PRIVATE_HPP
+/*
+Copyright (c) 2011 NCU OOlab <ncuoolab@gmail.com>
+*/
+#ifndef XTITAN_SIKULICLIENT_HPP_
+#define XTITAN_SIKULICLIENT_HPP_
 
 #include "SikuliClient.hpp"
 
