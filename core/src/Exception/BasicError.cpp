@@ -14,7 +14,7 @@ using xtitan::BasicError;
  * @ingroup exceptions
  * @class xtitan::BasicError
  * @brief Basic error class
- * @note This class is an immutable class, the copy behavior is shallow copy.
+ * @note This class is immutable, which means copy behavior is shallow copy.
  */
 
 BasicError::Private::Private( const QString & m ): message( m ) {
