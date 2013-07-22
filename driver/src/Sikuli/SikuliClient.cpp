@@ -110,8 +110,10 @@ void SikuliClient::Private::readExecute() {
 		QString line = this->sio.readLine();
 		QVariantMap data = this->decode( line );
 
+		// get Sikuli execution result
 		auto result = data.value( "result" ).toString();
 		if( result == "succeed" ) {
+			// if succeed, kill SUT and report success
 			this->client->kill();
 			this->doSuccess = nullptr;
 			this->doFailure = nullptr;
@@ -119,6 +121,7 @@ void SikuliClient::Private::readExecute() {
 			emit this->executed( true, "" );
 			return;
 		} else if( result == "failed" ) {
+			// if failed, kill SUT and report error
 			this->client->kill();
 			this->doSuccess = nullptr;
 			this->doFailure = nullptr;
@@ -126,6 +129,7 @@ void SikuliClient::Private::readExecute() {
 			emit this->executed( false, data.value( "message" ).toString() );
 			return;
 		} else if( result == "input" ) {
+			// if encountered spyInput, tell test client to reproduce spyInput
 			auto id = data.value( "id" ).toInt();
 			InputPoint tmp;
 			tmp.object = data.value( "object" ).toString();
@@ -133,6 +137,7 @@ void SikuliClient::Private::readExecute() {
 			tmp.args = data.value( "args" ).toList();
 			emit this->inputRequired( id, tmp );
 		} else if( result == "check" ) {
+			// if encountered spyCheck, tell test client to record check point
 			auto id = data.value( "id" ).toInt();
 			auto cp = data.value( "cp" ).toMap();
 			CheckPoint tmp;
@@ -142,6 +147,7 @@ void SikuliClient::Private::readExecute() {
 			tmp.args = cp.value( "args" ).toList();
 			emit this->checkRequired( id, tmp );
 		} else if( result == "async_check" ) {
+			// if encountered spyAsyncCheck, tell test client to record check point
 			auto id = data.value( "id" ).toInt();
 			auto acp = data.value( "acp" ).toMap();
 			AsyncCheckPoint tmp;
@@ -152,6 +158,7 @@ void SikuliClient::Private::readExecute() {
 			tmp.args = acp.value( "args" ).toList();
 			emit this->asyncCheckRequired( id, tmp );
 		} else {
+			// TODO throw exception or emit error signal
 			assert( !"invalid value" );
 		}
 	}
