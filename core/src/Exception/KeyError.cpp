@@ -8,10 +8,11 @@ using xtitan::KeyError;
 
 
 /**
- * @class krapture::error::InternalError
- * @brief Internal error class
+ * @ingroup exceptions
+ * @class xtitan::KeyError
+ * @brief Hash key error class
  *
- * This exception throws when something really bad happened.
+ * This exception throws when a key does not exists in a hash.
  */
 
 /**

@@ -8,11 +8,11 @@ using xtitan::NetworkError;
 
 
 /**
- * @class krapture::error::IOError
- * @brief I/O error class
+ * @ingroup exceptions
+ * @class xtitan::NetworkError
+ * @brief Network error class
  *
- * This exception throws when an input or output operation has failed.
- * e.g. File not found, write error ... etc.
+ * This exception throws when a network error occurs.
  */
 
 /**
