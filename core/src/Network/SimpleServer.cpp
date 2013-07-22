@@ -36,6 +36,7 @@ void SimpleServer::close() {
 
 /**
  * @brief get last error message
+ * @return error message
  */
 QString SimpleServer::errorString() const {
 	return this->p_->server->errorString();
@@ -43,6 +44,7 @@ QString SimpleServer::errorString() const {
 
 /**
  * @brief get pipe name
+ * @return full pipe name
  */
 QString SimpleServer::fullServerName() const {
 	return this->p_->server->fullServerName();
@@ -50,6 +52,7 @@ QString SimpleServer::fullServerName() const {
 
 /**
  * @brief check for more connections
+ * @return true if there is any pending connection
  */
 bool SimpleServer::hasPendingConnections() const {
 	return !this->p_->queue.isEmpty();
@@ -57,6 +60,7 @@ bool SimpleServer::hasPendingConnections() const {
 
 /**
  * @brief check listening state
+ * @return true if listening
  */
 bool SimpleServer::isListening() const {
 	return this->p_->server->isListening();
@@ -66,6 +70,7 @@ bool SimpleServer::isListening() const {
  * @brief listen to a local server
  * @param [in] name local server name
  * @param [in] replace replace server if exists
+ * @return true if listen successful
  *
  * This function listen on a local server, i.e. a named pipe.
  *
@@ -84,6 +89,10 @@ bool SimpleServer::listen( const QString & name, bool replace /*= false*/ ) {
 	return ok;
 }
 
+/**
+ * @brief get next pending connection
+ * @return pending connection, null if no pending connection
+ */
 SimpleSocket * SimpleServer::nextPendingConnection() {
 	if( this->hasPendingConnections() ) {
 		return this->p_->queue.dequeue();
@@ -91,10 +100,18 @@ SimpleSocket * SimpleServer::nextPendingConnection() {
 	return NULL;
 }
 
+/**
+ * @brief get last server error code
+ * @return error code
+ */
 QAbstractSocket::SocketError SimpleServer::serverError() const {
 	return this->p_->server->serverError();
 }
 
+/**
+ * @brief get short pipe name
+ * @return short pipe name
+ */
 QString SimpleServer::serverName() const {
 	return this->p_->server->serverName();
 }
