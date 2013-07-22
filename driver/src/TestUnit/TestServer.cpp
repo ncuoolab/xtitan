@@ -22,7 +22,7 @@ recording( false ) {
 
 void TestServer::Private::onNewConnection() {
 	while( this->server->hasPendingConnections() ) {
-		auto socket = this->server->nextPendingConntion();
+		auto socket = this->server->nextPendingConnection();
 		auto testUnit = new TestClient( this->clients.size(), socket, this->owner, this );
 		this->connect( testUnit, SIGNAL( disconnected() ), SLOT( onClientDisconnected() ) );
 		this->clients.push_back( testUnit );

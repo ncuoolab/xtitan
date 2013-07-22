@@ -84,7 +84,7 @@ bool SimpleServer::listen( const QString & name, bool replace /*= false*/ ) {
 	return ok;
 }
 
-SimpleSocket * SimpleServer::nextPendingConntion() {
+SimpleSocket * SimpleServer::nextPendingConnection() {
 	if( this->hasPendingConnections() ) {
 		return this->p_->queue.dequeue();
 	}

@@ -25,7 +25,7 @@ public:
 	bool hasPendingConnections() const;
 	bool isListening() const;
 	bool listen( const QString & name, bool replace = false );
-	SimpleSocket * nextPendingConntion();
+	SimpleSocket * nextPendingConnection();
 	QAbstractSocket::SocketError serverError() const;
 	QString serverName() const;
 
