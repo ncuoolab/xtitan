@@ -80,6 +80,15 @@ Please install this library, and set `XTITAN_HOME` system environment variable
 to this path. Then you can add `$XTITAN_HOME/cmake/modules` into your CMake
 module path, and simply use `find_package` command in your `CMakeLists.txt`.
 
+For example:
+
+```cmake
+# normalize path separator
+file(TO_CMAKE_PATH ENV_XTITAN_PATH "$ENV{XTITAN_HOME}")
+# add module path
+list(APPEND CMAKE_MODULE_PATH "${ENV_XTITAN_PATH}")
+```
+
 Further library usage please see doxygen page.
 
 
