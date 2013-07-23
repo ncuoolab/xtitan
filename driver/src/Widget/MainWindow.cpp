@@ -96,7 +96,7 @@ modified( false ) {
 	this->connect( this->ui.activated, SIGNAL( stateChanged( int ) ), SLOT( onEFRChanged( int ) ) );
 	this->connect( this->ui.textEdit, SIGNAL( textChanged() ), SLOT( onTextChanged() ) );
 	this->connect( this->ui.type, SIGNAL( clicked() ), SLOT( onTypeClicked() ) );
-	this->connect( this->ui.action_Spawn_Client, SIGNAL( triggered() ), SLOT( onSpawnClientClicked() ) );
+	this->connect( this->ui.action_Record_Mode, SIGNAL( toggled( bool ) ), SLOT( onRecordModeToggled( bool ) ) );
 
 	// Capture-related buttons behaves similar
 	this->connect( this->mapper, SIGNAL( mapped( const QString & ) ), SLOT( onButtonPressed( const QString & ) ) );
@@ -402,11 +402,11 @@ void MainWindow::Private::onTypeClicked() {
 	this->ui.textEdit->setFocus();
 }
 
-void MainWindow::Private::onSpawnClientClicked() {
-	if( this->tuServer->isRecording() ) {
-		this->tuServer->stopRecording();
-	} else {
+void MainWindow::Private::onRecordModeToggled( bool on ) {
+	if( on ) {
 		this->tuServer->startRecording();
+	} else {
+		this->tuServer->stopRecording();
 	}
 }
 

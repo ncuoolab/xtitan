@@ -82,7 +82,7 @@ public slots:
 	void onSikuliClientCheck( int id, const xtitan::CheckPoint & cp );
 	void onSikuliClientAsyncCheck( int id, const xtitan::AsyncCheckPoint & acp );
 	void onSikuliClientInput( int id, const xtitan::InputPoint & ip );
-	void onSpawnClientClicked();
+	void onRecordModeToggled( bool on );
 	void onTUServerAsyncCheck( int id, const xtitan::AsyncCheckPoint & acp );
 	void onTUServerCheck( int id, const xtitan::CheckPoint & cp );
 	void onTUServerInput( int id, int delay, const xtitan::InputPoint & ip );
